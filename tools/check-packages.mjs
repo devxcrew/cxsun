@@ -7,6 +7,5 @@ const packages = Object.keys({ ...manifest.dependencies, ...manifest.devDependen
 const missing = packages.filter((name) => !lock.packages[`node_modules/${name}`]);
 if (missing.length) throw new Error(`Missing installed packages: ${missing.join(", ")}`);
 if (lock.packages["node_modules/express"]) throw new Error("Express remains installed.");
-for (const name of ["fastify", "zod", "kysely", "bullmq", "nodemailer", "react"])
-  require.resolve(name);
+for (const name of ["fastify", "kysely", "bullmq", "nodemailer", "react"]) require.resolve(name);
 console.info(`${packages.length} direct packages verified. Express removed.`);

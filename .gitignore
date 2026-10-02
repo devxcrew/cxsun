@@ -12,3 +12,15 @@ coverage/
 src-tauri/target/
 src-tauri/gen/
 storage/
+
+.env
+.env.*
+!.env.example
+.app.env
+*.log
+*.tsbuildinfo
+*preview.jpg
+
+.idea/
+.vscode/
+coverage/

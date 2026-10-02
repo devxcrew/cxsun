@@ -1,0 +1,23 @@
+{
+  "allowLocalPackages": true,
+  "app": {
+    "mode": "single-server",
+    "apiConfig": "tsconfig.server.json",
+    "webConfig": "tsconfig.json",
+    "apiEntry": "src/api/index.ts",
+    "envFile": ".env",
+    "beforeBuild": "build:framework"
+  },
+  "boundaries": {
+    "sources": [
+      "src"
+    ],
+    "frontendSources": [
+      "src/web"
+    ],
+    "compilerPackage": "typescript-eslint-compiler",
+    "developmentPackages": [
+      "vite"
+    ]
+  }
+}

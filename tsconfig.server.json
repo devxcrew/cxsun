@@ -6,9 +6,9 @@
     "strict": true,
     "skipLibCheck": true,
     "rootDir": "src",
-    "outDir": "dist/server",
+    "outDir": "dist",
     "types": ["node"],
     "sourceMap": true
   },
-  "include": ["src/server", "src/config", "src/contracts"]
+  "include": ["src/api"]
 }

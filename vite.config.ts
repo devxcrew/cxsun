@@ -2,29 +2,25 @@ import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, loadEnv } from "vite";
-import { readConfig } from "./src/config/environment.js";
-
+import { readApplicationConfig } from "@codexsun/framework";
 export default defineConfig(({ mode }) => {
-  const env = { ...loadEnv(mode, process.cwd(), ""), ...process.env };
-  const config = readConfig(env);
+  const config = readApplicationConfig({ ...loadEnv(mode, process.cwd(), ""), ...process.env });
   return {
     plugins: [react(), tailwindcss()],
+    optimizeDeps: {
+      include: ["use-sync-external-store/shim", "use-sync-external-store/shim/with-selector"],
+    },
+    define: {
+      "import.meta.env.VITE_APP_NAME": JSON.stringify(config.name),
+      "import.meta.env.VITE_APP_URL": JSON.stringify(config.url),
+      "import.meta.env.VITE_APP_MODE": JSON.stringify(config.mode),
+    },
     resolve: {
-      alias: {
-        "@": fileURLToPath(new URL("./src/web", import.meta.url)),
-        "@codexsun/ui/tokens": fileURLToPath(
-          new URL("../../shared/ui/src/tokens/index.ts", import.meta.url),
-        ),
-      },
+      preserveSymlinks: false,
+      alias: { "@": fileURLToPath(new URL("./src/web", import.meta.url)) },
       dedupe: ["react", "react-dom"],
     },
-    server: {
-      host: config.host,
-      port: config.webPort,
-      strictPort: true,
-      watch: { ignored: ["**/src-tauri/**"] },
-      proxy: { "/api": `http://${config.host}:${config.port}` },
-    },
-    build: { outDir: "dist/web" },
+    server: { host: config.host, port: config.port, strictPort: true },
+    build: { outDir: "dist/frontend" },
   };
 });

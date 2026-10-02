@@ -1,91 +1,54 @@
 # Cxsun
 
-Cxsun hosts a React application shell and a Fastify TypeScript server.
-The full external dependency set from CXApp is installed in this project.
-
-## Start development
-
-Use Node.js 26.10.0 and npm 12.2.0 or later. Run these commands from this folder:
-
-```powershell
-npm ci
-npm run dev
-```
-
-Open http://127.0.0.1:5173. The API runs on http://127.0.0.1:4100.
-Vite forwards `/api` requests to the server.
-
-Copy `.env.example` to `.env` to change the host or ports. Restart development after configuration changes.
-
-## Build and run
-
-```powershell
-npm run build
-npm run check
-npm run packages:check
-npm start
-```
-
-Open http://127.0.0.1:4100. The Node.js server serves the built frontend and API together.
+Cxsun is the base application for the Codexsun platform.
 
 ## Structure
 
-- `src/server`: HTTP server, API routes, and shutdown.
-- `src/web`: React application shell.
-- `src/config`: environment validation and application catalog.
-- `src/contracts`: types shared by the server and frontend.
-- `tests`: HTTP and configuration checks.
+- `../../shared/framework`: environment validation and HTTP server primitives.
+- `../../shared/ui`: common React components, LoginPage, and MainWorkspace backed by mdi-main.
+- `src/api`: application startup and frontend serving.
+- `src/web/public`: public home page.
+- `src/web/auth`: frontend login preview and session flag.
+- `src/web/desk`: shared MainWorkspace integration.
 
-The shell uses Tailwind 4, Radix controls, Lucide icons, and locally bundled Geist fonts.
-TanStack Router owns navigation. TanStack Query fetches validated Zod API responses.
-TanStack Table renders the dependency inventory. Tiptap powers the workspace note editor.
+The flow is home (`/`) → login (`/login`) → desk (`/desk`). Sign out returns to login. Login is a frontend preview: credentials are not sent, stored, or verified. No authentication, database, or business API is connected.
 
-## Installed capabilities
+## Run
 
-The manifest includes database drivers, Kysely, BullMQ, Redis, mail clients, charting, drag-and-drop, and PDF export packages.
-It also includes the published Blog and File Manager add-ons.
-These packages are available for module implementation. Installation does not activate their workflows.
-Private CXApp business packages are not copied into Cxsun.
-
-The build uses TypeScript 7.0.2. ESLint uses the separate TypeScript 6 compiler API package.
-Build scripts call the TypeScript 7 binary directly to avoid the lint package's `tsc` shortcut.
-The dependency settings match CXApp's legacy peer resolution until its lint parser supports TypeScript 7.
-
-## Optional infrastructure
-
-Copy `.env.example` to `.env`. Set the database passwords before starting infrastructure.
+Use Node 26.10 or newer and npm 12.2 or newer. Copy `.env.example` to `.env` if needed.
 
 ```powershell
-npm run infra:up
+npm install
+npm run dev
 ```
 
-This command starts MariaDB and Redis. Docker Desktop must be running.
-Service ports bind to loopback. Persistent data stays in Docker volumes.
-The application does not create business tables or connect to these services yet.
-The service page reports configuration, not a database or mail connectivity test.
-
-Build the application container with `docker compose --profile app up --build -d`.
-Add `--profile proxy` for Nginx. Add `--profile media` for File Browser.
-
-## Desktop
+The API entry point starts one server at `http://127.0.0.1:5173`. In development it loads the frontend through Vite middleware. `.env` sets `APP_NAME`, `APP_PORT`, `APP_URL`, `APP_MODE`, and `APP_HOST`. Keep the URL port equal to APP_PORT. The frontend receives only app name, URL, and mode.
 
 ```powershell
-npm run desktop:dev
+npm run check
+npm run build
+npm run test:production
 ```
 
-The Tauri host needs Rust, Windows build tools, and WebView2.
-The desktop host uses the local Cxsun server. It does not bundle a standalone backend.
-Run `npm start` before opening a production desktop build.
-Updater dependencies are installed. Update signing and distribution are not configured.
+For the built frontend, set `APP_MODE=production` before `npm start`. The server serves `dist/frontend` and supports direct frontend route loads.
 
-## Quality and CI
+UI component dependencies belong to shared/ui. Cxsun keeps React, routing, its icons and font, and build tools, plus the retained backend packages. `npm install` also installs shared/ui dependencies through the preinstall script. Shared packages use local file links. Legacy desktop and infrastructure commands remain unbound while those features are rebuilt. Source repository: https://github.com/devxcrew/cxsun.
 
-`npm run check` runs lint, TypeScript checks, and API tests.
-`npm run test:production` checks the built server, frontend assets, and route boundaries.
-`npm run format` formats the source. `npm run packages:check` checks the installed package set.
-The GitHub Actions workflow runs these checks and the production build.
-Turborepo configuration is included for future workspace build orchestration.
+## Shared tools
 
-`src/config/modules.ts` lists Cxsun as active. Other applications are planned catalog entries, not installed modules.
-This base application has no authentication, database persistence, tenant isolation, or business workflows.
-The next milestone adds reusable framework contracts and persistent identity with a fixed client context.
+Development and builds use @devxcrew/tools, installed from the local packed archive in vendor. .devxcrew-tools.json declares this app's single-server layout, preparation script, environment file, and dependency boundaries. npm run tools:env preserves existing local settings; npm run tools:check verifies imports and package ownership. github:now is wired for explicit commit and push operations.
+
+For audit results and the repeatable integration process, read ../../shared/tools/assist/TOOLS-AUDIT.md. The registry package has not been updated with these local compatibility changes.
+
+## Clone the workspace
+
+Keep the sibling layout used by local package links:
+
+```powershell
+git clone https://github.com/devxcrew/cxsun.git projects/cxsun
+git clone https://github.com/devxcrew/framework.git shared/framework
+git clone https://github.com/devxcrew/ui.git shared/ui
+git clone https://github.com/devxcrew/uiux.git devkits/uiux
+```
+
+Each repository carries its tested @devxcrew/tools archive under vendor. The registry release does not yet include the local compatibility changes.

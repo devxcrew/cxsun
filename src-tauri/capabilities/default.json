@@ -1,1 +1,0 @@
-{ "identifier": "default", "description": "Cxsun desktop shell", "windows": ["main"], "permissions": ["core:default"] }

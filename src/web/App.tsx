@@ -5,33 +5,23 @@ import {
   lazyRouteComponent,
   Outlet,
 } from "@tanstack/react-router";
-import { Shell } from "./components/Shell";
-import { Overview } from "./pages/Overview";
-import { Applications } from "./pages/Applications";
-const root = createRootRoute({
-  component: () => (
-    <Shell>
-      <Outlet />
-    </Shell>
-  ),
+import { HomePage } from "./public/HomePage";
+
+const root = createRootRoute({ component: Outlet });
+const home = createRoute({ getParentRoute: () => root, path: "/", component: HomePage });
+const login = createRoute({
+  getParentRoute: () => root,
+  path: "/login",
+  component: lazyRouteComponent(() => import("./auth/Login"), "Login"),
 });
-const routes = [
-  createRoute({ getParentRoute: () => root, path: "/", component: Overview }),
-  createRoute({ getParentRoute: () => root, path: "/applications", component: Applications }),
-  createRoute({
-    getParentRoute: () => root,
-    path: "/packages",
-    component: lazyRouteComponent(() => import("./pages/Packages"), "Packages"),
-  }),
-  createRoute({
-    getParentRoute: () => root,
-    path: "/workspace",
-    component: lazyRouteComponent(() => import("./pages/Workspace"), "Workspace"),
-  }),
-];
+const desk = createRoute({
+  getParentRoute: () => root,
+  path: "/desk",
+  component: lazyRouteComponent(() => import("./desk/Desk"), "Desk"),
+});
 export const router = createRouter({
-  routeTree: root.addChildren(routes),
-  defaultNotFoundComponent: () => <p>Page not found.</p>,
+  routeTree: root.addChildren([home, login, desk]),
+  defaultNotFoundComponent: () => <HomePage />,
 });
 declare module "@tanstack/react-router" {
   interface Register {
