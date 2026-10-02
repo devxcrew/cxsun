@@ -1,6 +1,6 @@
 {
   "name": "@codexsun/cxsun",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "type": "module",
   "engines": {
@@ -29,7 +29,7 @@
     "build:framework": "node tools/build-framework.mjs",
     "deps:ui": "npm install --prefix ../../shared/ui",
     "preinstall": "npm run deps:ui",
-    "tools:check": "devxcrew-tools dependencies:order && devxcrew-tools dependencies:check && devxcrew-tools version:show && devxcrew-tools lines:check",
+    "tools:check": "devxcrew-tools dependencies:order && devxcrew-tools dependencies:check && devxcrew-tools check:versions && devxcrew-tools lines:check",
     "tools:env": "devxcrew-tools env:init",
     "tools:lines:fix": "devxcrew-tools lines:fix",
     "github:now": "devxcrew-tools github:now",
@@ -37,7 +37,10 @@
     "version:bump": "devxcrew-tools version:bump",
     "check:versions": "devxcrew-tools check:versions",
     "fix:line-endings": "devxcrew-tools lines:fix",
-    "lines:check": "devxcrew-tools lines:check"
+    "lines:check": "devxcrew-tools lines:check",
+    "version:show": "devxcrew-tools version:show",
+    "changelog:append": "devxcrew-tools changelog:append",
+    "changelog:show": "devxcrew-tools changelog:show"
   },
   "dependencies": {
     "@codexsun/framework": "file:../../shared/framework",
