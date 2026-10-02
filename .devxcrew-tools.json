@@ -18,5 +18,8 @@
     "developmentPackages": [
       "vite"
     ]
+  },
+  "maintenance": {
+    "changelogPath": "agent/CHANGELOG.md"
   }
 }
