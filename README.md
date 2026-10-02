@@ -36,7 +36,7 @@ UI component dependencies belong to shared/ui. Cxsun keeps React, routing, its i
 
 ## Shared tools
 
-Development and builds use @devxcrew/tools, installed from the local packed archive in vendor. .devxcrew-tools.json declares this app's single-server layout, preparation script, environment file, and dependency boundaries. npm run tools:env preserves existing local settings; npm run tools:check verifies imports and package ownership. github:now is wired for explicit commit and push operations.
+Development and builds use @devxcrew/tools, installed from npm at the pinned version 0.1.3. .devxcrew-tools.json declares this app's single-server layout, preparation script, environment file, and dependency boundaries. npm run tools:env preserves existing local settings; npm run tools:check verifies imports and package ownership. github:now is wired for explicit commit and push operations.
 
 For audit results and the repeatable integration process, read ../../shared/tools/assist/TOOLS-AUDIT.md. The registry package has not been updated with these local compatibility changes.
 

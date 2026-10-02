@@ -1,5 +1,4 @@
 {
-  "allowLocalPackages": true,
   "app": {
     "mode": "single-server",
     "apiConfig": "tsconfig.server.json",
