@@ -61,3 +61,9 @@
 - Cloud metadata is a deployment snapshot. Source changes require redeployment.
 - App IDs identify caller context. The shared developer secret is not per-app authentication.
 - Long-term uptime and external editor configuration were not tested. Source changes remain uncommitted.
+
+## Release 0.1.7 — 2026-10-03
+
+- Passed npm run verify: maintenance checks, lint, typechecks, three tests, production build, and production route/assets/API smoke checks.
+- Passed authenticated live MCP connection, release metadata, LF, and configured-secret scans.
+- Prepared commit subject: #7 - Require audited cloud MCP guidance.

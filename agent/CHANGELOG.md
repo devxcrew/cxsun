@@ -2,11 +2,28 @@
 
 ## Version State
 
-Current version: 0.1.6
+Current version: 0.1.7
 
-Release tag: v-0.1.6
+Release tag: v-0.1.7
 
-Changelog label: v 0.1.6
+Changelog label: v 0.1.7
+
+## v-0.1.7
+
+### [v 0.1.7] 2026-10-03 8:58 am - Require audited cloud MCP guidance
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Require cloud-only MCP instructions, reject alternate endpoints and mismatched responses, use a 15-second timeout, and verify development starts only after live guidance succeeds.
+
+#### Verification
+
+- Passed npm run verify: maintenance checks, lint, typechecks, three tests, production build, and production route/assets/API smoke checks.
+- Authenticated live MCP retrieval passed. Configured-secret and Git whitespace scans passed.
 
 ## v-0.1.6
 
