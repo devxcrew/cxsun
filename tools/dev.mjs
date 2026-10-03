@@ -6,7 +6,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { parseEnv } from "node:util";
 import { refreshGovernance } from "./governance.mjs";
 
-export function startDevelopment({
+export async function startDevelopment({
   root = process.cwd(),
   env = process.env,
   command,
@@ -19,8 +19,8 @@ export function startDevelopment({
     command = process.execPath;
     args = [fileURLToPath(new URL("../bin/tools.mjs", version)), "app:dev"];
   }
+  const governance = await refreshGovernance(env, root);
   const child = spawn(command, args, { cwd: root, env, stdio, windowsHide: true });
-  const governance = refreshGovernance(env, root);
   return { child, governance };
 }
 
@@ -31,7 +31,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   } catch {
     /* The app owns required environment validation. */
   }
-  const { child } = startDevelopment({ env: { ...local, ...process.env } });
+  const { child } = await startDevelopment({ env: { ...local, ...process.env } });
   child.once("error", (error) => {
     console.error(error.message);
     process.exitCode = 1;

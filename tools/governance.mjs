@@ -3,8 +3,10 @@ import { resolve } from "node:path";
 
 export async function refreshGovernance(env, root = process.cwd()) {
   try {
-    const { connectGovernance } = await import("../../../shared/mcp-governance/client/connect.mjs");
-    const instructions = await connectGovernance(env, { timeout: 2000 });
+    if (env.MCP_SERVER_URL && env.MCP_SERVER_URL !== "https://mcp.codexsun.com/mcp")
+      throw new Error("Only the cloud MCP endpoint is allowed.");
+    const { connectGovernance } = await import("../agent/connect.mjs");
+    const instructions = await connectGovernance(env, { timeout: 15000 });
     const directory = resolve(root, ".cache/governance");
     await mkdir(directory, { recursive: true });
     await writeFile(
@@ -16,9 +18,7 @@ export async function refreshGovernance(env, root = process.cwd()) {
     );
     return true;
   } catch {
-    console.info(
-      "Governance unavailable. Continue with AGENT.md and agent/SKILLS.md.",
-    );
-    return false;
+    console.info("Live governance unavailable. Restore the cloud connection before continuing.");
+    throw new Error("Live MCP Governance connection is required.");
   }
 }
