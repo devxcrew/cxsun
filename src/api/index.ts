@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { createApplicationServer, readApplicationConfig } from "@codexsun/framework";
+import { createApplicationServer, readApplicationConfig } from "@devxcrew/core-framework";
 
 const config = readApplicationConfig(process.env);
 const frontendDirectory = resolve("dist/frontend");

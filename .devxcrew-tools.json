@@ -4,20 +4,13 @@
     "apiConfig": "tsconfig.server.json",
     "webConfig": "tsconfig.json",
     "apiEntry": "src/api/index.ts",
-    "envFile": ".env",
-    "beforeBuild": "build:framework"
+    "envFile": ".env"
   },
   "boundaries": {
-    "sources": [
-      "src"
-    ],
-    "frontendSources": [
-      "src/web"
-    ],
+    "sources": ["src"],
+    "frontendSources": ["src/web"],
     "compilerPackage": "typescript-eslint-compiler",
-    "developmentPackages": [
-      "vite"
-    ]
+    "developmentPackages": ["vite"]
   },
   "maintenance": {
     "changelogPath": "agent/CHANGELOG.md"

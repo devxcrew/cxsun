@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
-import { createApplicationServer, readApplicationConfig } from "@codexsun/framework";
+import { createApplicationServer, readApplicationConfig } from "@devxcrew/core-framework";
 const config = readApplicationConfig({
   APP_NAME: "Cxsun",
   APP_PORT: "5173",

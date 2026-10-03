@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { readApplicationConfig } from "@codexsun/framework";
+import { readApplicationConfig } from "@devxcrew/core-framework";
 const env = {
   APP_NAME: "Cxsun",
   APP_PORT: "5173",

@@ -1,6 +1,6 @@
 {
   "name": "@codexsun/cxsun",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "private": true,
   "type": "module",
   "engines": {
@@ -11,10 +11,10 @@
     "dev": "node tools/dev.mjs",
     "dev:server": "npm run dev",
     "dev:web": "npm run dev",
-    "typecheck": "npm run build:framework && node node_modules/typescript/bin/tsc --noEmit && node node_modules/typescript/bin/tsc -p tsconfig.server.json --noEmit",
+    "typecheck": "node node_modules/typescript/bin/tsc --noEmit && node node_modules/typescript/bin/tsc -p tsconfig.server.json --noEmit",
     "build": "devxcrew-tools app:build",
     "start": "node --env-file=.env dist/api/index.js",
-    "test": "npm run build:framework && tsx --test tests/*.test.ts tests/*.test.mjs",
+    "test": "tsx --test tests/*.test.ts tests/*.test.mjs",
     "lint": "eslint src tests vite.config.ts",
     "format": "prettier --write src tests *.json *.ts *.md",
     "format:check": "prettier --check src tests *.json *.ts *.md",
@@ -26,9 +26,6 @@
     "packages:check": "node tools/check-packages.mjs",
     "compiler:version": "node node_modules/typescript/bin/tsc --version",
     "test:production": "node tools/production-smoke.mjs",
-    "build:framework": "node tools/build-framework.mjs",
-    "deps:ui": "npm install --prefix ../../shared/ui",
-    "preinstall": "npm run deps:ui",
     "tools:check": "devxcrew-tools dependencies:order && devxcrew-tools dependencies:check && node ../../shared/mcp-governance/client/repository.mjs check:versions && devxcrew-tools lines:check",
     "tools:env": "devxcrew-tools env:init",
     "tools:lines:fix": "node ../../shared/mcp-governance/client/repository.mjs lines:fix",
@@ -44,11 +41,13 @@
     "verify": "npm run check && npm run build && npm run test:production",
     "mcp:connect": "node agent/connect.mjs",
     "mcp:verify": "node agent/connect.mjs --strict",
-    "version-bump": "node ../../shared/mcp-governance/client/repository.mjs version:bump"
+    "version-bump": "node ../../shared/mcp-governance/client/repository.mjs version:bump",
+    "packages:local": "node tools/shared-packages.mjs local",
+    "packages:npm": "node tools/shared-packages.mjs npm"
   },
   "dependencies": {
-    "@codexsun/framework": "file:../../shared/framework",
-    "@codexsun/ui": "file:../../shared/ui",
+    "@devxcrew/core-framework": "^0.1.7",
+    "@devxcrew/react-ui": "^0.1.7",
     "@fastify/cookie": "^11.1.2",
     "@fastify/cors": "^11.3.0",
     "@fastify/static": "latest",

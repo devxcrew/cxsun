@@ -85,3 +85,13 @@ Workspace maintenance delegates to `shared/tools`. The installed npm package rem
 `0.1.3` until agent changelog support is published.
 
 GitHub source releases use `github:now`. Npm publication requires separate authorization.
+
+## Shared package development
+
+Normal installs use `@devxcrew/core-framework` and `@devxcrew/react-ui` from npm. App builds do not compile sibling repositories.
+
+- `npm run packages:local`: build and pack sibling packages, then install local snapshots without changing package.json or package-lock.json.
+- `npm run packages:npm`: restore the registry packages.
+- `npm ci`: restore the exact locked release packages.
+
+Re-run the local command after shared source edits. UIUX remains the live source gallery for UI development.

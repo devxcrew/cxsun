@@ -1,6 +1,6 @@
-@import "@codexsun/ui/styles";
+@import "@devxcrew/react-ui/styles";
 @import "@fontsource-variable/geist";
-@source "../../../../shared/ui/src";
+@source "../../node_modules/@devxcrew/react-ui/src";
 @source "./";
 
 :root {

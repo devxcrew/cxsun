@@ -2,11 +2,35 @@
 
 ## Version State
 
-Current version: 0.1.7
+Current version: 0.1.9
 
-Release tag: v-0.1.7
+Release tag: v-0.1.9
 
-Changelog label: v 0.1.7
+Changelog label: v 0.1.9
+
+## v-0.1.9
+
+### [v 0.1.9] 2026-10-03 10:15 am - Publish npm package integration and MCP audit
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Release published Framework and UI integration, green live MCP audit, local package development commands, and working GitHub CI.
+
+## v-0.1.8
+
+### [v 0.1.8] 2026-10-03 9:17 am - Consume devxcrew npm packages
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Replace sibling Framework and UI dependencies with npm versions, remove sibling build/install hooks, scan installed UI styles, and add explicit local snapshot and registry restore commands.
 
 ## v-0.1.7
 
@@ -262,3 +286,26 @@ Changelog label: v 0.1.7
 
 - Enforced the cloud endpoint for direct client imports and validated instruction identity.
 - Extended cloud request timeouts to 15 seconds and verified all live resources and tools.
+
+## npm package names — 2026-10-03
+
+- Use @devxcrew/core-framework and @devxcrew/react-ui because the original package names are under an npm unpublished-name hold.
+- Updated public imports, package manifests, local development commands, and common guidance.
+
+## npm migration completion — 2026-10-03
+
+- Passed: public @devxcrew/core-framework@0.1.7 and @devxcrew/react-ui@0.1.7 installed from npm.
+- Passed: npm ci from the registry lockfile; npm audit found zero vulnerabilities.
+- Passed: npm run verify (dependency boundaries, release metadata, LF, lint, frontend/backend typechecks, three tests, production build, and route/assets/API smoke checks).
+- Passed: explicit local packed snapshots tested during development without changing release manifests. Registry packages are restored in the final installation.
+- Passed: all project manifests and lockfiles have no shared Framework/UI file dependencies or old package names.
+- Passed: UIUX local-source gallery typecheck and production build.
+- Passed: updated live governance deployment and authenticated connections from all six repositories.
+- Partial: the current UI flow uses preview sessions; real identity, RBAC, tenancy, and three authenticated desks remain separate foundation work.
+
+## Release verification 0.1.9 — 2026-10-03
+
+- Passed maintenance checks, lint, typechecks, three tests, production build, smoke checks, and direct package verification.
+- Tools passed all 21 tests. Version-bump and line-fixing commands completed successfully.
+- Prepared GitHub repository and CI checkout paths for sibling maintenance tools.
+- Commit subject: #9 - Publish npm package integration and MCP audit.

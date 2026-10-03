@@ -67,3 +67,38 @@
 - Passed npm run verify: maintenance checks, lint, typechecks, three tests, production build, and production route/assets/API smoke checks.
 - Passed authenticated live MCP connection, release metadata, LF, and configured-secret scans.
 - Prepared commit subject: #7 - Require audited cloud MCP guidance.
+
+## npm migration — 2026-10-03
+
+- Passed public package preparation for Framework and UI version 0.1.7.
+- Passed packed package consumption, Cxsun full verification, UIUX verification, and eight governance tests.
+- npm CLI login and device authentication succeeded as devxcrew.
+- Publication returned E409. Registry metadata records Framework unpublished at 2026-10-03 03:30:32 UTC and UI at 03:32:35 UTC.
+- npm blocks the same package names for 24 hours. Both names should be eligible after October 4 at 09:03 IST.
+- Blocked: registry publication, registry installation, and final project lockfile generation.
+- Cxsun currently runs with explicitly installed local packed snapshots. Its manifest names the intended npm versions.
+- Do not treat the current project lockfile as a completed registry migration.
+
+## npm migration completion — 2026-10-03
+
+- Passed: public @devxcrew/core-framework@0.1.7 and @devxcrew/react-ui@0.1.7 installed from npm.
+- Passed: npm ci from the registry lockfile; npm audit found zero vulnerabilities.
+- Passed: npm run verify (dependency boundaries, release metadata, LF, lint, frontend/backend typechecks, three tests, production build, and route/assets/API smoke checks).
+- Passed: explicit local packed snapshots tested during development without changing release manifests. Registry packages are restored in the final installation.
+- Passed: all project manifests and lockfiles have no shared Framework/UI file dependencies or old package names.
+- Passed: UIUX local-source gallery typecheck and production build.
+- Passed: updated live governance deployment and authenticated connections from all six repositories.
+- Partial: the current UI flow uses preview sessions; real identity, RBAC, tenancy, and three authenticated desks remain separate foundation work.
+
+## Live MCP access audit — 2026-10-03
+
+- GREEN: authenticated live connection, matching repository metadata, five guidance resources, and all three MCP tools.
+- Passed fresh live instruction retrieval through the project development startup hook.
+- Central evidence: shared/mcp-governance/docs/mcp-access-audit.md.
+
+## Release 0.1.9 — 2026-10-03
+
+- Passed npm run verify and npm run packages:check.
+- Passed Tools tests (21), version alignment, line-ending checks, and repository configuration review.
+- GitHub CI now checks out the required sibling repositories and creates an environment file from the example.
+- Authorized commit and push use github:now with no additional version bump.
