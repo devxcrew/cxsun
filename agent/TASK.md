@@ -21,6 +21,9 @@ Cxsun 0.2.0 now consumes five exact published MIT packages. Full verification pa
 Use projects/cxsun/agent/REMAINING-WORK.md for ordered cross-owner dependencies.
 Production deployment and real SMTP acceptance remain deferred. No pending external gate is marked complete.
 
+- [x] Verify final Cxsun source commit 65b7fb2 on Windows, Linux and macOS: CI 37208049321.
+- [x] Record all affected owner CI results in AUDIT.md.
+
 ## Prior records
 
 ## Cxsun review corrections - 2026-10-04

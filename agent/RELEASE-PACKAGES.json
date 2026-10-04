@@ -83,5 +83,15 @@
   "publicationApproval": "User approved original five versions, then Platform 0.1.2 after registry conflict.",
   "ci": {
     "cxsun": 37204145628
+  },
+  "finalSourceVerification": {
+    "commit": "65b7fb2c2fb17e45b0028424c60e242e219d0d0d",
+    "run": 37208049321,
+    "platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "result": "passed"
   }
 }
