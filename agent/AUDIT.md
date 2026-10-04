@@ -556,3 +556,16 @@ The master 06.08.2 entry now separates verified local evidence from pending brow
 Final local checks also passed all 30 package boundaries, configured SQLite connection and live reads for user, admin and super-admin. Configured-secret/private-key scans passed across all 14 release candidates. Credential scanning covers text responses as well as JSON.
 
 Source commit d8ed9a9 passed CI run 37209853075 on Windows, Linux and macOS. Each isolated job passed clean registry installation, 47-test verification, compiled privacy/cookie/restart-persistent throttle checks and package boundaries. Browser, SMTP, production and deployed governance gates remain pending or deferred.
+
+## Latest generated template acceptance - 2026-10-04
+
+The worktree was clean and source ca2425d matched origin/main before work. git push reported everything up to date.
+Authenticated live MCP retrieval passed. Cxsun CI 37210048868 passed for source ca2425d.
+npm run test:consumers:registry passed two fresh generated apps against the exact published registry graph.
+Each app passed clean installation, full verification, package boundaries, database setup and all three live portal reads.
+The compiled security checks passed with generated app-qualified cookies, private response checks and restart-persistent account limits.
+Repeated npm test confirmed 44 tests per generated app. Cxsun retains three additional exporter tests, for 47 total.
+All 52 source files per app match source ca2425d after the generator's app ID/name/port/URL replacements.
+Separate persisted SQLite and cross-app session denial passed.
+GENERATED-CONSUMERS.json now records source commit, source version, runtime, individual lock hashes and the source comparison.
+This evidence proves the current generated foundation. It does not replace browser/accessibility, SMTP or production acceptance.

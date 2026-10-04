@@ -1,24 +1,40 @@
 {
-  "date": "2026-10-04T13:01:34.946Z",
+  "date": "2026-10-04T15:07:36.542Z",
   "status": "registry-consumers-passed",
   "results": [
     {
       "id": "foundation-proof-a",
-      "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-c8d11eb7-7d0b-42e1-accd-131a3779784a\\foundation-proof-a",
+      "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-9f89d892-cac7-4545-bb48-2267bc7e6935\\foundation-proof-a",
       "verify": "passed",
       "packageBoundaries": "passed",
       "liveSqlite": "passed",
-      "profile": "registry-only"
+      "profile": "registry-only",
+      "sourceFilesVerified": 52,
+      "unitTests": 44,
+      "compiledSecurityAcceptance": "passed",
+      "appQualifiedCookieNames": "passed",
+      "lockSha256": "ed235878b6e00bb89de7cca566c24982b73dda8ec6bb25ddf649483c459ebf22"
     },
     {
       "id": "foundation-proof-b",
-      "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-c8d11eb7-7d0b-42e1-accd-131a3779784a\\foundation-proof-b",
+      "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-9f89d892-cac7-4545-bb48-2267bc7e6935\\foundation-proof-b",
       "verify": "passed",
       "packageBoundaries": "passed",
       "liveSqlite": "passed",
-      "profile": "registry-only"
+      "profile": "registry-only",
+      "sourceFilesVerified": 52,
+      "unitTests": 44,
+      "compiledSecurityAcceptance": "passed",
+      "appQualifiedCookieNames": "passed",
+      "lockSha256": "dfd81a7a605adc48e1932918bd33c5554a70cdd97fb4ce8426a86487b662680b"
     }
   ],
   "crossAppSessionDenial": "passed",
-  "limitation": "Local registry consumers verified. Browser, SMTP and production acceptance remain separate."
+  "limitation": "Local registry consumers verified. Browser, SMTP and production acceptance remain separate.",
+  "sourceCommit": "ca2425db923f574f50df0a64e18546016be3091e",
+  "sourceVersion": "0.2.0",
+  "sourceLockSha256": "5b7468ac85d1bf68f49a9dffa53c985c968dfc7558cf29df0c4599844b7c2a48",
+  "runtime": {
+    "node": "v26.10.0"
+  }
 }

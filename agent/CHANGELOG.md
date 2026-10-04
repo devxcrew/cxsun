@@ -10,6 +10,12 @@ Changelog label: v 0.2.0
 
 ## v-0.2.0
 
+### Latest generated template verification - 2026-10-04
+
+- Reverify two fresh registry apps with the current workflow and security source.
+- Confirm 44 tests per app, compiled security checks and separate live SQLite.
+- Record the source commit and lock hashes. Match all 52 generated source files per app.
+
 ### Local security acceptance - 2026-10-04
 
 - Add module-owned response privacy and portal-cookie acceptance checks.

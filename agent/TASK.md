@@ -1,5 +1,18 @@
 # Current task
 
+## Latest template consumer verification - 2026-10-04
+
+- [x] Confirm prior changes are committed and pushed at ca2425d. The worktree was clean.
+- [x] Retrieve authenticated live MCP guidance before this phase.
+- [x] 07.05.5 Generate and verify two fresh registry apps from the latest workflow/security source.
+- [x] Verify 44 tests per generated app, full production/compiled security checks, package boundaries and live SQLite.
+- [x] Match all 52 source files per generated app against the accepted source with its own app tokens.
+- [x] Verify separate database identities and cross-app session denial.
+- [x] Record source commit and lockfile hashes in GENERATED-CONSUMERS.json.
+
+Cxsun has 47 tests. Generated apps omit the three Cxsun-only exporter tests and retain 44 application tests.
+Browser, SMTP, production and deployed governance gates remain pending or deferred.
+
 ## Local security acceptance phase - 2026-10-04
 
 - [x] Retrieve authenticated live MCP guidance and review owner records.

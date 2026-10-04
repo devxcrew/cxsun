@@ -9,6 +9,9 @@ Five MIT packages are published with verified registry checksums. Cxsun passes 4
 
 The current checklist has 21 accepted parents, 33 open parents and 34 open substeps. Open work includes browser interaction/accessibility, future release upgrades and integration scope, deployed governance, and deferred SMTP/production acceptance. Earlier inventory counts below are historical. Use TASK.md and CHECKLIST.md for current checkboxes.
 
+Latest template verification passed two fresh registry apps from ca2425d, with 44 application tests each and 52 matching source files per app.
+The existing 21 accepted/33 pending parent split is unchanged. Browser and deferred external acceptance remain the next gates.
+
 ## Earlier inventory
 
 All 14 repositories have version records, changelogs, committed source, and matching GitHub branches.

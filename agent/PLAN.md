@@ -33,6 +33,8 @@ See agent/RELEASE-CANDIDATE.md for proposed versions, supported local limits and
 
 Five shared packages are published under MIT. Exact registry versions and checksums are in RELEASE-PACKAGES.json.
 Two fresh registry apps and two existing candidate upgrades passed with separate persisted SQLite databases.
+Latest source ca2425d also passed generation into two fresh registry apps with 44 application tests each.
+All 52 generated source files match the accepted source after app-specific token replacement.
 Source and task changes are committed and pushed. The latest verified source passed three-OS CI.
 Optional local package snapshots remain development tools. Normal app installation uses the exact registry graph.
 Authenticated governance still serves the older preview snapshot. Deployment remains deferred.

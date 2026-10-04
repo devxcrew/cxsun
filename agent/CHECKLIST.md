@@ -227,6 +227,7 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [x] 07.05.2 Verify registry installs, distinct app identities, separate SQLite and cross-app denial.
   - [x] 07.05.3 Prove a disposable diagnostic module extension without private imports or identity-table writes.
   - [x] 07.05.4 Verify two clean local packed-artifact installs, separate SQLite and cross-app session denial.
+  - [x] 07.05.5 Reverify two fresh registry apps with latest workflow/security source, 44 tests each and exact generated source comparison.
 - [ ] **07.06 Accept complete standard foundation release** - planned. Owner: coordination.
   - [x] 07.06.1 Coordinator audit and remaining gates documented.
   - [ ] 07.06.2 Accept every required gate, hand over operations and authorize business-module start.
