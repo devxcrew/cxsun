@@ -1,8 +1,20 @@
 # Current task
 
+## Next local workflow phase - 2026-10-04
+
+- [x] Retrieve authenticated live MCP guidance. The deployment snapshot is still stale.
+- [x] Review owner records and reconcile current registry acceptance in PLAN, TODOS and module extension notes.
+- [x] 04.07.2a Review source routes, menus, headers and supported actions.
+- [x] Correct unsupported resource action feedback and clear account data when the page changes.
+- [x] Verify 43 tests, lint, types, build, production routes and compiled identity resources.
+- [x] Verify 30 exact direct packages, configured SQLite and all three live portal reads.
+- [ ] 04.07.2b Complete browser review when permitted by browser tool policy.
+
+See WORKFLOW-ACCEPTANCE.md for scope and evidence boundaries.
+
 ## Completion wave - 2026-10-04
 
-Cxsun 0.2.0 now consumes five exact published MIT packages. Full verification passes 41 tests, compiled identity resources and three-portal live SQLite checks. Two independent registry-generated apps and three-OS Cxsun CI passed. Browser acceptance is blocked by browser tool policy. Mail and production remain user-deferred.
+Cxsun 0.2.0 now consumes five exact published MIT packages. Full verification passes 43 tests, compiled identity resources and three-portal live SQLite checks. Two independent registry-generated apps and three-OS Cxsun CI passed. Browser acceptance is blocked by browser tool policy. Mail and production remain user-deferred.
 
 - [x] Reconcile current status with the GitHub source release and latest owner audit.
 - [x] Retrieve fresh authenticated cloud governance before this wave.
@@ -85,7 +97,8 @@ Updated: 2026-10-04. Checked steps have recorded evidence. External acceptance s
   - [ ] 04.06.2 Verify settings persistence, logout, expiry and role-specific navigation in browser.
 - [ ] **04.07 Remove inactive product concepts and scaffold copy** - in-review. Owner: cxsun.
   - [x] 04.07.1 Preview flow replaced and inactive provider actions removed.
-  - [ ] 04.07.2 Review every visible destination and final contextual copy.
+  - [x] 04.07.2a Audit source destinations, supported actions, headings and contextual copy.
+  - [ ] 04.07.2b Accept every visible destination and contextual copy in the authenticated browser.
 
 ### Phase 05 - Tools, guidance and delivery
 
@@ -97,7 +110,7 @@ Updated: 2026-10-04. Checked steps have recorded evidence. External acceptance s
 ### Phase 06 - Verification and operations
 
 - [ ] **06.05 Verify final live application workflows** - in-review. Owner: cxsun.
-  - [x] 06.05.1 41 tests, production checks and live reads across three portals pass.
+  - [x] 06.05.1 43 tests, production checks and live reads across three portals pass.
   - [x] 06.05.2a Browser verifies user edit, role create, organization create/edit, settings and portal denial.
   - [x] 06.05.2b Settings persist after server restart; footer and application name reflect saved presentation.
   - [ ] 06.05.2c Complete remaining authorized mutation and accessibility matrix.

@@ -129,7 +129,8 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [ ] 04.06.2 Verify settings persistence, logout, expiry and role-specific navigation in browser.
 - [ ] **04.07 Remove inactive product concepts and scaffold copy** - in-review. Owner: cxsun.
   - [x] 04.07.1 Preview flow replaced and inactive provider actions removed.
-  - [ ] 04.07.2 Review every visible destination and final contextual copy.
+  - [x] 04.07.2a Audit source destinations, supported actions, headings and contextual copy.
+  - [ ] 04.07.2b Accept every visible destination and contextual copy in the authenticated browser.
 
 ## Phase 05 - Tools, guidance and delivery
 
@@ -175,7 +176,7 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [x] 06.04.2c Verify Windows, Linux and macOS source-gallery CI.
   - [x] 06.04.2d Verify published UI consumption through isolated registry installation and full gallery verification.
 - [ ] **06.05 Verify final live application workflows** - in-review. Owner: cxsun.
-  - [x] 06.05.1 41 tests, production checks and live reads across three portals pass.
+  - [x] 06.05.1 43 tests, production checks and live reads across three portals pass.
   - [x] 06.05.2a Browser verifies user edit, role create, organization create/edit, settings and portal denial.
   - [x] 06.05.2b Settings persist after server restart; footer and application name reflect saved presentation.
   - [ ] 06.05.2c Complete remaining authorized mutation and accessibility matrix.

@@ -2,8 +2,8 @@
 
 ## Current scope
 
-This contract describes the local Cxsun source profile.
-It does not establish compatible published packages or deployed governance acceptance.
+This contract describes the local Cxsun foundation using five exact published packages.
+Registry consumers and candidate upgrades passed. Deployed governance and full browser acceptance remain pending.
 Real email testing and production deployment are deferred by the user.
 Use the task checklist for release gates and the audit for verified results.
 

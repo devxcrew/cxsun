@@ -521,3 +521,18 @@ Two existing disposable local candidates passed installation against the release
 Cxsun source commit 65b7fb2 passed all 41 tests, production and compiled identity checks locally and on Windows, Linux and macOS in run 37208049321. UIUX source commit 667c03f passed its three-OS matrix in run 37208052747 after the registry gallery proof. Framework 37208054528, Platform 37208057058, Tools 37208059252, UI 37208061748 and Email 37208065844 passed all three operating systems. Governance 37208063735 passed its configured Windows/Linux matrix. All affected source and owner task records were committed and pushed.
 
 The other six application source heads retain their recorded successful CI. Separate concurrent Veyrezio commits e59220b and its untracked ZIP were left untouched; they are outside this delivery and have no new CI acceptance here. Browser access was rejected by the browser tool security policy; interactive acceptance remains pending. Deployed governance still serves the old snapshot. SMTP and production deployment remain deferred by the user. The checklist records 21 accepted parents and 33 pending parents.
+
+## Next local workflow phase - 2026-10-04
+
+- Passed authenticated npm run mcp:connect. The deployed snapshot still reports 2026-10-03 and Cxsun 0.1.9.
+- Reviewed source routes, resources, account pages, navigation and contextual copy. No scaffold, preview, demo or TODO copy occurs in production frontend source.
+- Corrected unsupported create/edit routes so they show safe feedback before record loading or form rendering. List return links retain query state.
+- Corrected account data ownership across portal/page changes. Aborted responses cannot populate the account, and its form key resets changed-page state.
+- Added module-owned static rendering coverage for unsupported actions across declared resources and portals.
+- Added module-owned navigation coverage for all three portal menus, nested active routes, destination uniqueness and account permission links.
+- Passed npm run verify: 43 tests, lint, types, build, production frontend routes and compiled SQLite identity/resource checks.
+- Passed npm run packages:check for all 30 exact direct installations.
+- Passed npm run db:check and npm run test:live against configured persisted SQLite for user, admin and super-admin reads.
+- Updated current plan and TODO status. Preserved the pre-publication checkpoint under an explicit historical heading.
+- Static source/rendering checks do not prove asynchronous React transitions, focus, screen-reader behavior or supported browser viewports. These remain pending in WORKFLOW-ACCEPTANCE.md.
+- SMTP, production and deployed governance acceptance remain user-deferred. No business module was added.

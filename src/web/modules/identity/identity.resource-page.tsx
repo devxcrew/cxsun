@@ -48,6 +48,16 @@ export function IdentityResourcePage(props: ResourcePageProps) {
         </a>
       </section>
     );
+  if ((location.creating && !props.resource.create) || (location.editing && !props.resource.edit))
+    return (
+      <section className="grid gap-4">
+        <h1 className="text-2xl font-semibold">{props.resource.title}</h1>
+        <p role="alert">This action is not available.</p>
+        <a href={`${props.base}/${props.resource.id}${window.location.search}`}>
+          Back to {props.resource.title.toLowerCase()}
+        </a>
+      </section>
+    );
   return <IdentityResourceContent {...props} location={location} />;
 }
 

@@ -24,24 +24,20 @@ Tools may generate a new app from the released foundation. Generation is an inte
 Latest local checks: Framework seven lifecycle tests; Platform six file-backed identity tests;
 UI 61 tests and compilation of 122 public export paths; Tools 32 tests including actual interrupted generation;
 UIUX lint, two form tests and enforced production bundle budgets; Email two tests and package checks.
-Cxsun passes 41 tests, lint, typechecks, build, compiled identity and three-portal operational reads.
+Cxsun passes 43 tests, lint, typechecks, build, compiled identity and three-portal operational reads.
 Browser evidence covers user editing, custom role creation, organization creation/editing, settings,
 portal denial, logout, persisted presentation after restart and profile dialog keyboard focus.
 The complete mutation, supported viewport and screen-reader matrices remain open.
 The local generated-consumer rehearsal uses actual packed artifacts and is separate from registry acceptance.
 See agent/RELEASE-CANDIDATE.md for proposed versions, supported local limits and explicit deferrals.
 
-Cxsun has persisted SQLite identity, three portals, administration resources, scoped custom roles, memberships, and settings.
-Fresh verification passed with 26 tests after this audit's corrections. Production and compiled identity checks passed.
-Three-portal reads passed against the operational database and a restored post-role backup in the previous wave.
-Framework, UI, and Tools currently use unpublished local development snapshots during integration.
-Their registry lockfile versions do not yet provide all required new exports and contracts.
-Platform and Email use bundled development artifacts. No compatible standard release has been published.
-Current changes remain uncommitted. Remote CI and independent clean-install acceptance remain open.
-Fresh authenticated owner MCP retrieval is required and recorded for this review.
-Deployed MCP guidance still describes the older preview foundation. Source metadata does not establish cloud freshness.
-Platform and Email deployed repository metadata remain incomplete.
-Current owner audits record code findings, commands, limitations, and acceptance states.
+Five shared packages are published under MIT. Exact registry versions and checksums are in RELEASE-PACKAGES.json.
+Two fresh registry apps and two existing candidate upgrades passed with separate persisted SQLite databases.
+Source and task changes are committed and pushed. The latest verified source passed three-OS CI.
+Optional local package snapshots remain development tools. Normal app installation uses the exact registry graph.
+Authenticated governance still serves the older preview snapshot. Deployment remains deferred.
+Browser, keyboard, viewport and screen-reader acceptance remain incomplete.
+See WORKFLOW-ACCEPTANCE.md for the next local review and the remaining browser checks.
 
 ### Review priorities and dependencies
 
@@ -442,3 +438,19 @@ Keep task IDs unchanged. Check a parent only after all its acceptance criteria p
 
 Release scope, proposed versions and operating limits: [release candidate](RELEASE-CANDIDATE.md).
 Deferred email testing remains unchecked and explicitly labeled deferred, rather than passed.
+
+## Historical integration checkpoint before publication
+
+This checkpoint predates the registry release. Current status is in section 2.
+
+Cxsun has persisted SQLite identity, three portals, administration resources, scoped custom roles, memberships, and settings.
+Fresh verification passed with 26 tests after this audit's corrections. Production and compiled identity checks passed.
+Three-portal reads passed against the operational database and a restored post-role backup in the previous wave.
+Framework, UI, and Tools currently use unpublished local development snapshots during integration.
+Their registry lockfile versions do not yet provide all required new exports and contracts.
+Platform and Email use bundled development artifacts. No compatible standard release has been published.
+Current changes remain uncommitted. Remote CI and independent clean-install acceptance remain open.
+Fresh authenticated owner MCP retrieval is required and recorded for this review.
+Deployed MCP guidance still describes the older preview foundation. Source metadata does not establish cloud freshness.
+Platform and Email deployed repository metadata remain incomplete.
+Current owner audits record code findings, commands, limitations, and acceptance states.

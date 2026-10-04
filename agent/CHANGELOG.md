@@ -10,6 +10,13 @@ Changelog label: v 0.2.0
 
 ## v-0.2.0
 
+### Local workflow review - 2026-10-04
+
+- Return safe feedback for unsupported resource create/edit links and preserve list query state.
+- Reset account data and forms when the portal or settings page changes.
+- Add route and portal-navigation regressions. Full verification passes 43 tests.
+- Reconcile current registry release records and document the remaining browser workflow matrix.
+
 - Verify two fresh registry consumers and two existing candidate upgrades.
 - Preserve owned source, configuration, SQLite schema and stored rows during upgrades.
 - Record published package receipts and remove local-only commands from exported templates.

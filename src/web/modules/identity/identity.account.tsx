@@ -18,12 +18,19 @@ export function IdentityAccount({
   onPasswordChanged(): void;
   canChangePassword: boolean;
 }) {
-  const [record, setRecord] = useState<IdentityRecord | null>(null);
+  const [loaded, setLoaded] = useState<{
+    portal: Portal;
+    path: string;
+    record: IdentityRecord;
+  } | null>(null);
   const [error, setError] = useState("");
   const path = page;
+  const record = loaded?.path === path && loaded.portal === portal ? loaded.record : null;
   const settings = page !== "profile";
   useEffect(() => {
     const controller = new AbortController();
+    setLoaded(null);
+    setError("");
     void identityRequest<{ data: IdentityRecord }>(
       portal,
       path,
@@ -31,7 +38,9 @@ export function IdentityAccount({
       undefined,
       controller.signal,
     )
-      .then((value) => setRecord(value.data))
+      .then((value) => {
+        if (!controller.signal.aborted) setLoaded({ portal, path, record: value.data });
+      })
       .catch((failure) => {
         if (!controller.signal.aborted)
           setError(failure instanceof Error ? failure.message : "Could not load account.");
@@ -80,6 +89,7 @@ export function IdentityAccount({
           </dl>
         ) : (
           <IdentityResourceForm
+            key={`${portal}:${path}`}
             portal={portal}
             path={path}
             fields={fields}

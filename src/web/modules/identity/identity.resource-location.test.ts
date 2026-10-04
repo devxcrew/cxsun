@@ -5,6 +5,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { parseIdentityResourceLocation } from "./identity.resource-location";
 import { IdentityResourcePage } from "./identity.resource-page";
 import type { IdentityPresentation } from "./identity.presentation";
+import { identityResources } from "./identity.resources";
 
 test("resource locations accept only list, create, detail and edit routes", () => {
   const parse = (path: string) => parseIdentityResourceLocation(path, "/admin/desk", "users");
@@ -31,6 +32,45 @@ test("resource locations accept only list, create, detail and edit routes", () =
   ])
     assert.equal(parse(`/admin/desk/users/${suffix}`), null, suffix);
   assert.equal(parse("/admin/desk/users-extra/id"), null);
+});
+
+test("unsupported resource actions show feedback before loading a record or form", () => {
+  const original = Object.getOwnPropertyDescriptor(globalThis, "window");
+  try {
+    for (const portal of ["user", "admin", "super-admin"] as const) {
+      for (const resource of identityResources(portal)) {
+        for (const action of ["create", "edit"] as const) {
+          if (resource[action]) continue;
+          const base =
+            portal === "user" ? "/desk" : portal === "admin" ? "/admin/desk" : "/sa/desk";
+          Object.defineProperty(globalThis, "window", {
+            configurable: true,
+            value: {
+              location: {
+                pathname: `${base}/${resource.id}/${action === "edit" ? "record/edit" : "create"}`,
+                search: "?page=2&search=Sam",
+              },
+            },
+          });
+          const markup = renderToStaticMarkup(
+            createElement(IdentityResourcePage, {
+              portal,
+              base,
+              resource,
+              presentation: {} as IdentityPresentation,
+            }),
+          );
+          assert.match(markup, /role="alert"/);
+          assert.match(markup, /This action is not available/);
+          assert.ok(markup.includes(`${base}/${resource.id}?page=2&amp;search=Sam`));
+          assert.doesNotMatch(markup, /<form|Loading record/);
+        }
+      }
+    }
+  } finally {
+    if (original) Object.defineProperty(globalThis, "window", original);
+    else Reflect.deleteProperty(globalThis, "window");
+  }
 });
 
 test("malformed resource links render safe feedback and preserve list query state", () => {
