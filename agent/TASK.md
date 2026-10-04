@@ -8,6 +8,7 @@
 - [x] Correct unsupported resource action feedback and clear account data when the page changes.
 - [x] Verify 43 tests, lint, types, build, production routes and compiled identity resources.
 - [x] Verify 30 exact direct packages, configured SQLite and all three live portal reads.
+- [x] Verify source commit 0c9fe42 on Windows, Linux and macOS: CI 37208693367.
 - [ ] 04.07.2b Complete browser review when permitted by browser tool policy.
 
 See WORKFLOW-ACCEPTANCE.md for scope and evidence boundaries.
