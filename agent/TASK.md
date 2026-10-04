@@ -7,7 +7,7 @@
 - [x] Verify the account login limit persists after compiled server restart with file-backed SQLite.
 - [x] 06.08.2a Record local threats, actual retention and measured operating limits in LOCAL-SECURITY.md.
 - [x] Run full verification: 47 tests, lint, types, build and compiled identity/security checks.
-- [ ] Verify the final phase source on Windows, Linux and macOS CI.
+- [x] Verify source commit d8ed9a9 on Windows, Linux and macOS CI: 37209853075.
 - [ ] 06.08.2b Complete browser acceptance when browser access is permitted.
 - [ ] 06.08.2c Production privacy, retention and operating acceptance remains deferred.
 

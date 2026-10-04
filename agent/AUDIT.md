@@ -554,3 +554,5 @@ Browser accessibility/interaction remains blocked by the prior tool policy rejec
 The master 06.08.2 entry now separates verified local evidence from pending browser and production acceptance.
 
 Final local checks also passed all 30 package boundaries, configured SQLite connection and live reads for user, admin and super-admin. Configured-secret/private-key scans passed across all 14 release candidates. Credential scanning covers text responses as well as JSON.
+
+Source commit d8ed9a9 passed CI run 37209853075 on Windows, Linux and macOS. Each isolated job passed clean registry installation, 47-test verification, compiled privacy/cookie/restart-persistent throttle checks and package boundaries. Browser, SMTP, production and deployed governance gates remain pending or deferred.
