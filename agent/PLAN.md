@@ -1,7 +1,7 @@
 # Cxsun foundation master plan
 
 Date: 2026-10-04
-Status: Local foundation verification is active. Real email testing and production deployment are deferred by the user. Coordinated publication, deployed governance and remaining acceptance gates stay open.
+Status: Local foundation verification is active. Real email testing and production deployment are deferred by the user. Publication, two registry consumers and three-OS Cxsun CI passed. Browser acceptance and deployed governance stay open.
 Reference app: projects/cxsun.
 Goal: one complete standard foundation release, built through owner packages and verified in Cxsun.
 
@@ -337,7 +337,7 @@ Each assignment reserves its write paths. The coordinator owns app manifests, ru
 | E | Tools and coordinating owners 07.01-07.06 | Compatible release, generated apps, upgrade rehearsal, final acceptance |
 
 Use at most three worker agents. Reserve one worker slot for independent review when contracts become available.
-Do not publish packages or deploy governance while required acceptance remains incomplete.
+Overall foundation acceptance requires its remaining gates. The user approved publication of the reviewed MIT packages separately; this does not accept browser or deployment readiness.
 Request release approval only after the artifacts and audit results are ready for review.
 
 Previous review corrected strict-schema creates, unsupported sorting, scope errors, and stale-write protection.

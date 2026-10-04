@@ -126,6 +126,3 @@ body {
   color: var(--muted-foreground);
   font-size: 14px;
 }
-.desk-content .desk-preview {
-  font-size: 13px;
-}

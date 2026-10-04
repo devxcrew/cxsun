@@ -1,6 +1,6 @@
 {
   "date": "2026-10-04",
-  "status": "registry-available-checksums-verified",
+  "status": "published-registry-consumers-verified",
   "profile": "local-foundation",
   "runtime": {
     "node": "26.10.0",
@@ -76,9 +76,12 @@
   "consumer": "Cxsun 0.2.0",
   "releaseGates": {
     "browser": "blocked-by-browser-url-policy",
-    "registry": "registry installation and generated consumers pending",
+    "registry": "passed: exact Cxsun installation, two generated apps and Cxsun three-OS CI",
     "smtp": "deferred-by-user",
     "production": "deferred-by-user"
   },
-  "publicationApproval": "User approved original five versions, then Platform 0.1.2 after registry conflict."
+  "publicationApproval": "User approved original five versions, then Platform 0.1.2 after registry conflict.",
+  "ci": {
+    "cxsun": 37204145628
+  }
 }

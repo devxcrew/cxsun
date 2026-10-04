@@ -4,7 +4,7 @@
 
 The local foundation profile is under final integration verification.
 Real mail testing and production deployment are deferred by the user.
-Coordinated package publication, registry-only consumers and deployed governance acceptance remain open.
+Package publication, registry-only consumers and three-OS Cxsun CI passed. Browser acceptance and deployed governance remain open.
 Live governance still reports the 2026-10-03 snapshot and lacks focused discovery.
 A fresh local governance snapshot does not update the deployed server.
 Use [module extension contracts](MODULE-EXTENSIONS.md) for adding owned capabilities.
@@ -16,7 +16,7 @@ Updated: 2026-10-04. Source: current owner audits and the coordinator integratio
 - [ ] means the step still needs work or acceptance.
 
 A parent stays unchecked until its complete acceptance criteria pass. Checked substeps show verified progress.
-States: accepted, in-review, planned, deferred by user. Real email testing and production deployment are deferred by user. Publication and deployed governance still require separate release acceptance.
+States: accepted, in-review, planned, deferred by user. Real email testing and production deployment are deferred by user. Package publication passed. Deployed governance still requires separate release acceptance.
 Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the master agent/PLAN.md.
 
 ## Phase 01 - Baseline and ownership
@@ -39,13 +39,13 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [ ] 01.07.3 Refresh deployed snapshot and verify Platform and Email metadata. Deferred by user.
 - [x] **01.08 Establish Email owner and delivery scope** - accepted. Owner: email.
   - [x] 01.08.1 SMTP owner, public boundary and local Git repository established.
-- [ ] **01.09 Audit Frappe and Tally scope and ownership** - in-review. Owner: integrations.
+- [x] **01.09 Audit Frappe and Tally scope and ownership** - accepted. Owner: integrations.
   - [x] 01.09.1 Planning-only directories and future integration scope recorded.
-  - [ ] 01.09.2 Accept adapter ownership inventory without claiming implementation.
+  - [x] 01.09.2 Accept adapter ownership inventory without claiming implementation.
 
 ## Phase 02 - Public contracts and release scope
 
-- [ ] **02.01 Define runtime and transport public contracts** - in-review. Owner: framework.
+- [x] **02.01 Define runtime and transport public contracts** - accepted. Owner: framework.
   - [x] 02.01.1 Provider composition, context, errors and parsing implemented.
   - [x] 02.01.2 Startup timeout contract and compatibility notes verified locally.
 - [ ] **02.02 Define identity resource and permission contracts** - in-review. Owner: platform.
@@ -61,7 +61,7 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [x] 02.04.1 Identity routes, schemas, menus and resource specifications implemented.
   - [ ] 02.04.2 Verify full role/resource/action matrix in authenticated browser.
   - [x] 02.04.3 Compose owner frontend/backend providers through neutral route and navigation contracts.
-- [ ] **02.05 Define generation and supported runtime contracts** - in-review. Owner: tools, template.
+- [x] **02.05 Define generation and supported runtime contracts** - accepted. Owner: tools, template.
   - [x] 02.05.1 Explicit artifact manifest, tokens and overwrite policy implemented.
   - [x] 02.05.2 Accept Node/npm/OS matrix and upgrade behavior.
   - [x] 02.05.3 Verify Linux/macOS runtime matrix in CI.
@@ -69,7 +69,7 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [x] 02.06.1 Owner/topic/version discovery and failure tests pass.
   - [x] 02.06.2 Verify authenticated freshness diagnostic reports actual deployment drift.
   - [ ] 02.06.3 Verify deployed focused discovery. Production deployment deferred by user.
-- [ ] **02.07 Define public delivery and failure contracts** - in-review. Owner: email.
+- [x] **02.07 Define public delivery and failure contracts** - accepted. Owner: email.
   - [x] 02.07.1 TLS transport, validation, timeouts and safe errors implemented.
   - [x] 02.07.2 Accept timeout, retry and token usability policy with Platform.
 - [ ] **02.08 Define future integration boundaries** - planned. Owner: integrations.
@@ -77,7 +77,8 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [ ] 02.08.2 Document public adapter contracts when integration scope is approved.
 - [ ] **02.09 Agree compatible release and operating limits** - planned. Owner: coordination.
   - [x] 02.09.1 Master release requirements and evidence matrix recorded.
-  - [ ] 02.09.2 Approve exact versions, browser/OS support, budgets and release manifest.
+  - [x] 02.09.2a Approve exact package versions, Node/npm target, three-OS source checks, local budgets and registry manifest.
+  - [ ] 02.09.2b Complete supported browser interaction acceptance.
 
 ## Phase 03 - Backend and live persistence
 
@@ -85,7 +86,7 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [x] 03.01.1 Seven runtime tests cover safe errors, readiness and deadlines.
   - [x] 03.01.2 Startup deadline, cancellation and failed-start cleanup verified locally.
   - [ ] 03.01.4 Production proxy/security and failure operations - deferred by user.
-- [ ] **03.02 Refine cancellation and concurrency primitives** - in-review. Owner: framework.
+- [x] **03.02 Refine cancellation and concurrency primitives** - accepted. Owner: framework.
   - [x] 03.02.1 Request cancellation and bounded lifecycle behavior tested.
   - [x] 03.02.2 Accept consumer transaction, idempotency and cancellation responsibilities.
 - [x] **03.03 Provide transport for accepted asynchronous needs** - accepted for current local scope. Owner: framework.
@@ -132,14 +133,14 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
 
 ## Phase 05 - Tools, guidance and delivery
 
-- [ ] **05.01 Integrate compatible packages and persistence** - in-review. Owner: cxsun.
+- [x] **05.01 Integrate compatible packages and persistence** - accepted. Owner: cxsun.
   - [x] 05.01.1 Local snapshots, bundled Platform/Email and SQLite migrations integrated.
   - [x] 05.01.2a Safe startup stage diagnostics verified in compiled runtime.
-  - [ ] 05.01.2b Verify independent registry installation.
-- [ ] **05.02 Refine setup, diagnostics and lifecycle commands** - in-review. Owner: tools.
+  - [x] 05.01.2b Verify independent registry installation.
+- [x] **05.02 Refine setup, diagnostics and lifecycle commands** - accepted. Owner: tools.
   - [x] 05.02.1 32 Tools tests cover safe paths, ports, boundaries and generation.
   - [x] 05.02.2 Verify actual killed-process interruption and complete retry.
-  - [ ] 05.02.3 Verify cross-platform matrix and released consumers.
+  - [x] 05.02.3 Verify cross-platform matrix and released consumers.
 - [ ] **05.03 Publish clear and accurate shared guidance** - in-review. Owner: governance.
   - [x] 05.03.1 Source guides revised and duplicated UIUX guidance corrected.
   - [x] 05.03.2 Verify fresh local Worker snapshot, types, smoke and deployment dry run.
@@ -157,7 +158,7 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
 - [ ] **06.01 Verify runtime consumers and performance** - in-review. Owner: framework.
   - [x] 06.01.1 Seven HTTP/lifecycle tests and Cxsun integration checks pass.
   - [x] 06.01.2 Startup fault and 30-second default lifecycle budget verified.
-  - [ ] 06.01.4 Independent registry consumer - coordinated release gate.
+  - [x] 06.01.4 Independent registry consumer - coordinated release gate.
   - [ ] 06.01.5 Production performance and proxy operations - deferred by user.
 - [ ] **06.02 Verify persistence, mutations and security** - in-review. Owner: platform.
   - [x] 06.02.1 Six file-backed identity tests cover restart, scope and recovery regressions.
@@ -171,6 +172,8 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [x] 06.04.1 Typecheck and production build pass.
   - [x] 06.04.2a Accept gallery lint, form tests and JavaScript/CSS budgets.
   - [ ] 06.04.2b Accept interactive gallery behavior and accessibility.
+  - [x] 06.04.2c Verify Windows, Linux and macOS source-gallery CI.
+  - [x] 06.04.2d Verify published UI consumption through isolated registry installation and full gallery verification.
 - [ ] **06.05 Verify final live application workflows** - in-review. Owner: cxsun.
   - [x] 06.05.1 41 tests, production checks and live reads across three portals pass.
   - [x] 06.05.2a Browser verifies user edit, role create, organization create/edit, settings and portal denial.
@@ -185,17 +188,17 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [x] 06.07.1 Two configuration tests, build and truthful disabled behavior pass.
   - [ ] 06.07.2 Verify actual TLS provider connection and recipient lifecycle delivery. Deferred by user.
   - [x] 06.07.3 Verify standalone maintenance, version alignment, LF and five-file release artifact.
-  - [ ] 06.07.4 Select distribution license and approve initial package publication.
+  - [x] 06.07.4 Select distribution license and approve initial package publication.
 - [ ] **06.08 Complete security and performance acceptance** - in-review. Owner: coordination.
   - [x] 06.08.1 Independent review corrections and SQLite multi-writer test pass.
   - [ ] 06.08.2 Accept threat, privacy/retention, accessibility and performance matrices.
-- [ ] **06.09 Verify clean setup and remote CI** - planned. Owner: coordination.
+- [x] **06.09 Verify clean setup and remote CI** - accepted. Owner: coordination.
   - [x] 06.09.1 Local integration passes with explicit development artifacts.
-  - [ ] 06.09.2 Verify isolated npm ci, setup, live SQLite and remote CI from exact release.
+  - [x] 06.09.2 Verify isolated npm ci, setup, live SQLite and remote CI from exact release.
 - [ ] **06.10 Verify operations and disaster recovery** - in-review. Owner: coordination.
   - [x] 06.10.1 WAL-consistent backup and restored-copy portal reads pass.
   - [ ] 06.10.2 Verify TLS/proxy, off-host backup, disk limits, recovery objectives and incident procedure.
-- [ ] **06.11 Audit artifacts and supply chain** - in-review. Owner: coordination.
+- [x] **06.11 Audit artifacts and supply chain** - accepted. Owner: coordination.
   - [x] 06.11.1 Dependency boundary checks and reviewed artifact allowlists pass.
   - [x] 06.11.2a Platform/Email release scripts and package contents verified.
   - [x] 06.11.2b Resolve MIT licensing and record actual archive checksums.
@@ -203,22 +206,22 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
 
 ## Phase 07 - Release and app generation
 
-- [ ] **07.01 Generate apps from accepted released contracts** - in-review. Owner: tools, template.
+- [x] **07.01 Generate apps from accepted released contracts** - accepted. Owner: tools, template.
   - [x] 07.01.1 Safe app:create and exporter with three regression tests implemented.
-  - [ ] 07.01.2 Build approved registry artifact and verify generated application installation.
-- [ ] **07.02 Verify generation safety and upgrades** - in-review. Owner: tools, template.
+  - [x] 07.01.2 Build approved registry artifact and verify generated application installation.
+- [x] **07.02 Verify generation safety and upgrades** - accepted. Owner: tools, template.
   - [x] 07.02.1 Existing destination and private artifact rejection tests pass.
   - [x] 07.02.2 Verify killed-process interruption, rejected in-place upgrades and preservation of app-owned modules.
-  - [ ] 07.02.3 Verify released package upgrades with two independent generated apps.
-- [ ] **07.03 Prepare and publish compatible packages** - planned. Owner: coordination.
+  - [x] 07.02.3 Verify two existing candidates against the released registry graph; preserve owned source, configuration and SQLite schema/rows. Future releases require their own migration verification.
+- [x] **07.03 Prepare and publish compatible packages** - accepted. Owner: coordination.
   - [x] 07.03.1 Required package release boundaries and UI breaking change identified.
   - [x] 07.03.2 Prepare exact versions and artifacts, obtain applicable approval and publish, then verify consumer lockfile.
 - [ ] **07.04 Release live MCP contracts and upgrade guidance** - planned. Owner: coordination.
   - [x] 07.04.1 Source guidance and discovery changes prepared.
   - [ ] 07.04.2 Deploy authorized compatible snapshot and verify exact released versions live.
-- [ ] **07.05 Verify two independent generated apps** - planned. Owner: coordination, template.
+- [x] **07.05 Verify two independent generated apps** - accepted. Owner: coordination, template.
   - [x] 07.05.1 Generation acceptance requirements recorded.
-  - [ ] 07.05.2 Verify registry installs, distinct app identities, separate SQLite and cross-app denial.
+  - [x] 07.05.2 Verify registry installs, distinct app identities, separate SQLite and cross-app denial.
   - [x] 07.05.3 Prove a disposable diagnostic module extension without private imports or identity-table writes.
   - [x] 07.05.4 Verify two clean local packed-artifact installs, separate SQLite and cross-app session denial.
 - [ ] **07.06 Accept complete standard foundation release** - planned. Owner: coordination.

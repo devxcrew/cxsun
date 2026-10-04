@@ -60,6 +60,7 @@ if (!registry) {
     "packages:platform",
     "test:consumers",
     "test:consumers:registry",
+    "test:consumers:upgrade",
   ])
     delete manifest.scripts[script];
   for (const name of ["@devxcrew/platform", "@devxcrew/email"])

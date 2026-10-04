@@ -5,7 +5,9 @@ Scope: all 14 Git repositories, the Cxsun foundation, template planning, and Fra
 
 ## Completion update - 2026-10-04
 
-MIT licensing is approved and present in all five archives. Seven source owners have three-OS CI coverage; six matrices passed, and Veyrezio corrections are under verification. Cxsun full verify, expanded compiled resource acceptance, three-portal live SQLite checks, and two new independent local consumers passed. Publication is approved and in progress through npm browser authentication. The older inventory below is historical; use TASK.md and CHECKLIST.md for current checks. Browser accessibility and deployed governance remain open. Real SMTP and production remain deferred.
+Five MIT packages are published with verified registry checksums. Cxsun passes 41 tests, compiled identity resource acceptance, three live SQLite portals and three-OS CI. Two independently generated registry apps pass installation, full verification, separate persisted databases and cross-app session denial.
+
+The current checklist has 21 accepted parents, 33 open parents and 33 open substeps. Open work includes browser interaction/accessibility, future release upgrades and integration scope, deployed governance, and deferred SMTP/production acceptance. Earlier inventory counts below are historical. Use TASK.md and CHECKLIST.md for current checkboxes.
 
 ## Earlier inventory
 

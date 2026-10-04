@@ -176,3 +176,7 @@ permission declarations and the common authenticated workspace.
 ## Registry template verification
 
 Run `npm run test:consumers:registry` to export the exact registry template from agent/FOUNDATION-RELEASE.json and generate two independent applications. The check runs clean installs, application verification, persisted SQLite setup, and cross-app session denial. Each app keeps its own data and configuration. Generation does not establish browser or production acceptance.
+
+## Candidate upgrade verification
+
+Run `npm run test:consumers:upgrade -- <local-consumer-results.json>` for two existing disposable local candidates. The check is restricted to this app's `.cache/local-consumers-*` fixtures. It installs the exact registry release, checks owned source and configuration hashes, compares the SQLite schema and every stored row, and verifies existing portal logins. A new release requires its own migration review and verification.

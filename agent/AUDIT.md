@@ -504,3 +504,14 @@ Full verify passes 41 tests, lint, types, build, and expanded compiled identity 
 ## Registry transition - 2026-10-04
 
 Published MIT releases are Framework 0.1.8, Platform 0.1.2, Tools 0.1.8, UI 0.2.0 and Email 0.1.0. npm authentication and per-package browser approvals completed. Platform 0.1.1 returned E409 after an earlier unpublish; the user separately approved 0.1.2. All registry SHA-512 values match the approved archives. The app now pins all 30 direct dependencies and its lock contains only registry URLs and SHA-512 entries. npm ci succeeds with zero reported vulnerabilities. Full verify passes 41 tests and compiled identity resource acceptance. Registry export includes index.html and safe npm configuration; fixtures verify that an auth token in source npm configuration is not copied. Browser access remains blocked.
+
+
+Two generated registry consumers passed on 2026-10-04. Each used its own exact registry installation and file-backed SQLite. Cross-app session denial passed. Receipts are in GENERATED-CONSUMERS.json. Cxsun CI run 37204145628 passed Windows, Linux and macOS against commit b8ecabc.
+
+
+The optional local source refresh packs all five owners and preserves package.json and package-lock.json. Its actual installation and package boundary checks passed. The registry restoration command and repeated package checks also passed. These development commands do not replace the independent registry consumer and remote CI evidence above.
+
+
+## Candidate upgrade acceptance - 2026-10-04
+
+Two existing disposable local candidates passed installation against the released registry graph, full verify, package boundaries, existing database checks and three live portal reads. Source and configuration hashes match. A read-only comparison of the SQLite schema and every table row matches before and after verification. Physical WAL/SHM byte comparisons were replaced because checkpoints can change those files without data loss. No operational app was upgraded. The first fixture resumed an interrupted preparation with its manifest already at Platform 0.1.2; the second changed 0.1.1 to 0.1.2. Both originated from the verified local candidate receipt. The accepted run uses Node 26.10.0; an npm exec wrapper selecting Node 22 was stopped and provides no acceptance evidence. See UPGRADE-CONSUMERS.json. Future version compatibility requires its own release rehearsal.

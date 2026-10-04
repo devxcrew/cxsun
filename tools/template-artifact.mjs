@@ -61,6 +61,7 @@ export function exportTemplateArtifact({
     "packages:platform",
     "test:consumers",
     "test:consumers:registry",
+    "test:consumers:upgrade",
   ])
     delete manifest.scripts[script];
   lock.name = manifest.name;

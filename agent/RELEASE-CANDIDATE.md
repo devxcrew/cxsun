@@ -1,14 +1,14 @@
 # Foundation release candidate
 
 Date: 2026-10-04
-Status: local acceptance and package preparation. No package publication or cloud deployment.
+Status: Five MIT packages are published and two registry consumers passed. Browser acceptance and deployed governance remain open.
 
 ## GitHub source release versions
 
 | Owner | Source version | Compatibility note |
 | --- | --- | --- |
 | Framework | 0.1.8 | Additive lifecycle, request context and transport contracts. |
-| Platform | 0.1.1 | Identity package, public browser schemas and GitHub delivery records. |
+| Platform | 0.1.2 | Identity package, public browser schemas and GitHub delivery records. |
 | UI | 0.2.0 | Removes legacy domain exports. Apps must use their own identity module. |
 | Tools | 0.1.8 | Adds explicit artifact generation and safe diagnostics. |
 | Email | 0.1.0 | Initial TLS SMTP provider. Real delivery is deferred by the user. |
@@ -16,7 +16,7 @@ Status: local acceptance and package preparation. No package publication or clou
 | Cxsun | 0.2.0 | Authenticated identity reference app replacing the preview flow. |
 
 The manifests now use these versions for the authorized GitHub source delivery.
-Npm publication and registry consumer acceptance remain open.
+Npm publication and registry consumer acceptance passed; see RELEASE-PACKAGES.json and GENERATED-CONSUMERS.json.
 Source snapshots with the same version as published packages are development artifacts, not compatible registry evidence.
 UI removal requires the minor version change shown above.
 
@@ -24,7 +24,7 @@ UI removal requires the minor version change shown above.
 
 - One Node server, React frontend and persisted SQLite on a writable local disk.
 - Node 26.10.0 or newer and npm 12.2.0 or newer for Cxsun.
-- Windows is the current verified development environment. Remote Linux CI remains a separate gate.
+- Node 26.10.0 and npm 12.2.0 passed Windows, Linux and macOS Cxsun CI (37204145628).
 - Separate user, administrator and super-administrator portals with scoped server sessions.
 - Password authentication, server origin checks, role/tenant/app isolation and revision checks.
 - No business modules, external ERP adapters or generic queues in this release profile.

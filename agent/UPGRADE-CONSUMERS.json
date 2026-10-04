@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-04T13:33:51.288Z",
+  "status": "candidate-to-registry-upgrade-passed",
+  "results": [
+    {
+      "id": "foundation-proof-a",
+      "previousPlatform": "0.1.2",
+      "platform": "0.1.2",
+      "registryInstallation": "passed",
+      "verify": "passed",
+      "sourceAndConfigurationPreserved": "passed",
+      "existingSqlitePreserved": "passed",
+      "livePortalReads": "passed"
+    },
+    {
+      "id": "foundation-proof-b",
+      "previousPlatform": "0.1.1",
+      "platform": "0.1.2",
+      "registryInstallation": "passed",
+      "verify": "passed",
+      "sourceAndConfigurationPreserved": "passed",
+      "existingSqlitePreserved": "passed",
+      "livePortalReads": "passed"
+    }
+  ],
+  "scope": "Two disposable local candidates upgraded to the first registry foundation. Future releases require their own migration verification."
+}

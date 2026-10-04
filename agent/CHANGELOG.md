@@ -10,6 +10,10 @@ Changelog label: v 0.2.0
 
 ## v-0.2.0
 
+- Verify two fresh registry consumers and two existing candidate upgrades.
+- Preserve owned source, configuration, SQLite schema and stored rows during upgrades.
+- Record published package receipts and remove local-only commands from exported templates.
+
 ### Review corrections - 2026-10-04
 
 - Validate resource links before rendering and preserve filtered list return links.

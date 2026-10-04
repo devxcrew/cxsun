@@ -52,7 +52,8 @@
     "test:live": "node --env-file=.env tools/live-identity-check.mjs",
     "email:check": "node --env-file=.env tools/email-check.mjs",
     "test:consumers": "node tools/local-consumer-check.mjs",
-    "test:consumers:registry": "node tools/local-consumer-check.mjs --registry"
+    "test:consumers:registry": "node tools/local-consumer-check.mjs --registry",
+    "test:consumers:upgrade": "node tools/consumer-upgrade-check.mjs"
   },
   "dependencies": {
     "@devxcrew/core-framework": "0.1.8",

@@ -27,7 +27,12 @@ function fixture(t) {
     JSON.stringify({
       name: "cxsun",
       version: "0.1.9",
-      scripts: { "mcp:connect": "node agent/connect.mjs", "packages:local": "bad" },
+      scripts: {
+        "mcp:connect": "node agent/connect.mjs",
+        "packages:local": "bad",
+        "test:consumers:registry": "bad",
+        "test:consumers:upgrade": "bad",
+      },
       dependencies: { "@devxcrew/platform": "file:vendor/platform.tgz" },
       devDependencies: {},
     }),
@@ -85,6 +90,8 @@ test("artifact export requires release pins, preserves source and generates fres
   assert.equal(manifest.dependencies["@devxcrew/platform"], "0.2.0");
   assert.equal(manifest.name, "{{APP_ID}}");
   assert.equal(manifest.scripts["packages:local"], undefined);
+  assert.equal(manifest.scripts["test:consumers:registry"], undefined);
+  assert.equal(manifest.scripts["test:consumers:upgrade"], undefined);
   assert.equal(existsSync(resolve(options.destination, ".env")), false);
   assert.match(readFileSync(resolve(options.destination, "index.html"), "utf8"), /{{APP_NAME}}/);
   assert.equal(
