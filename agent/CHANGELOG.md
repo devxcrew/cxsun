@@ -2,11 +2,23 @@
 
 ## Version State
 
-Current version: 0.1.9
+Current version: 0.2.0
 
-Release tag: v-0.1.9
+Release tag: v-0.2.0
 
-Changelog label: v 0.1.9
+Changelog label: v 0.2.0
+
+## v-0.2.0
+
+### [v 0.2.0] 2026-10-04 4:59 pm - Deliver reusable Cxsun foundation
+
+#### Database Changes
+
+- Database update: Yes (manual).
+
+#### App Codebase Changes
+
+- Connect persisted SQLite, three identity portals, module-owned resource workflows, public provider composition, permission extensions and template rehearsal.
 
 ## v-0.1.9
 
@@ -309,3 +321,57 @@ Changelog label: v 0.1.9
 - Tools passed all 21 tests. Version-bump and line-fixing commands completed successfully.
 - Prepared GitHub repository and CI checkout paths for sibling maintenance tools.
 - Commit subject: #9 - Publish npm package integration and MCP audit.
+
+## Standalone development review — 2026-10-03
+
+- Documented environment setup, intentional cloud requirements, and optional local package development.
+- Recorded passing workspace checks and failing isolated maintenance checks in AUDIT.md.
+- Recorded incomplete clean installs and unsupported desktop/Docker workflows.
+- Preserved release version and history. No release was requested.
+
+## Standalone implementation — 2026-10-03
+
+- Consume published Tools 0.1.7 through installed commands and remove sibling maintenance script paths.
+- Use a single-repository CI checkout and add environment/MCP setup.
+- Remove unsupported desktop and Docker scripts while preserving dependencies.
+- Add clear optional source errors and CODEXSUN_SHARED_ROOT support.
+- Passed full workspace and isolated verification, browser preview flows, port handling, and restart checks.
+- Document one clean install of the identical shared dependency graph, then sequential per-app ownership.
+- Preserve this app's release version. No commit or push was performed.
+
+## 0.1.9 - 2026-10-04 09:34
+
+### Connect SQLite through Kysely
+
+- Add a module-owned database provider and Node SQLite adapter.
+- Add versioned metadata migration, repeatable seed, and db:migrate, db:seed, db:setup, and db:check commands.
+- Verify the database during server startup and close it during shutdown.
+- Configure ignored storage/cxsun.sqlite through DB_SQLITE_PATH.
+- Passed five tests, lint, typechecks, build, production HTTP smoke, and compiled server startup.
+- Passed repeated migrations and seeds, persistence, rollback, and foreign-key checks.
+- Database identity remains pending Platform Core. No release bump, commit, or push was requested.
+
+## 0.1.9 - 2026-10-04 09:56
+
+### Prepare database identity through Platform Core
+
+- Create shared Platform Core with public identity provider, migrations, seeds, scrypt passwords, sessions, permissions, and tenant membership.
+- Prepare Cxsun identity frontend with TanStack Form, Zod, three portals, and password change.
+- Passed three Platform Core tests and build. Correct a stale-password race during session creation.
+- Passed Cxsun verification and package checks. Preserve active preview routes until the package source is approved.
+- Pending local dependency exception or publication preparation. No Cxsun identity accounts or sessions are connected yet.
+- No version bump, publication, commit, or push occurred.
+
+## 0.1.9 - 2026-10-04 10:19
+
+### Connect database identity to Cxsun
+
+- Connect the user-approved bundled @devxcrew/platform@0.1.0 package through public exports.
+- Register Platform-owned identity migration and repeatable seed in the SQLite lifecycle.
+- Replace preview sessions with three authenticated portals, scoped cookies, RBAC, and trusted tenant membership.
+- Add password change and account session revocation. Seed three local accounts with ignored generated credentials.
+- Add compiled identity smoke tests for durable sessions, role and tenant denial, logout, validation, and database integrity.
+- Fix a browser-discovered React suspension error by using React lazy and Suspense.
+- Passed Platform tests/build, Cxsun verification, package checks, three-portal browser flows, and normal database login checks.
+- Record retained ignored audit fixtures after cleanup was blocked by automatic approval review.
+- Publication, live package registration, and production operational checks remain pending. No release, commit, or push occurred.

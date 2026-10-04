@@ -1,6 +1,6 @@
 # Repository skills
 
-Compose the base application, frontend routing, preview login, desk, and server startup.
+Compose the base application, database-backed identity portals, desks, and server startup.
 
 ## Shared instructions
 

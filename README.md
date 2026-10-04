@@ -1,97 +1,179 @@
-# cxsun
+# Cxsun
 
-Compose the base application, frontend routing, preview login, desk, and server startup.
+An isolated application foundation with Framework, UI, and shared Platform Core identity.
 
 ## Current flow
 
-Home (`/`) → preview login (`/login`) → desk (`/desk`).
+Public home (`/`) → database login → authorized desk.
 
-One server runs at http://127.0.0.1:5173. Real authentication, persistence, tenancy, and business
-APIs are not connected.
+| Portal              | Login          | Desk          |
+| ------------------- | -------------- | ------------- |
+| User                | `/login`       | `/desk`       |
+| Administrator       | `/admin/login` | `/admin/desk` |
+| Super administrator | `/sa/login`    | `/sa/desk`    |
 
-Development retrieves MCP instructions in parallel and caches them in ignored `.cache/governance`.
-Production startup is independent.
+Platform Core verifies passwords, tenant membership, role permissions, and server-managed sessions.
+Each portal uses a separate app-specific HttpOnly cookie. Browser storage does not authorize access.
+Business features are not implemented.
 
-## Run
+Identity administration now includes owned resource pages, profile, settings, invitations, and recovery.
+Editable records use version checks to reject stale changes.
+These local changes remain under acceptance review. They are not the published standard foundation release.
 
-Use Node 26.10 or newer and the package manifest requirements. Clone the sibling tools and
-mcp-governance repositories along with this repository.
+## Development setup
 
-```powershell
-npm install
-npm run verify
-npm run dev
-```
+Use Node 26.10.0 or newer and npm 12.2.0 or newer.
 
-## Repository records
+1. Run `npm ci` to install the locked packages.
+2. Run `npm run tools:env` to create `.env`. Existing configuration is preserved.
+3. Set `MCP_SERVER_SECRET` and bootstrap account values in the ignored `.env` file.
+4. Run `npm run setup` to verify live guidance and run database migrations and seeds.
+5. Run `npm run dev` to start this app.
 
-- `AGENTS.md`: repository instructions and ownership rules.
-- `agent/SKILLS.md`: repository capabilities.
-- `agent/TASK.md`: current task and status.
-- `agent/PLAN.md`: next steps.
-- `agent/CHANGELOG.md`: versioned changes and validation results.
+The default URL is http://127.0.0.1:5173.
+Set APP_PORT and APP_URL together in `.env` when the port is occupied.
+Port preflight preserves other applications and stops startup on a port conflict.
+APP_NAME, APP_HOST, and APP_MODE configure the server. APP_ID is cxsun.
 
-## Shared guidance
+Development requires https://mcp.codexsun.com/mcp and a valid secret.
+There is no offline or cached guidance fallback. Production startup does not retrieve MCP guidance.
+Never place MCP_SERVER_SECRET in frontend code or Git.
 
-Retrieve shared documentation and rules only from `https://mcp.codexsun.com/mcp` using `npm run mcp:connect`.
-A successful authenticated connection is required before repository work. Stop and report connection failures.
-Do not use local guides or cached instructions as fallback. Instruction retrieval does not authorize actions.
+## Verification
 
-Retrieve shared documentation and rules only from `https://mcp.codexsun.com/mcp` using `npm run mcp:connect`.
-A successful authenticated connection is required before repository work. Stop and report connection failures.
-Do not use local guides or cached instructions as fallback. Instruction retrieval does not authorize actions.
+Run `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`, and `npm run test:production`.
+Run `npm run packages:check` to check the installed package boundaries.
+After a build and database setup, `npm run start` serves the frontend and identity API.
+Set APP_MODE=production in the server environment before production startup.
 
-Configure these values with `.env.example`:
+## Standalone commands
 
-- `MCP_SERVER_URL`
-- `MCP_SERVER_SECRET`
-- `APP_ID`
-- `APP_USER`
-
-Keep the secret in ignored `.env` files.
-
-```powershell
-npm run mcp:connect
-npm run mcp:verify
-```
-
-Use `mcp:connect` to retrieve instructions. Use `mcp:verify` for a strict connection test.
-Connection failures do not block application work. Editor registration uses the central connection
-template and depends on the editor.
-
-## Maintenance
-
-```powershell
-npm run version-bump -- --dry-run
-npm run version-bump -- --title "Release title" --note "Change details"
-npm run check:versions
-npm run fix:line-endings
-npm run lines:check
-npm run github:now -- --dry-run
-```
-
-Version bumps align `package.json`, `package-lock.json`, and `agent/CHANGELOG.md`. Record changes
-and validation before committing.
-
-Commit subjects use `#<patch> - <release title>`. For example:
-`#5 - Central governance and repository agent layout`.
-
-Review the changed files before an authorized `npm run github:now`. Do not bump again when the
-release version is already prepared.
-
-## Tools source and publication
-
-Workspace maintenance delegates to `shared/tools`. The installed npm package remains pinned at
-`0.1.3` until agent changelog support is published.
-
-GitHub source releases use `github:now`. Npm publication requires separate authorization.
+Runtime and maintenance use installed npm packages. No sibling checkout is required.
+The current unpublished integration wave requires local package snapshots for its new contracts.
+Independent clean-install acceptance remains open until compatible packages are released.
+Run `npm run setup` after setting the cloud secret to initialize configuration and verify MCP.
+Run `npm run verify` for maintenance, lint, types, tests, build, and production smoke checks.
+CI checks out only this app. Identity smoke tests use a temporary database and generated test credentials.
+The release profile is a single Node server with React and persisted SQLite.
+Desktop, alternate databases, and queue adapters require an explicit capability before adding dependencies.
 
 ## Shared package development
 
-Normal installs use `@devxcrew/core-framework` and `@devxcrew/react-ui` from npm. App builds do not compile sibling repositories.
+The lockfile uses public @devxcrew/core-framework and @devxcrew/react-ui registry versions.
+Those versions do not contain this unpublished wave's new contracts. Current verification uses local source snapshots.
+Platform Core uses the bundled development package at `vendor/devxcrew-platform-0.1.0.tgz`.
+Email uses `vendor/devxcrew-email-0.1.0.tgz` for the public SMTP delivery provider.
+The package is installed as `@devxcrew/platform`. It is not published to npm yet.
+The bundled artifact keeps normal installs independent of `shared/platform`.
 
-- `npm run packages:local`: build and pack sibling packages, then install local snapshots without changing package.json or package-lock.json.
-- `npm run packages:npm`: restore the registry packages.
-- `npm ci`: restore the exact locked release packages.
+- `npm run packages:local`: install Framework, UI, and Tools source snapshots without changing release manifests.
+- `npm run packages:npm`: restore registry package ranges.
+- `npm ci`: restore the locked registry packages and bundled development artifacts. This does not preserve source snapshots.
+- `npm run packages:platform`: build and refresh the bundled Platform Core package from its source owner.
 
-Re-run the local command after shared source edits. UIUX remains the live source gallery for UI development.
+The optional source refresh commands require their matching shared package repositories.
+Set CODEXSUN_SHARED_ROOT when these repositories are outside the default shared directory.
+UIUX is a separate gallery for shared UI source development.
+
+## Repository records and maintenance
+
+Read AGENTS.md and every Markdown record in agent before work.
+Retrieve current rules through `npm run mcp:connect`.
+Use version-bump, fix:line-endings, lines:check, and check:versions for release maintenance.
+Maintain agent/CHANGELOG.md and use commit subjects `#<patch> - <release title>`.
+Use github:now only for an authorized commit and push.
+
+GitHub: https://github.com/devxcrew/cxsun.
+
+## SQLite database
+
+Cxsun uses Kysely with Node's built-in SQLite driver. No additional SQLite package is required.
+Set `DB_SQLITE_PATH=storage/cxsun.sqlite` in `.env`. Relative paths resolve from the application root.
+The `storage/` directory is ignored by Git. Use a persistent disk for deployed database files.
+
+```powershell
+npm run db:setup
+npm run db:check
+```
+
+`db:setup` runs migrations and the seed. Run `db:migrate` and `db:seed` separately when needed.
+Both commands can run again safely. The seed preserves existing application metadata.
+Server startup verifies the connection. It does not automatically migrate or seed the database.
+Run migrations before starting a new release.
+
+The database module lives in `src/api/database`. Its public boundary is `database.provider.ts`.
+Database configuration rejects memory databases and URI connection strings.
+
+### Backup and recovery
+
+Create a consistent SQLite backup before migrations:
+
+```powershell
+npm run db:backup -- storage/backups/before-release.sqlite
+npm run db:verify-backup -- storage/backups/before-release.sqlite
+```
+
+Backup refuses to overwrite an existing destination.
+The backup includes committed WAL data and passes integrity and foreign-key checks.
+Keep backups on protected storage outside the deployment disk.
+To rehearse recovery, use a copied backup as DB_SQLITE_PATH in an isolated instance.
+Verify login, resource reads, and migration history before restoring a production database.
+Stop writers before replacing an operational database. Preserve the current database for rollback.
+
+### Identity email delivery
+
+Set EMAIL_ENABLED=1 and configure SMTP_HOST, SMTP_PORT, SMTP_SECURE, and EMAIL_FROM in the ignored environment.
+Set SMTP_USER and SMTP_PASSWORD together when the provider requires authentication.
+SMTP_SECURE=1 selects immediate TLS. SMTP_SECURE=0 requires STARTTLS.
+Platform owns message templates and single-use lifecycle tokens.
+Invitation and recovery requests return an unavailable error while delivery is disabled.
+Real provider verification and recipient delivery remain required before release acceptance.
+The initial migration creates `application_metadata`. Kysely maintains its own migration history tables.
+The Platform migration creates owned users, tenants, memberships, roles, permissions, sessions, and login throttle tables.
+The seed records application metadata, a default organization, roles, and permissions.
+Optional bootstrap accounts are created only when both email and password values are configured.
+Existing users, passwords, and memberships are preserved. Seeds do not elevate an existing account.
+
+## Identity configuration
+
+`IDENTITY_MODE=single-client` binds sessions to `IDENTITY_TENANT_ID` on the server.
+`IDENTITY_MODE=multi-tenant` requires an organization ID at login and verifies its database membership.
+`IDENTITY_SESSION_SECONDS` controls absolute session expiry, from 300 to 86400 seconds.
+External origins require HTTPS. Loopback HTTP supports local development.
+
+The local installation has three bootstrap accounts: `user@cxsun.local`, `admin@cxsun.local`, and `superadmin@cxsun.local`.
+Their generated passwords are in the matching `IDENTITY_SEED_*_PASSWORD` fields of ignored `.env`.
+Passwords are not printed in logs or saved in source. Fresh clones have empty bootstrap values.
+Changing a password revokes all sessions for that account. Re-running the seed preserves the changed password.
+
+The API prefix is `/api/v1/identity/<portal>`, where portal is `user`, `admin`, or `super-admin`.
+
+| Method | Path                | Purpose                                     |
+| ------ | ------------------- | ------------------------------------------- |
+| POST   | `/sessions`         | Verify credentials and create a session     |
+| GET    | `/sessions/current` | Read the verified principal                 |
+| DELETE | `/sessions/current` | Revoke the current portal session           |
+| PATCH  | `/password`         | Change password and revoke account sessions |
+
+Run `npm run test:identity` after a build to verify the compiled server with an isolated test database.
+The frontend identity owner is `src/web/modules/identity`. Backend identity belongs to `shared/platform/src/modules/identity`.
+Identity administration screens connect to the public Platform resource APIs. Lists, details, authorized mutations,
+settings and role-specific navigation are implemented. MFA is not part of the current local password-only profile.
+Real email delivery testing and production deployment are deferred by the user. Coordinated package publication
+and the remaining acceptance checks are tracked in [the foundation checklist](agent/CHECKLIST.md).
+
+## Local generated-consumer rehearsal
+
+Run `npm run packages:platform` first and wait for completion.
+Then run `npm run packages:local` and wait for completion to refresh the remaining development tarballs.
+Then run `npm run test:consumers`. This creates two isolated applications under ignored `.cache` paths,
+verifies clean installation from real packed artifacts, runs application checks, creates separate persisted SQLite
+databases and checks that one application's session cannot authenticate in the other application.
+Only synthetic bootstrap accounts are used. Operational environment values and database files are not copied.
+The rehearsal inherits verified third-party lock entries and reads first-party metadata and integrity from the actual tarballs.
+It does not prove published registry installation, remote CI or production readiness.
+
+## Add an owned module
+
+Follow [module extension contracts](agent/MODULE-EXTENSIONS.md) for public backend/frontend contributions,
+permission declarations and the common authenticated workspace.

@@ -1,0 +1,99 @@
+import { useEffect, useState } from "react";
+import { IdentityResourceForm } from "./identity.resource-form";
+import { IdentityPassword } from "./identity.password";
+import { identityRequest } from "./identity.services";
+import type { IdentityRecord, ResourceField } from "./identity.resources";
+import type { Portal } from "./identity.types";
+
+export function IdentityAccount({
+  portal,
+  page,
+  base,
+  onPasswordChanged,
+  canChangePassword,
+}: {
+  portal: Portal;
+  page: "profile" | "settings" | "application-settings" | "security-settings";
+  base: string;
+  onPasswordChanged(): void;
+  canChangePassword: boolean;
+}) {
+  const [record, setRecord] = useState<IdentityRecord | null>(null);
+  const [error, setError] = useState("");
+  const path = page;
+  const settings = page !== "profile";
+  useEffect(() => {
+    const controller = new AbortController();
+    void identityRequest<{ data: IdentityRecord }>(
+      portal,
+      path,
+      "GET",
+      undefined,
+      controller.signal,
+    )
+      .then((value) => setRecord(value.data))
+      .catch((failure) => {
+        if (!controller.signal.aborted)
+          setError(failure instanceof Error ? failure.message : "Could not load account.");
+      });
+    return () => controller.abort();
+  }, [portal, path]);
+  const fields: ResourceField[] =
+    page === "security-settings"
+      ? [
+          {
+            name: "sessionSeconds",
+            label: "Session duration in seconds",
+            type: "number",
+            required: true,
+          },
+        ]
+      : settings
+        ? [
+            { name: "displayName", label: "Display name", required: true },
+            { name: "locale", label: "Locale", required: true },
+            { name: "timeZone", label: "Time zone", required: true },
+          ]
+        : [{ name: "name", label: "Name", required: true }];
+  return (
+    <section className="grid gap-6">
+      <h1 className="text-2xl font-semibold">
+        {page === "application-settings"
+          ? "Application settings"
+          : page === "security-settings"
+            ? "Security settings"
+            : settings
+              ? "Organization settings"
+              : "Your account"}
+      </h1>
+      {error && <p role="alert">{error}</p>}
+      {page === "security-settings" && <p>Changing session duration signs out all users.</p>}
+      {record ? (
+        settings && portal === "user" ? (
+          <dl>
+            {fields.map((field) => (
+              <div className="py-2" key={field.name}>
+                <dt>{field.label}</dt>
+                <dd>{String(record[field.name] ?? "")}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : (
+          <IdentityResourceForm
+            portal={portal}
+            path={path}
+            fields={fields}
+            record={record}
+            creating={false}
+            returnTo={`${base}${settings ? `/${page}` : ""}`}
+          />
+        )
+      ) : (
+        !error && <p role="status">Loading…</p>
+      )}
+      {!settings && canChangePassword && (
+        <IdentityPassword portal={portal} onChanged={onPasswordChanged} />
+      )}
+    </section>
+  );
+}

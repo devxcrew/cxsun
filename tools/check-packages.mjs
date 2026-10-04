@@ -7,5 +7,15 @@ const packages = Object.keys({ ...manifest.dependencies, ...manifest.devDependen
 const missing = packages.filter((name) => !lock.packages[`node_modules/${name}`]);
 if (missing.length) throw new Error(`Missing installed packages: ${missing.join(", ")}`);
 if (lock.packages["node_modules/express"]) throw new Error("Express remains installed.");
-for (const name of ["fastify", "kysely", "bullmq", "nodemailer", "react"]) require.resolve(name);
-console.info(`${packages.length} direct packages verified. Express removed.`);
+for (const name of ["kysely", "react", "@devxcrew/email", "@devxcrew/platform"]) require.resolve(name);
+for (const [name, version] of Object.entries(manifest.dependencies)) {
+  if (!name.startsWith("@devxcrew/") || !version.startsWith("file:")) continue;
+  if (
+    !["@devxcrew/platform", "@devxcrew/email"].includes(name) ||
+    !new RegExp(`^file:vendor/devxcrew-${name.split("/")[1]}-[\\d.]+\\.tgz$`).test(version)
+  ) {
+    throw new Error(`Unapproved local shared dependency: ${name}`);
+  }
+}
+require.resolve("@devxcrew/platform");
+console.info(`${packages.length} direct foundation packages verified.`);

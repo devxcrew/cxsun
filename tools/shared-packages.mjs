@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { mkdirSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = process.cwd();
@@ -20,11 +20,18 @@ function npm(args, cwd = root, capture = false) {
 }
 
 if (mode === "local") {
+  const sharedRoot = resolve(process.env.CODEXSUN_SHARED_ROOT ?? resolve(root, "../../shared"));
+  for (const owner of ["framework", "ui", "tools"]) {
+    if (!existsSync(resolve(sharedRoot, owner, "package.json")))
+      throw new Error(
+        `Missing optional ${owner} source at ${sharedRoot}. Set CODEXSUN_SHARED_ROOT to your shared source directory, or use packages:npm.`,
+      );
+  }
   const destination = resolve(root, ".cache/shared-packages");
   mkdirSync(destination, { recursive: true });
   const tarballs = [];
-  for (const owner of ["framework", "ui"]) {
-    const directory = resolve(root, "../../shared", owner);
+  for (const owner of ["framework", "ui", "tools"]) {
+    const directory = resolve(sharedRoot, owner);
     if (owner === "framework") npm(["run", "build"], directory);
     const packed = JSON.parse(
       npm(
@@ -37,13 +44,17 @@ if (mode === "local") {
     if (!artifact?.filename) throw new Error("npm pack returned no artifact.");
     tarballs.push(resolve(destination, artifact.filename));
   }
+  for (const name of ["@devxcrew/platform", "@devxcrew/email"]) {
+    const dependency = manifest.dependencies[name];
+    if (dependency?.startsWith("file:vendor/")) tarballs.push(resolve(root, dependency.slice(5)));
+  }
   npm(["install", "--no-save", "--package-lock=false", ...tarballs]);
   console.info(
     "Installed local package snapshots. Re-run after shared source changes. Release manifests and lockfiles are unchanged.",
   );
 } else if (mode === "npm") {
-  const packages = ["@devxcrew/core-framework", "@devxcrew/react-ui"].map(
-    (name) => `${name}@${manifest.dependencies[name]}`,
+  const packages = ["@devxcrew/core-framework", "@devxcrew/react-ui", "@devxcrew/tools"].map(
+    (name) => `${name}@${manifest.dependencies[name] ?? manifest.devDependencies[name]}`,
   );
   npm(["install", "--no-save", "--package-lock=false", ...packages]);
   console.info("Restored registry packages. npm ci also restores the locked release versions.");
