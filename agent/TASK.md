@@ -1,5 +1,27 @@
 # Current task
 
+## Completion wave - 2026-10-04
+
+Latest GitHub source is 0.2.0. The release audit records 41 local tests and compiled identity checks. Registry CI remains blocked on published Tools 0.1.7. Browser acceptance is blocked by the current browser URL policy. Mail and production remain user-deferred.
+
+- [x] Reconcile current status with the GitHub source release and latest owner audit.
+- [x] Retrieve fresh authenticated cloud governance before this wave.
+- [x] 07.01 Record full verify: 41 tests, lint, types, build, and compiled identity resource acceptance.
+- [x] 07.02 Verify three login portals against persisted local SQLite.
+- [x] 07.03 Verify two fresh generated local apps, separate databases, and cross-app session denial.
+- [x] 07.04 Prepare five MIT package archives and record actual checksums.
+- [x] 07.05a Receive explicit approval to publish all five versions.
+- [x] 07.05b Publish five MIT releases and verify actual registry checksums; Platform uses 0.1.2 after an npm conflict.
+- [ ] 07.05c Complete registry-only installs, generated consumers, and three-OS Cxsun CI.
+- [ ] 07.06 Complete interactive browser and accessibility acceptance when browser access is available.
+- [ ] 07.07 Accept deployed governance freshness after deployment.
+- [ ] 07.08 Real SMTP delivery and production deployment remain user-deferred.
+
+Use projects/cxsun/agent/REMAINING-WORK.md for ordered cross-owner dependencies.
+Production deployment and real SMTP acceptance remain deferred. No pending external gate is marked complete.
+
+## Prior records
+
 ## Cxsun review corrections - 2026-10-04
 
 Resource links now use a module-owned parser before rendering or requesting records.
@@ -91,13 +113,14 @@ Parents retain incomplete acceptance gates. Mail tests and production deployment
 - [ ] **06.11 Audit artifacts and supply chain** - in-review. Owner: coordination.
   - [x] 06.11.1 Dependency boundary checks and reviewed artifact allowlists pass.
   - [x] 06.11.2a Platform/Email release scripts and package contents verified.
-  - [ ] 06.11.2b Resolve distribution licensing and verify coordinated release provenance.
+  - [x] 06.11.2b Resolve MIT licensing and record actual artifact checksums.
+  - [x] 06.11.2c Verify all five registry releases against approved archive checksums.
 
 ### Phase 07 - Release and app generation
 
 - [ ] **07.03 Prepare and publish compatible packages** - planned. Owner: coordination.
   - [x] 07.03.1 Required package release boundaries and UI breaking change identified.
-  - [ ] 07.03.2 Prepare exact versions and artifacts, obtain applicable approval and publish, then verify consumer lockfile.
+  - [x] 07.03.2 Prepare exact versions and artifacts, obtain applicable approval and publish, then verify consumer lockfile.
 - [ ] **07.04 Release live MCP contracts and upgrade guidance** - planned. Owner: coordination.
   - [x] 07.04.1 Source guidance and discovery changes prepared.
   - [ ] 07.04.2 Deploy authorized compatible snapshot and verify exact released versions live.

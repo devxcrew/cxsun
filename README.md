@@ -48,9 +48,7 @@ Set APP_MODE=production in the server environment before production startup.
 
 ## Standalone commands
 
-Runtime and maintenance use installed packages. The current development profile needs shared source checkouts to refresh snapshots.
-The current unpublished integration wave requires local package snapshots for its new contracts.
-Independent clean-install acceptance remains open until compatible packages are released.
+Runtime and maintenance use exact registry packages in the lockfile. Installation requires no shared source checkout.
 Run `npm run setup` after setting the cloud secret to initialize configuration and verify MCP.
 Run `npm run verify` for maintenance, lint, types, tests, build, and production smoke checks.
 CI checks out only this app. Identity smoke tests use a temporary database and generated test credentials.
@@ -59,17 +57,12 @@ Desktop, alternate databases, and queue adapters require an explicit capability 
 
 ## Shared package development
 
-The lockfile uses public @devxcrew/core-framework and @devxcrew/react-ui registry versions.
-Those versions do not contain this unpublished wave's new contracts. Current verification uses local source snapshots.
-Platform Core uses the bundled development package specified in package.json.
-Email uses `vendor/devxcrew-email-0.1.0.tgz` for the public SMTP delivery provider.
-The package is installed as `@devxcrew/platform`. It is not published to npm yet.
-The bundled artifact keeps normal installs independent of `shared/platform`.
+The lockfile uses MIT releases: Framework 0.1.8, Platform 0.1.2, UI 0.2.0, Tools 0.1.8 and Email 0.1.0.
 
-- `npm run packages:local`: install Framework, UI, and Tools source snapshots without changing release manifests.
-- `npm run packages:npm`: restore registry package ranges.
-- `npm ci`: restore the locked registry packages and bundled development artifacts. This does not preserve source snapshots.
-- `npm run packages:platform`: build and refresh the bundled Platform Core package from its source owner.
+- `npm ci`: install the exact registry release and integrity values.
+- `npm run packages:local`: optionally install all five package source snapshots for package development.
+- `npm run packages:npm`: restore all five registry package versions.
+- `npm run packages:platform`: optionally refresh a local Platform artifact for development.
 
 The optional source refresh commands require their matching shared package repositories.
 `npm run packages:check` reports installed versions that differ from the lockfile.
@@ -179,3 +172,7 @@ It does not prove published registry installation, remote CI or production readi
 
 Follow [module extension contracts](agent/MODULE-EXTENSIONS.md) for public backend/frontend contributions,
 permission declarations and the common authenticated workspace.
+
+## Registry template verification
+
+Run `npm run test:consumers:registry` to export the exact registry template from agent/FOUNDATION-RELEASE.json and generate two independent applications. The check runs clean installs, application verification, persisted SQLite setup, and cross-app session denial. Each app keeps its own data and configuration. Generation does not establish browser or production acceptance.

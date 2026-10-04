@@ -7,6 +7,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { randomBytes } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
+import { verifyIdentityResources } from "../src/api/identity/identity.acceptance.mjs";
 
 const directory = await mkdtemp(join(tmpdir(), "cxsun-identity-"));
 const probe = createServer();
@@ -114,6 +115,7 @@ try {
     assert.equal(principal.tenant.id, "default");
     assert.equal((await request(desk, "GET", undefined, cookies[portal])).status, 200);
   }
+  await verifyIdentityResources(request, cookies, password);
   const denied = await request("/api/v1/identity/admin/sessions", "POST", {
     email: "user@example.test",
     password,
@@ -153,6 +155,14 @@ try {
   );
   await stop();
   await start();
+  const persistedSettings = await request(
+    "/api/v1/identity/admin/settings",
+    "GET",
+    undefined,
+    cookies.admin,
+  );
+  assert.equal(persistedSettings.status, 200);
+  assert.equal((await persistedSettings.json()).data.displayName, "Acceptance Workspace");
   assert.equal(
     (await request("/api/v1/identity/user/sessions/current", "GET", undefined, cookies.user))
       .status,
@@ -213,7 +223,7 @@ try {
   await stop();
   const database = new DatabaseSync(environment.DB_SQLITE_PATH, { readOnly: true });
   try {
-    assert.equal(database.prepare("SELECT count(*) AS count FROM identity_users").get().count, 3);
+    assert.equal(database.prepare("SELECT count(*) AS count FROM identity_users").get().count, 4);
     assert.ok(
       database
         .prepare("SELECT password_hash FROM identity_users")
@@ -233,8 +243,7 @@ try {
     database.close();
   }
   const manifest = JSON.parse(await readFile(resolve("package.json"), "utf8"));
-  assert.match(manifest.dependencies["@devxcrew/platform"],
-    /^(?:\d+\.\d+\.\d+|file:vendor\/devxcrew-platform-\d+\.\d+\.\d+\.tgz)$/);
+  assert.match(manifest.dependencies["@devxcrew/platform"], /^\d+\.\d+\.\d+$/);
   console.info(
     "Compiled Cxsun identity passed: three portals, role/tenant denial, durable sessions, logout, password change, validation, and database integrity.",
   );

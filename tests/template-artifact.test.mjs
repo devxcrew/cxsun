@@ -1,12 +1,20 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, existsSync, rmSync } from "node:fs";
+import {
+  realpathSync,
+  mkdtempSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+  existsSync,
+  rmSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, resolve } from "node:path";
 import { exportTemplateArtifact } from "../tools/template-artifact.mjs";
 
 function fixture(t) {
-  const parent = mkdtempSync(resolve(tmpdir(), "foundation-export-"));
+  const parent = realpathSync.native(mkdtempSync(resolve(tmpdir(), "foundation-export-")));
   t.after(() => rmSync(parent, { recursive: true, force: true }));
   const root = resolve(parent, "source");
   mkdirSync(root);
@@ -24,6 +32,8 @@ function fixture(t) {
       devDependencies: {},
     }),
   );
+  write("index.html", '<title>Cxsun</title><script src="/src/web/main.tsx"></script>');
+  write(".npmrc", "//registry.npmjs.org/:_authToken=do-not-copy");
   write("src/config.ts", 'export const id = "cxsun";');
   write(
     ".env.example",
@@ -76,6 +86,11 @@ test("artifact export requires release pins, preserves source and generates fres
   assert.equal(manifest.name, "{{APP_ID}}");
   assert.equal(manifest.scripts["packages:local"], undefined);
   assert.equal(existsSync(resolve(options.destination, ".env")), false);
+  assert.match(readFileSync(resolve(options.destination, "index.html"), "utf8"), /{{APP_NAME}}/);
+  assert.equal(
+    readFileSync(resolve(options.destination, ".npmrc"), "utf8"),
+    "install-strategy=hoisted\nlegacy-peer-deps=true\n",
+  );
   assert.doesNotMatch(
     readFileSync(resolve(options.destination, "agent/AUDIT.md"), "utf8"),
     /OLD WORKSPACE/,
@@ -135,7 +150,10 @@ test("artifact preserves live verification and email command targets", (t) => {
     writeFileSync(resolve(options.root, "tools", file), "export {};\n");
   exportTemplateArtifact(options);
   const generated = JSON.parse(readFileSync(resolve(options.destination, "package.json"), "utf8"));
-  for (const [script, file] of [["test:live", "live-identity-check.mjs"], ["email:check", "email-check.mjs"]]) {
+  for (const [script, file] of [
+    ["test:live", "live-identity-check.mjs"],
+    ["email:check", "email-check.mjs"],
+  ]) {
     assert.equal(generated.scripts[script], manifest.scripts[script]);
     assert.equal(existsSync(resolve(options.destination, "tools", file)), true);
   }

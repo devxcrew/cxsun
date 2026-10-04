@@ -13,14 +13,12 @@ if (missing.length) throw new Error(`Missing installed packages: ${missing.join(
 if (lock.packages["node_modules/express"]) throw new Error("Express remains installed.");
 for (const name of ["kysely", "react", "@devxcrew/email", "@devxcrew/platform"])
   require.resolve(name);
-for (const [name, version] of Object.entries(manifest.dependencies)) {
-  if (!name.startsWith("@devxcrew/") || !version.startsWith("file:")) continue;
-  if (
-    !["@devxcrew/platform", "@devxcrew/email"].includes(name) ||
-    !new RegExp(`^file:vendor/devxcrew-${name.split("/")[1]}-[\\d.]+\\.tgz$`).test(version)
-  ) {
-    throw new Error(`Unapproved local shared dependency: ${name}`);
-  }
+for (const [name, version] of Object.entries({
+  ...manifest.dependencies,
+  ...manifest.devDependencies,
+})) {
+  if (/^(?:file:|link:|workspace:)/.test(version))
+    throw new Error(`Release dependencies must use the registry: ${name}`);
 }
 require.resolve("@devxcrew/platform");
 const snapshots = packages.flatMap((name) => {

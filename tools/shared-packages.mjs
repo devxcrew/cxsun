@@ -21,18 +21,27 @@ function npm(args, cwd = root, capture = false) {
 
 if (mode === "local") {
   const sharedRoot = resolve(process.env.CODEXSUN_SHARED_ROOT ?? resolve(root, "../../shared"));
-  for (const owner of ["framework", "ui", "tools"]) {
-    if (!existsSync(resolve(sharedRoot, owner, "package.json")))
+  const addonsRoot = resolve(process.env.CODEXSUN_ADDONS_ROOT ?? resolve(root, "../../addons"));
+  const sources = [
+    ["framework", resolve(sharedRoot, "framework"), "@devxcrew/core-framework"],
+    ["platform", resolve(sharedRoot, "platform"), "@devxcrew/platform"],
+    ["ui", resolve(sharedRoot, "ui"), "@devxcrew/react-ui"],
+    ["tools", resolve(sharedRoot, "tools"), "@devxcrew/tools"],
+    ["email", resolve(addonsRoot, "email"), "@devxcrew/email"],
+  ];
+  for (const [owner, directory, name] of sources) {
+    if (!existsSync(resolve(directory, "package.json")))
       throw new Error(
-        `Missing optional ${owner} source at ${sharedRoot}. Set CODEXSUN_SHARED_ROOT to your shared source directory, or use packages:npm.`,
+        `Missing optional ${owner} source at ${directory}. Use packages:npm for the released profile.`,
       );
+    const sourceManifest = JSON.parse(readFileSync(resolve(directory, "package.json"), "utf8"));
+    if (sourceManifest.name !== name) throw new Error(`Unexpected package source: ${owner}`);
   }
   const destination = resolve(root, ".cache/shared-packages");
   mkdirSync(destination, { recursive: true });
   const tarballs = [];
-  for (const owner of ["framework", "ui", "tools"]) {
-    const directory = resolve(sharedRoot, owner);
-    if (owner === "framework") npm(["run", "build"], directory);
+  for (const [owner, directory] of sources) {
+    if (["framework", "platform", "email"].includes(owner)) npm(["run", "build"], directory);
     const packed = JSON.parse(
       npm(
         ["pack", "--ignore-scripts", "--json", "--pack-destination", destination],
@@ -41,21 +50,22 @@ if (mode === "local") {
       ),
     );
     const artifact = Array.isArray(packed) ? packed[0] : Object.values(packed)[0];
-    if (!artifact?.filename) throw new Error("npm pack returned no artifact.");
+    if (!artifact?.filename || artifact.filename.includes("/") || artifact.filename.includes("\\"))
+      throw new Error("npm pack returned no safe artifact filename.");
     tarballs.push(resolve(destination, artifact.filename));
   }
-  for (const name of ["@devxcrew/platform", "@devxcrew/email"]) {
-    const dependency = manifest.dependencies[name];
-    if (dependency?.startsWith("file:vendor/")) tarballs.push(resolve(root, dependency.slice(5)));
-  }
-  npm(["install", "--no-save", "--package-lock=false", ...tarballs]);
+  npm(["install", "--no-save", "--package-lock=false", "--ignore-scripts", ...tarballs]);
   console.info(
     "Installed local package snapshots. Re-run after shared source changes. Release manifests and lockfiles are unchanged.",
   );
 } else if (mode === "npm") {
-  const packages = ["@devxcrew/core-framework", "@devxcrew/react-ui", "@devxcrew/tools"].map(
-    (name) => `${name}@${manifest.dependencies[name] ?? manifest.devDependencies[name]}`,
-  );
+  const packages = [
+    "@devxcrew/core-framework",
+    "@devxcrew/platform",
+    "@devxcrew/email",
+    "@devxcrew/react-ui",
+    "@devxcrew/tools",
+  ].map((name) => `${name}@${manifest.dependencies[name] ?? manifest.devDependencies[name]}`);
   npm(["install", "--no-save", "--package-lock=false", ...packages]);
   console.info("Restored registry packages. npm ci also restores the locked release versions.");
 } else {

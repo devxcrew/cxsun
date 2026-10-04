@@ -55,7 +55,13 @@ export function exportTemplateArtifact({
   manifest.name = "{{APP_ID}}";
   manifest.version = "0.1.0";
   delete manifest.repository;
-  for (const script of ["packages:local", "packages:npm", "packages:platform", "test:consumers"])
+  for (const script of [
+    "packages:local",
+    "packages:npm",
+    "packages:platform",
+    "test:consumers",
+    "test:consumers:registry",
+  ])
     delete manifest.scripts[script];
   lock.name = manifest.name;
   lock.version = manifest.version;
@@ -68,6 +74,7 @@ export function exportTemplateArtifact({
   const files = new Map();
   for (const directory of ["src", "public", "tests"]) collect(root, directory, files);
   for (const file of [
+    "index.html",
     "tsconfig.json",
     "tsconfig.server.json",
     "vite.config.ts",
@@ -95,6 +102,7 @@ export function exportTemplateArtifact({
   config.maintenance = { ...config.maintenance, changelogPath: "agent/CHANGELOG.md" };
   files.set(".devxcrew-tools.json", JSON.stringify(config, null, 2) + "\n");
   files.set(".env.example", safeRead(root, ".env.example"));
+  files.set(".npmrc", "install-strategy=hoisted\nlegacy-peer-deps=true\n");
   files.set("package.json", JSON.stringify(manifest, null, 2) + "\n");
   files.set("package-lock.json", JSON.stringify(lock, null, 2) + "\n");
   files.set(

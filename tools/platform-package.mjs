@@ -12,7 +12,7 @@ if (manifest.name !== "@devxcrew/platform")
   throw new Error("Expected the Platform Core package source.");
 if (!process.env.npm_execpath)
   throw new Error("Run this command through npm run packages:platform.");
-const vendor = resolve(app, "vendor");
+const vendor = resolve(app, ".cache/shared-packages");
 mkdirSync(vendor, { recursive: true });
 run(["run", "build"], source);
 const result = run(
@@ -23,9 +23,19 @@ const result = run(
 const packed = JSON.parse(result);
 const { filename } = Array.isArray(packed) ? packed[0] : packed["@devxcrew/platform"];
 if (basename(filename) !== filename) throw new Error("Unexpected package filename.");
-run(["install", `./vendor/${filename}`, "--ignore-scripts", "--no-audit"], app);
+run(
+  [
+    "install",
+    resolve(vendor, filename),
+    "--no-save",
+    "--package-lock=false",
+    "--ignore-scripts",
+    "--no-audit",
+  ],
+  app,
+);
 console.info(
-  "Platform Core development package refreshed. Normal installs use the bundled snapshot.",
+  "Platform Core development package refreshed. Release manifests and the registry lock remain unchanged.",
 );
 
 function run(args, cwd, capture = false) {

@@ -21,10 +21,10 @@ Tools may generate a new app from the released foundation. Generation is an inte
 
 ## 2. Current evidence
 
-Latest local checks: Framework seven lifecycle tests; Platform four expanded file-backed suites;
+Latest local checks: Framework seven lifecycle tests; Platform six file-backed identity tests;
 UI 61 tests and compilation of 122 public export paths; Tools 32 tests including actual interrupted generation;
 UIUX lint, two form tests and enforced production bundle budgets; Email two tests and package checks.
-Cxsun passes 26 tests, lint, typechecks, build, compiled identity and three-portal operational reads.
+Cxsun passes 41 tests, lint, typechecks, build, compiled identity and three-portal operational reads.
 Browser evidence covers user editing, custom role creation, organization creation/editing, settings,
 portal denial, logout, persisted presentation after restart and profile dialog keyboard focus.
 The complete mutation, supported viewport and screen-reader matrices remain open.

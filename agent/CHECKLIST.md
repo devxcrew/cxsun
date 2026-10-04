@@ -55,22 +55,23 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [x] 02.02.4 Register app-qualified module permission declarations through a public provider, without automatic grants.
 - [ ] **02.03 Define shared resource presentation contracts** - in-review. Owner: ui.
   - [x] 02.03.1 Generic resource views and module-owned domain boundaries implemented.
-  - [ ] 02.03.2 Accept all-export consumer compilation and interaction contracts.
+  - [x] 02.03.2a Accept compilation of all 122 public exports.
+  - [ ] 02.03.2b Accept browser interaction contracts.
 - [ ] **02.04 Map resources to frontend routes and navigation** - in-review. Owner: cxsun.
   - [x] 02.04.1 Identity routes, schemas, menus and resource specifications implemented.
   - [ ] 02.04.2 Verify full role/resource/action matrix in authenticated browser.
   - [x] 02.04.3 Compose owner frontend/backend providers through neutral route and navigation contracts.
 - [ ] **02.05 Define generation and supported runtime contracts** - in-review. Owner: tools, template.
   - [x] 02.05.1 Explicit artifact manifest, tokens and overwrite policy implemented.
-  - [ ] 02.05.2 Accept Node/npm/OS matrix and upgrade behavior.
-  - [ ] 02.05.3 Verify Linux/macOS runtime matrix in CI.
+  - [x] 02.05.2 Accept Node/npm/OS matrix and upgrade behavior.
+  - [x] 02.05.3 Verify Linux/macOS runtime matrix in CI.
 - [ ] **02.06 Define focused guidance discovery contracts** - in-review. Owner: governance.
   - [x] 02.06.1 Owner/topic/version discovery and failure tests pass.
   - [x] 02.06.2 Verify authenticated freshness diagnostic reports actual deployment drift.
   - [ ] 02.06.3 Verify deployed focused discovery. Production deployment deferred by user.
 - [ ] **02.07 Define public delivery and failure contracts** - in-review. Owner: email.
   - [x] 02.07.1 TLS transport, validation, timeouts and safe errors implemented.
-  - [ ] 02.07.2 Accept timeout, retry and token usability policy with Platform.
+  - [x] 02.07.2 Accept timeout, retry and token usability policy with Platform.
 - [ ] **02.08 Define future integration boundaries** - planned. Owner: integrations.
   - [x] 02.08.1 Future adapters excluded from identity implementation.
   - [ ] 02.08.2 Document public adapter contracts when integration scope is approved.
@@ -86,7 +87,7 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [ ] 03.01.4 Production proxy/security and failure operations - deferred by user.
 - [ ] **03.02 Refine cancellation and concurrency primitives** - in-review. Owner: framework.
   - [x] 03.02.1 Request cancellation and bounded lifecycle behavior tested.
-  - [ ] 03.02.2 Accept consumer transaction, idempotency and cancellation responsibilities.
+  - [x] 03.02.2 Accept consumer transaction, idempotency and cancellation responsibilities.
 - [x] **03.03 Provide transport for accepted asynchronous needs** - accepted for current local scope. Owner: framework.
   - [x] 03.03.1 Synchronous ownership retained where no asynchronous consumer is required.
   - [x] 03.03.2 No current consumer requires asynchronous transport. Explicit not-required decision recorded.
@@ -159,17 +160,19 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [ ] 06.01.4 Independent registry consumer - coordinated release gate.
   - [ ] 06.01.5 Production performance and proxy operations - deferred by user.
 - [ ] **06.02 Verify persistence, mutations and security** - in-review. Owner: platform.
-  - [x] 06.02.1 Four expanded file-backed suites cover restart, scope and recovery regressions.
+  - [x] 06.02.1 Six file-backed identity tests cover restart, scope and recovery regressions.
   - [x] 06.02.2 Concurrent invitation/recovery single-claim and expired-token regressions pass.
   - [ ] 06.02.7 Final production operational acceptance - deferred by user.
 - [ ] **06.03 Verify UI consumers and accessibility** - in-review. Owner: ui.
   - [x] 06.03.1 UI release checks and Cxsun accessibility markup regression pass.
-  - [ ] 06.03.2 Add all-export/component coverage and complete browser accessibility matrix.
+  - [x] 06.03.2a Verify all public exports and local component coverage.
+  - [ ] 06.03.2b Complete interactive browser accessibility matrix.
 - [ ] **06.04 Verify gallery interactions and performance** - in-review. Owner: uiux.
   - [x] 06.04.1 Typecheck and production build pass.
-  - [ ] 06.04.2 Accept gallery interaction, lint/behavior and entry/deferred budgets.
+  - [x] 06.04.2a Accept gallery lint, form tests and JavaScript/CSS budgets.
+  - [ ] 06.04.2b Accept interactive gallery behavior and accessibility.
 - [ ] **06.05 Verify final live application workflows** - in-review. Owner: cxsun.
-  - [x] 06.05.1 39 tests, production checks and live reads across three portals pass.
+  - [x] 06.05.1 41 tests, production checks and live reads across three portals pass.
   - [x] 06.05.2a Browser verifies user edit, role create, organization create/edit, settings and portal denial.
   - [x] 06.05.2b Settings persist after server restart; footer and application name reflect saved presentation.
   - [ ] 06.05.2c Complete remaining authorized mutation and accessibility matrix.
@@ -195,7 +198,8 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
 - [ ] **06.11 Audit artifacts and supply chain** - in-review. Owner: coordination.
   - [x] 06.11.1 Dependency boundary checks and reviewed artifact allowlists pass.
   - [x] 06.11.2a Platform/Email release scripts and package contents verified.
-  - [ ] 06.11.2b Resolve distribution licensing and verify coordinated release provenance.
+  - [x] 06.11.2b Resolve MIT licensing and record actual archive checksums.
+  - [x] 06.11.2c Verify all five registry releases against approved archive checksums.
 
 ## Phase 07 - Release and app generation
 
@@ -208,7 +212,7 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [ ] 07.02.3 Verify released package upgrades with two independent generated apps.
 - [ ] **07.03 Prepare and publish compatible packages** - planned. Owner: coordination.
   - [x] 07.03.1 Required package release boundaries and UI breaking change identified.
-  - [ ] 07.03.2 Prepare exact versions and artifacts, obtain applicable approval and publish, then verify consumer lockfile.
+  - [x] 07.03.2 Prepare exact versions and artifacts, obtain applicable approval and publish, then verify consumer lockfile.
 - [ ] **07.04 Release live MCP contracts and upgrade guidance** - planned. Owner: coordination.
   - [x] 07.04.1 Source guidance and discovery changes prepared.
   - [ ] 07.04.2 Deploy authorized compatible snapshot and verify exact released versions live.

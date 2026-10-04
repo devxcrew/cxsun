@@ -9,6 +9,7 @@
 - Fixed: package checks now require installed manifests and report first-party versions that differ from the lockfile.
 - Corrected: README package requirements and the historical scope of STANDALONE.md.
 - Passed: full local verification with 41 tests, lint, typechecks, build, production smoke, and compiled identity checks.
+- Passed: the interrupted final rerun completed in the background. Its log confirms 41 passed tests, zero failures, build, and identity smoke completion.
 - Partial: installed Framework 0.1.8, UI 0.2.0, and Tools 0.1.8 differ from locked registry versions 0.1.7.
 - Verified: npm registry metadata still reports 0.1.7 for these three packages during this review.
 - Untested: complete authenticated browser mutation, screen-reader, and viewport acceptance during this correction.
@@ -494,3 +495,12 @@ This delivery covers GitHub source. Npm publication, production deployment and r
 Local npm run verify passed 41 tests, lint, types, build and compiled identity smoke after resource-location repairs. npm run packages:check found all 30 direct installations and reports local Framework 0.1.8, UI 0.2.0 and Tools 0.1.8 against registry 0.1.7 lock entries. This is local development acceptance, not clean registry acceptance.
 
 GitHub run 37200330583 failed at the Tools 0.1.7 dependency check, which rejects the public Platform schema type import in identity.permissions.tsx. Publication and consumer dependency updates remain open. CI stays isolated. No npm publication, SMTP acceptance or production deployment was performed.
+
+## Completion wave - 2026-10-04
+
+Full verify passes 41 tests, lint, types, build, and expanded compiled identity acceptance. Resource checks cover list queries, create/update/delete, stale writes, safe field errors, role and tenant denial, settings persistence, and read-only audit routes. Live SQLite checks pass all three portals. Two newly generated local artifact consumers pass independent installation, full verify, separate SQLite databases, and cross-app session denial. Five MIT archives have SHA-512 receipts in RELEASE-PACKAGES.json. Publication was approved, but npm authentication returned E401. Browser acceptance remains blocked by browser tool policy; no new interactive browser result is claimed.
+
+
+## Registry transition - 2026-10-04
+
+Published MIT releases are Framework 0.1.8, Platform 0.1.2, Tools 0.1.8, UI 0.2.0 and Email 0.1.0. npm authentication and per-package browser approvals completed. Platform 0.1.1 returned E409 after an earlier unpublish; the user separately approved 0.1.2. All registry SHA-512 values match the approved archives. The app now pins all 30 direct dependencies and its lock contains only registry URLs and SHA-512 entries. npm ci succeeds with zero reported vulnerabilities. Full verify passes 41 tests and compiled identity resource acceptance. Registry export includes index.html and safe npm configuration; fixtures verify that an auth token in source npm configuration is not copied. Browser access remains blocked.
