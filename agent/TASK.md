@@ -1,5 +1,18 @@
 # Current task
 
+## Local security acceptance phase - 2026-10-04
+
+- [x] Retrieve authenticated live MCP guidance and review owner records.
+- [x] Implement module-owned response privacy, loopback cookie and login-limit acceptance checks.
+- [x] Verify the account login limit persists after compiled server restart with file-backed SQLite.
+- [x] 06.08.2a Record local threats, actual retention and measured operating limits in LOCAL-SECURITY.md.
+- [x] Run full verification: 47 tests, lint, types, build and compiled identity/security checks.
+- [ ] Verify the final phase source on Windows, Linux and macOS CI.
+- [ ] 06.08.2b Complete browser acceptance when browser access is permitted.
+- [ ] 06.08.2c Production privacy, retention and operating acceptance remains deferred.
+
+No operational data deletion or retention job was added. Complete foundation acceptance remains pending.
+
 ## Next local workflow phase - 2026-10-04
 
 - [x] Retrieve authenticated live MCP guidance. The deployment snapshot is still stale.
@@ -15,7 +28,7 @@ See WORKFLOW-ACCEPTANCE.md for scope and evidence boundaries.
 
 ## Completion wave - 2026-10-04
 
-Cxsun 0.2.0 now consumes five exact published MIT packages. Full verification passes 43 tests, compiled identity resources and three-portal live SQLite checks. Two independent registry-generated apps and three-OS Cxsun CI passed. Browser acceptance is blocked by browser tool policy. Mail and production remain user-deferred.
+Cxsun 0.2.0 now consumes five exact published MIT packages. Full verification passes 47 tests, compiled identity resources and three-portal live SQLite checks. Two independent registry-generated apps and three-OS Cxsun CI passed. Browser acceptance is blocked by browser tool policy. Mail and production remain user-deferred.
 
 - [x] Reconcile current status with the GitHub source release and latest owner audit.
 - [x] Retrieve fresh authenticated cloud governance before this wave.
@@ -111,7 +124,7 @@ Updated: 2026-10-04. Checked steps have recorded evidence. External acceptance s
 ### Phase 06 - Verification and operations
 
 - [ ] **06.05 Verify final live application workflows** - in-review. Owner: cxsun.
-  - [x] 06.05.1 43 tests, production checks and live reads across three portals pass.
+  - [x] 06.05.1 47 tests, production checks and live reads across three portals pass.
   - [x] 06.05.2a Browser verifies user edit, role create, organization create/edit, settings and portal denial.
   - [x] 06.05.2b Settings persist after server restart; footer and application name reflect saved presentation.
   - [ ] 06.05.2c Complete remaining authorized mutation and accessibility matrix.

@@ -176,7 +176,7 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [x] 06.04.2c Verify Windows, Linux and macOS source-gallery CI.
   - [x] 06.04.2d Verify published UI consumption through isolated registry installation and full gallery verification.
 - [ ] **06.05 Verify final live application workflows** - in-review. Owner: cxsun.
-  - [x] 06.05.1 43 tests, production checks and live reads across three portals pass.
+  - [x] 06.05.1 47 tests, production checks and live reads across three portals pass.
   - [x] 06.05.2a Browser verifies user edit, role create, organization create/edit, settings and portal denial.
   - [x] 06.05.2b Settings persist after server restart; footer and application name reflect saved presentation.
   - [ ] 06.05.2c Complete remaining authorized mutation and accessibility matrix.
@@ -192,7 +192,9 @@ Evidence: each owner's agent/AUDIT.md. Full dependencies and acceptance: the mas
   - [x] 06.07.4 Select distribution license and approve initial package publication.
 - [ ] **06.08 Complete security and performance acceptance** - in-review. Owner: coordination.
   - [x] 06.08.1 Independent review corrections and SQLite multi-writer test pass.
-  - [ ] 06.08.2 Accept threat, privacy/retention, accessibility and performance matrices.
+  - [x] 06.08.2a Verify local threat controls and document actual retention and measured operating limits.
+  - [ ] 06.08.2b Complete browser accessibility and interaction acceptance.
+  - [ ] 06.08.2c Accept production retention/account policies and workload capacity. Deferred by user.
 - [x] **06.09 Verify clean setup and remote CI** - accepted. Owner: coordination.
   - [x] 06.09.1 Local integration passes with explicit development artifacts.
   - [x] 06.09.2 Verify isolated npm ci, setup, live SQLite and remote CI from exact release.

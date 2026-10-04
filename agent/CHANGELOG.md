@@ -10,6 +10,13 @@ Changelog label: v 0.2.0
 
 ## v-0.2.0
 
+### Local security acceptance - 2026-10-04
+
+- Add module-owned response privacy and portal-cookie acceptance checks.
+- Verify persistent login limits through a compiled server restart and file-backed SQLite.
+- Add four privacy/cookie verification regressions. Full verification passes 47 tests.
+- Record actual retention behavior, local threat evidence and production policy limits.
+
 ### Local workflow review - 2026-10-04
 
 - Return safe feedback for unsupported resource create/edit links and preserve list query state.

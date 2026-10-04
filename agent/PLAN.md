@@ -24,7 +24,7 @@ Tools may generate a new app from the released foundation. Generation is an inte
 Latest local checks: Framework seven lifecycle tests; Platform six file-backed identity tests;
 UI 61 tests and compilation of 122 public export paths; Tools 32 tests including actual interrupted generation;
 UIUX lint, two form tests and enforced production bundle budgets; Email two tests and package checks.
-Cxsun passes 43 tests, lint, typechecks, build, compiled identity and three-portal operational reads.
+Cxsun passes 47 tests, lint, typechecks, build, compiled identity and three-portal operational reads.
 Browser evidence covers user editing, custom role creation, organization creation/editing, settings,
 portal denial, logout, persisted presentation after restart and profile dialog keyboard focus.
 The complete mutation, supported viewport and screen-reader matrices remain open.
@@ -37,7 +37,8 @@ Source and task changes are committed and pushed. The latest verified source pas
 Optional local package snapshots remain development tools. Normal app installation uses the exact registry graph.
 Authenticated governance still serves the older preview snapshot. Deployment remains deferred.
 Browser, keyboard, viewport and screen-reader acceptance remain incomplete.
-See WORKFLOW-ACCEPTANCE.md for the next local review and the remaining browser checks.
+See WORKFLOW-ACCEPTANCE.md for remaining browser checks.
+LOCAL-SECURITY.md records tested local threat controls, actual retention and production policy gaps.
 
 ### Review priorities and dependencies
 

@@ -538,3 +538,19 @@ The other six application source heads retain their recorded successful CI. Sepa
 - SMTP, production and deployed governance acceptance remain user-deferred. No business module was added.
 
 Source commit 0c9fe42 passed Windows, Linux and macOS CI in run 37208693367. Each job passed clean registry installation, 43-test verification, production/compiled identity checks and package boundaries. Browser gates remain unchanged.
+
+## Local security acceptance - 2026-10-04
+
+Authenticated npm run mcp:connect passed. The deployed snapshot still reports 2026-10-03 and older Cxsun metadata.
+The new identity-owned acceptance helper checks no-store/nosniff headers, known credential values, password hashes and nested internal fields.
+Loopback sign-in cookies pass app/portal naming, opaque token, HttpOnly, SameSite=Strict, root path and positive lifetime checks.
+Ten failed attempts for a disposable unknown account return the same safe 401. The next returns 429 without a cookie.
+Restarting the compiled server preserves the rate limit in the same file-backed SQLite fixture.
+Four helper regressions test safe field errors, response reuse, invalid cache/header policy, credential/internal field rejection and cookie safeguards.
+Full npm run verify passes 47 tests, lint, types, build, frontend production checks and compiled identity/privacy/rate-limit acceptance.
+LOCAL-SECURITY.md describes the actual data inventory and retention. Expiry does not imply physical deletion.
+No operational rows were removed. No automatic retention, encryption, MFA, SMTP or production capability is claimed.
+Browser accessibility/interaction remains blocked by the prior tool policy rejection. SMTP, production and live governance deployment stay deferred.
+The master 06.08.2 entry now separates verified local evidence from pending browser and production acceptance.
+
+Final local checks also passed all 30 package boundaries, configured SQLite connection and live reads for user, admin and super-admin. Configured-secret/private-key scans passed across all 14 release candidates. Credential scanning covers text responses as well as JSON.

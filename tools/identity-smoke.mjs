@@ -8,6 +8,11 @@ import { join, resolve } from "node:path";
 import { randomBytes } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import { verifyIdentityResources } from "../src/api/identity/identity.acceptance.mjs";
+import {
+  verifyIdentityResponsePrivacy,
+  verifyIdentitySessionCookie,
+  verifyIdentityLoginLimit,
+} from "../src/api/identity/identity.security-acceptance.mjs";
 
 const directory = await mkdtemp(join(tmpdir(), "cxsun-identity-"));
 const probe = createServer();
@@ -17,6 +22,7 @@ const port = probe.address().port;
 await new Promise((resolveClose) => probe.close(resolveClose));
 const base = `http://127.0.0.1:${port}`;
 const password = randomBytes(24).toString("base64url");
+const privateCredentials = new Set([password]);
 const environment = {
   ...process.env,
   APP_NAME: "Cxsun",
@@ -108,6 +114,7 @@ try {
       password,
     });
     assert.equal(response.status, 201);
+    verifyIdentitySessionCookie(response.headers.get("set-cookie"), portal);
     cookies[portal] = response.headers.get("set-cookie").split(";")[0];
     const principal = (await response.json()).data;
     assert.equal(principal.portal, portal);
@@ -185,6 +192,7 @@ try {
     200,
   );
   const changedPassword = randomBytes(24).toString("base64url");
+  privateCredentials.add(changedPassword);
   assert.equal(
     (
       await request(
@@ -220,6 +228,13 @@ try {
     201,
   );
   assert.equal((await request("/api/v1/identity/unknown/sessions/current")).status, 404);
+  const limitedLogin = await verifyIdentityLoginLimit(request, password);
+  await stop();
+  await start();
+  assert.equal((await request(limitedLogin.path, "POST", limitedLogin.body)).status, 429);
+  console.info(
+    "Compiled identity privacy, scoped cookie flags and restart-persistent login limits passed.",
+  );
   await stop();
   const database = new DatabaseSync(environment.DB_SQLITE_PATH, { readOnly: true });
   try {
@@ -281,11 +296,18 @@ async function stop() {
   current.kill();
   await closed;
 }
-function request(path, method = "GET", body, cookie = "", origin = base) {
-  return fetch(base + path, {
+async function request(path, method = "GET", body, cookie = "", origin = base) {
+  const response = await fetch(base + path, {
     method,
     redirect: "manual",
     headers: { Origin: origin, Cookie: cookie, "Content-Type": "application/json" },
     body: body ? JSON.stringify(body) : undefined,
   });
+  if (/^\/api\/v1\/identity\/(user|admin|super-admin)\//.test(path))
+    await verifyIdentityResponsePrivacy(response, [
+      ...privateCredentials,
+      ...Object.values(cookies).map((value) => value.split("=")[1]),
+      response.headers.get("set-cookie")?.split(";")[0].split("=")[1],
+    ]);
+  return response;
 }

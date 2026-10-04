@@ -9,6 +9,7 @@ Authenticated MCP retrieval passed. The server still reports the 2026-10-03 depl
 Registry installation, generated consumers and candidate upgrades passed in the prior release wave.
 This phase reviews the Cxsun source and corrects confirmed workflow defects.
 It does not establish new browser or screen-reader evidence.
+LOCAL-SECURITY.md records the compiled privacy/cookie/throttle checks and actual retention limits.
 
 ## Owned destinations
 

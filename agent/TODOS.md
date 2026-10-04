@@ -7,7 +7,7 @@ Updated: 2026-10-04. Use CHECKLIST.md for task IDs and AUDIT.md for evidence.
 1. Audit identity navigation, supported resource actions, page headings and contextual copy.
 2. Correct confirmed source defects and run affected verification.
 3. Complete the authenticated mutation, keyboard, viewport and accessibility browser matrix when browser access is permitted.
-4. Review local security and retention requirements before accepting task 06.08.2.
+4. Use LOCAL-SECURITY.md for verified local controls. Browser and production policy acceptance remain pending under 06.08.2.
 5. Accept the local foundation only after all required local gates pass.
 
 The browser tool rejected access under its security policy. Browser acceptance remains blocked.
