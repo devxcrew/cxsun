@@ -48,7 +48,7 @@ Set APP_MODE=production in the server environment before production startup.
 
 ## Standalone commands
 
-Runtime and maintenance use installed npm packages. No sibling checkout is required.
+Runtime and maintenance use installed packages. The current development profile needs shared source checkouts to refresh snapshots.
 The current unpublished integration wave requires local package snapshots for its new contracts.
 Independent clean-install acceptance remains open until compatible packages are released.
 Run `npm run setup` after setting the cloud secret to initialize configuration and verify MCP.
@@ -61,7 +61,7 @@ Desktop, alternate databases, and queue adapters require an explicit capability 
 
 The lockfile uses public @devxcrew/core-framework and @devxcrew/react-ui registry versions.
 Those versions do not contain this unpublished wave's new contracts. Current verification uses local source snapshots.
-Platform Core uses the bundled development package at `vendor/devxcrew-platform-0.1.0.tgz`.
+Platform Core uses the bundled development package specified in package.json.
 Email uses `vendor/devxcrew-email-0.1.0.tgz` for the public SMTP delivery provider.
 The package is installed as `@devxcrew/platform`. It is not published to npm yet.
 The bundled artifact keeps normal installs independent of `shared/platform`.
@@ -72,6 +72,8 @@ The bundled artifact keeps normal installs independent of `shared/platform`.
 - `npm run packages:platform`: build and refresh the bundled Platform Core package from its source owner.
 
 The optional source refresh commands require their matching shared package repositories.
+`npm run packages:check` reports installed versions that differ from the lockfile.
+Passing this check does not prove registry installation or release compatibility.
 Set CODEXSUN_SHARED_ROOT when these repositories are outside the default shared directory.
 UIUX is a separate gallery for shared UI source development.
 

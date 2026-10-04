@@ -1,5 +1,15 @@
 # Current task
 
+## Cxsun review corrections - 2026-10-04
+
+Resource links now use a module-owned parser before rendering or requesting records.
+Malformed IDs and unsupported route suffixes show safe feedback and preserve the list query.
+The default sessions page remains available when the account permission is absent.
+Package checks verify installed manifests and report shared version differences from the lockfile.
+Standalone records distinguish the historical preview release from the current development profile.
+Registry acceptance, full browser accessibility, live governance freshness, and deferred production gates remain open.
+See the current review entry in AUDIT.md for verification results.
+
 ## Final integrated local command evidence
 
 Cxsun verify passes 39 tests, lint, frontend/backend types, build and production frontend/compiled identity checks.

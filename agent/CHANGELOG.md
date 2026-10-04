@@ -10,6 +10,14 @@ Changelog label: v 0.2.0
 
 ## v-0.2.0
 
+### Review corrections - 2026-10-04
+
+- Validate resource links before rendering and preserve filtered list return links.
+- Add path and malformed-link rendering regressions.
+- Report installed shared-package versions that differ from the lockfile.
+- Correct standalone development requirements and historical verification scope.
+- Verify 41 tests, lint, types, build, production smoke, and persisted identity checks.
+
 ### [v 0.2.0] 2026-10-04 4:59 pm - Deliver reusable Cxsun foundation
 
 #### Database Changes

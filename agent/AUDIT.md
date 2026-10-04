@@ -1,5 +1,20 @@
 # Current local foundation audit - 2026-10-04
 
+## Cxsun review corrections - 2026-10-04
+
+- Passed: fresh authenticated cloud MCP retrieval before edits.
+- Fixed: malformed encoded IDs previously threw URIError during resource rendering.
+- Refactored: identity.resource-location.ts owns resource path parsing. Invalid paths never render forms or request records.
+- Passed: regression tests cover list, create, detail, edit, default desk, invalid encodings, separators, controls, and unsupported suffixes.
+- Fixed: package checks now require installed manifests and report first-party versions that differ from the lockfile.
+- Corrected: README package requirements and the historical scope of STANDALONE.md.
+- Passed: full local verification with 41 tests, lint, typechecks, build, production smoke, and compiled identity checks.
+- Partial: installed Framework 0.1.8, UI 0.2.0, and Tools 0.1.8 differ from locked registry versions 0.1.7.
+- Verified: npm registry metadata still reports 0.1.7 for these three packages during this review.
+- Untested: complete authenticated browser mutation, screen-reader, and viewport acceptance during this correction.
+- Open: registry-only installation and deployed governance acceptance. Production and real delivery remain deferred.
+- Scope: local corrections only. No publication, cloud deployment, commit, or push was performed by this review.
+
 ## Scope and decisions
 
 The user selected local foundation first. Production deployment is deferred.
@@ -473,3 +488,9 @@ User authorization: update versions and changelogs, then commit and push all wor
 Connect persisted SQLite, three identity portals, module-owned resource workflows, public provider composition, permission extensions and template rehearsal.
 Authenticated MCP connection passed for this owner before release work.
 This delivery covers GitHub source. Npm publication, production deployment and real email acceptance remain separate gates.
+
+## Final GitHub release audit - 2026-10-04
+
+Local npm run verify passed 41 tests, lint, types, build and compiled identity smoke after resource-location repairs. npm run packages:check found all 30 direct installations and reports local Framework 0.1.8, UI 0.2.0 and Tools 0.1.8 against registry 0.1.7 lock entries. This is local development acceptance, not clean registry acceptance.
+
+GitHub run 37200330583 failed at the Tools 0.1.7 dependency check, which rejects the public Platform schema type import in identity.permissions.tsx. Publication and consumer dependency updates remain open. CI stays isolated. No npm publication, SMTP acceptance or production deployment was performed.

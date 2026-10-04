@@ -1,5 +1,8 @@
 # Standalone development verification
 
+This report records the 2026-10-03 preview release. It does not verify the current authenticated foundation.
+Current package limits are in README.md and RELEASE-CANDIDATE.md. Registry-only installation remains unverified.
+
 Date: 2026-10-03
 
 ## Result

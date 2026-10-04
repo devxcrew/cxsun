@@ -10,7 +10,7 @@ This record covers version metadata, changelogs, local verification, commits and
 | --- | --- | --- | --- |
 | [projects/billing](https://github.com/devxcrew/billing) | 0.1.2 | main | 3 tests, lint, types, build and production smoke |
 | [projects/crm](https://github.com/devxcrew/crm) | 0.1.2 | main | 3 tests, lint, types, build and production smoke |
-| [projects/cxsun](https://github.com/devxcrew/cxsun) | 0.2.0 | main | 39 checks, lint, types, build, identity and production smoke; 30 direct foundation packages |
+| [projects/cxsun](https://github.com/devxcrew/cxsun) | 0.2.0 | main | 41 tests, lint, types, build, identity and production smoke; 30 installed direct packages with snapshot differences reported |
 | [projects/ecommerce](https://github.com/devxcrew/ecommerce) | 0.1.2 | main | 3 tests, lint, types, build and production smoke |
 | [projects/intergrid](https://github.com/devxcrew/intergrid) | 0.1.2 | agent5/shell | 10 tests, lint, types, build and production smoke |
 | [projects/qcafe](https://github.com/devxcrew/qcafe) | 0.1.2 | main | 3 tests, lint, types, build and production smoke |
@@ -33,3 +33,9 @@ This record covers version metadata, changelogs, local verification, commits and
 - Real SMTP acceptance and production deployment remain deferred by the user.
 - See each owner's agent/AUDIT.md for its verification evidence and agent/CHANGELOG.md for release changes.
 
+## GitHub CI results
+
+- Billing, CRM, Ecommerce, Qcafe, Intergrid, Platform and Tools passed their release runs.
+- Governance's first run failed formatting. The eight files were formatted; local verification and the replacement GitHub CI run 37200459817 passed on Ubuntu and Windows.
+- Cxsun run [37200330583](https://github.com/devxcrew/cxsun/actions/runs/37200330583) failed at the published Tools 0.1.7 dependency check: it rejects the public Platform schema type import in identity.permissions.tsx. Current local verification uses Tools 0.1.8, Framework 0.1.8 and UI 0.2.0. The lockfile still uses registry 0.1.7 for those packages. Registry acceptance is blocked until publication and consumer updates.
+- Framework, UI, UIUX, Email and Veyrezio have no GitHub Actions run for this delivery. Their local verification passed.
