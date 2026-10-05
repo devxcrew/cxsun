@@ -10,6 +10,16 @@ Changelog label: v 0.2.3
 
 ## v-0.2.3
 
+### [v 0.2.3] 2026-10-05 12:46 pm - Verify canonical application foundation
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Align published Framework 0.1.11 and canonical identity files; verify 50 tests and five-app source parity.
+
 ### [v 0.2.3] 2026-10-05 9:30 am - Record consumer upgrade findings
 
 #### Database Changes
@@ -477,3 +487,18 @@ Phase 1 and 2 review: fix generated-consumer port isolation and public package-r
 Align template dependency metadata with the current lockfile. Keep unrelated consumer code and SQLite data intact.
 Root verification passed 48 tests. Browser acceptance has partial evidence in AUDIT.md.
 Both fresh registry consumers passed. The older-consumer upgrade is blocked by a stalled fixture install. No release action ran.
+
+
+## Unreleased alignment - 2026-10-05
+
+Full verification (48 tests), registry and fresh source consumers passed. Existing database upgrade and browser acceptance remain partial.
+
+Authenticated live MCP verification passed. See the [alignment audit](D:/codexsun/projects/cxsun/agent/SHARED-ALIGNMENT.md). Version numbers remain unchanged. No release delivery was performed by this audit.
+
+## Cxsun foundation parity - 2026-10-05
+
+Current source and exact dependencies match Cxsun after app-name and port substitutions.
+This app keeps its own ID, release version, database, Git repository and history.
+Verification passed: 50 tests, lint, types, build, compiled identity, package boundaries and authenticated live MCP.
+
+See [foundation parity](D:/codexsun/projects/cxsun/agent/FOUNDATION-PARITY.md) for evidence and remaining acceptance work. Live inventory needs refresh after this change. No commit, push, publication or deployment was performed.

@@ -1,10 +1,10 @@
 {
-  "date": "2026-10-05T03:45:02.116Z",
+  "date": "2026-10-05T04:14:44.785Z",
   "status": "registry-consumers-passed",
   "results": [
     {
       "id": "foundation-proof-a",
-      "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-48f416c5-207e-4f7e-836f-4e1d4fabed7c\\foundation-proof-a",
+      "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-ffb67ee1-eb28-47c3-ad9e-bad3397975cc\\foundation-proof-a",
       "verify": "passed",
       "packageBoundaries": "passed",
       "liveSqlite": "passed",
@@ -12,7 +12,7 @@
     },
     {
       "id": "foundation-proof-b",
-      "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-48f416c5-207e-4f7e-836f-4e1d4fabed7c\\foundation-proof-b",
+      "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-ffb67ee1-eb28-47c3-ad9e-bad3397975cc\\foundation-proof-b",
       "verify": "passed",
       "packageBoundaries": "passed",
       "liveSqlite": "passed",
@@ -21,6 +21,6 @@
   ],
   "crossAppSessionDenial": "passed",
   "limitation": "Local registry consumers verified. Browser, SMTP and production acceptance remain separate.",
-  "sourceVersion": "0.2.2",
+  "sourceVersion": "0.2.3",
   "sourceScope": "Working tree, not an accepted release commit"
 }

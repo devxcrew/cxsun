@@ -1,0 +1,145 @@
+{
+  "date": "2026-10-05",
+  "status": "local-foundation-parity-verified",
+  "reference": "projects/cxsun",
+  "applications": [
+    {
+      "app": "cxsun",
+      "version": "0.2.3",
+      "port": 5173,
+      "databasePath": "storage/cxsun.sqlite",
+      "normalizedSourceParity": "passed",
+      "dependencyParity": "passed",
+      "tests": 50,
+      "verify": "passed",
+      "packageBoundaries": "passed",
+      "mcpConnection": "passed",
+      "liveInventory": "current-before-this-canonical-refactor",
+      "databaseSetup": "existing-database-preserved",
+      "evidence": [
+        ".cache/foundation-final-verify.log",
+        ".cache/foundation-final-packages.log",
+        ".cache/foundation-final-mcp.log"
+      ]
+    },
+    {
+      "app": "billing",
+      "version": "0.1.4",
+      "port": 5174,
+      "databasePath": "storage/billing.sqlite",
+      "normalizedSourceParity": "passed",
+      "dependencyParity": "passed",
+      "tests": 46,
+      "verify": "passed",
+      "packageBoundaries": "passed",
+      "mcpConnection": "passed",
+      "liveInventory": "stale-for-migrated-apps",
+      "databaseSetup": "passed",
+      "evidence": [
+        ".cache/foundation-final-verify.log",
+        ".cache/foundation-final-packages.log",
+        ".cache/foundation-final-mcp.log"
+      ]
+    },
+    {
+      "app": "crm",
+      "version": "0.1.4",
+      "port": 5175,
+      "databasePath": "storage/crm.sqlite",
+      "normalizedSourceParity": "passed",
+      "dependencyParity": "passed",
+      "tests": 46,
+      "verify": "passed",
+      "packageBoundaries": "passed",
+      "mcpConnection": "passed",
+      "liveInventory": "stale-for-migrated-apps",
+      "databaseSetup": "passed",
+      "evidence": [
+        ".cache/foundation-final-verify.log",
+        ".cache/foundation-final-packages.log",
+        ".cache/foundation-final-mcp.log"
+      ]
+    },
+    {
+      "app": "qcafe",
+      "version": "0.1.4",
+      "port": 5176,
+      "databasePath": "storage/qcafe.sqlite",
+      "normalizedSourceParity": "passed",
+      "dependencyParity": "passed",
+      "tests": 46,
+      "verify": "passed",
+      "packageBoundaries": "passed",
+      "mcpConnection": "passed",
+      "liveInventory": "stale-for-migrated-apps",
+      "databaseSetup": "passed",
+      "evidence": [
+        ".cache/foundation-final-verify.log",
+        ".cache/foundation-final-packages.log",
+        ".cache/foundation-final-mcp.log"
+      ]
+    },
+    {
+      "app": "ecommerce",
+      "version": "0.1.4",
+      "port": 5177,
+      "databasePath": "storage/ecommerce.sqlite",
+      "normalizedSourceParity": "passed",
+      "dependencyParity": "passed",
+      "tests": 46,
+      "verify": "passed",
+      "packageBoundaries": "passed",
+      "mcpConnection": "passed",
+      "liveInventory": "stale-for-migrated-apps",
+      "databaseSetup": "passed",
+      "evidence": [
+        ".cache/foundation-final-verify.log",
+        ".cache/foundation-final-packages.log",
+        ".cache/foundation-final-mcp.log"
+      ]
+    }
+  ],
+  "dependencies": {
+    "@devxcrew/email": "0.1.0",
+    "@devxcrew/framework": "0.1.11",
+    "@devxcrew/platform": "0.1.2",
+    "@devxcrew/ui": "0.2.0",
+    "@fontsource-variable/geist": "5.3.0",
+    "@tanstack/react-form": "1.33.5",
+    "@tanstack/react-router": "1.170.41",
+    "kysely": "0.29.6",
+    "lucide-react": "1.50.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@devxcrew/tools": "0.1.8",
+    "@eslint/js": "10.0.1",
+    "@tailwindcss/vite": "4.3.3",
+    "@types/node": "24.19.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@typescript-eslint/eslint-plugin": "8.71.0",
+    "@typescript-eslint/parser": "8.71.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "concurrently": "9.2.4",
+    "deepmerge-ts": "8.0.2",
+    "eslint": "10.11.0",
+    "prettier": "3.9.9",
+    "tailwindcss": "4.3.3",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "typescript-eslint-compiler": "npm:typescript@6.0.3",
+    "vite": "8.3.2"
+  },
+  "sourceFilesCompared": 62,
+  "testTotal": 234,
+  "limitations": [
+    "Live governance deployment snapshot must refresh app inventories.",
+    "Full browser acceptance was not rerun.",
+    "Existing populated database upgrade acceptance remains open.",
+    "Real SMTP and production operational acceptance remain deferred."
+  ],
+  "releaseDelivery": false
+}

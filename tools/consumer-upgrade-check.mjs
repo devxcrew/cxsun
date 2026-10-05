@@ -63,7 +63,7 @@ for (const target of targets) {
   writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
   writeFileSync(resolve(target, "package-lock.json"), JSON.stringify(lock, null, 2) + "\n");
   for (const args of [
-    ["ci", "--ignore-scripts", "--no-audit", "--no-fund"],
+    ["ci", "--ignore-scripts", "--prefer-offline", "--no-audit", "--no-fund"],
     ["run", "verify"],
     ["run", "packages:check"],
     ["run", "db:check"],

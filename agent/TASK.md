@@ -33,8 +33,8 @@ expiry redirects, mobile navigation, and focus return passed in an isolated fixt
 
 ## 3. Live governance
 
-- [ ] Retrieve authenticated live guidance and verify current repository and package metadata.
-- [ ] Confirm the deployed guidance and discovery tools match the accepted foundation.
+- [x] Retrieve authenticated live guidance and verify metadata; see SHARED-ALIGNMENT.md.
+- [x] Confirm live guidance and discovery match the foundation; see SHARED-ALIGNMENT.md.
 
 ## 4. Release acceptance
 
@@ -58,3 +58,17 @@ Do not mark a task complete from older release evidence. Link new verification e
 
 Source version: 0.2.2. Published package archives retain their existing versions.
 The baseline is recorded in projects/cxsun/agent/DEPENDENCY-BASELINE.json.
+
+## Shared alignment audit - 2026-10-05
+
+Full verification (48 tests), registry and fresh source consumers passed. Existing database upgrade and browser acceptance remain partial.
+
+Authenticated live MCP verification passed. See the consolidated [alignment audit](D:/codexsun/projects/cxsun/agent/SHARED-ALIGNMENT.md) for package versions, evidence and remaining gaps. No release delivery was performed by this audit.
+
+## Cxsun foundation parity - 2026-10-05
+
+Current source and exact dependencies match Cxsun after app-name and port substitutions.
+This app keeps its own ID, release version, database, Git repository and history.
+Verification passed: 50 tests, lint, types, build, compiled identity, package boundaries and authenticated live MCP.
+
+See [foundation parity](D:/codexsun/projects/cxsun/agent/FOUNDATION-PARITY.md) for evidence and remaining acceptance work. Live inventory needs refresh after this change. No commit, push, publication or deployment was performed.

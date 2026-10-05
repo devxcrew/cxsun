@@ -4,7 +4,7 @@
   "releaseId": "cxsun-local-foundation-0.2.1",
   "packages": {
     "@devxcrew/email": "0.1.0",
-    "@devxcrew/framework": "0.1.8",
+    "@devxcrew/framework": "0.1.11",
     "@devxcrew/platform": "0.1.2",
     "@devxcrew/ui": "0.2.0",
     "@fontsource-variable/geist": "5.3.0",

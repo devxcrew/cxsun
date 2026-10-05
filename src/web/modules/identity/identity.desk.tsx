@@ -5,7 +5,7 @@ import { frontend } from "../../composition/application.providers";
 import { IdentityApiError } from "./identity.services";
 import { IdentityAccount } from "./identity.account";
 import { IdentityPassword } from "./identity.password";
-import { IdentityResourcePage } from "./identity.resource-page";
+import { IdentityResourcePage } from "./identity.list";
 import { identityResources } from "./identity.resources";
 import type { Portal, Principal } from "./identity.types";
 import { useIdentityPresentation } from "./identity.presentation";

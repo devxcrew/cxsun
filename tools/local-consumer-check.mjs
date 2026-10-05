@@ -14,12 +14,16 @@ import { connectGovernance } from "../agent/connect.mjs";
 
 const root = resolve(import.meta.dirname, "..");
 const registry = process.argv.includes("--registry");
+const temporary = registry || process.argv.includes("--temporary");
 const npmCli = process.env.npm_execpath;
 if (!npmCli) throw new Error("Run through npm run test:consumers.");
 const local = parseEnv(await readFile(resolve(root, ".env"), "utf8"));
 const environment = { ...local, ...process.env };
-const runRoot = registry
-  ? resolve(realpathSync.native(tmpdir()), `registry-consumers-${randomUUID()}`)
+const runRoot = temporary
+  ? resolve(
+      realpathSync.native(tmpdir()),
+      `${registry ? "registry" : "source"}-consumers-${randomUUID()}`,
+    )
   : resolve(root, ".cache", `local-consumers-${randomUUID()}`);
 await mkdir(runRoot, { recursive: true });
 const source = resolve(runRoot, "artifact");
@@ -27,6 +31,7 @@ const inventory = [];
 const manifest = JSON.parse(await readFile(resolve(root, "package.json"), "utf8"));
 let artifacts = [];
 if (!registry) {
+  artifacts = await packCurrentSources();
   await mkdir(source, { recursive: true });
   for (const directory of ["src", "public", "tests"]) await collect(directory);
   for (const file of [
@@ -83,21 +88,6 @@ if (!registry) {
       profile: "local-development-rehearsal",
       files: inventory,
     }),
-  );
-  artifacts = await Promise.all(
-    [
-      ["@devxcrew/framework", ".cache/shared-packages"],
-      ["@devxcrew/ui", ".cache/shared-packages"],
-      ["@devxcrew/tools", ".cache/shared-packages"],
-      ["@devxcrew/platform", ".cache/shared-packages"],
-      ["@devxcrew/email", ".cache/shared-packages"],
-    ].map(async ([name, folder]) =>
-      resolve(
-        root,
-        folder,
-        `${name.slice(1).replace("/", "-")}-${(await installedMetadata(name)).version}.tgz`,
-      ),
-    ),
   );
 }
 if (registry)
@@ -289,6 +279,7 @@ function run(args, cwd, env = process.env) {
     windowsHide: true,
     timeout: args[0] === "ci" ? 300_000 : 180_000,
   });
+  if (result.error) throw result.error;
   if (result.status !== 0) {
     console.error((result.stdout ?? "").slice(-4000));
     console.error((result.stderr ?? "").slice(-2000));
@@ -315,6 +306,32 @@ function packageMetadata(bytes) {
 
 async function installedMetadata(name) {
   return JSON.parse(await readFile(resolve(root, "node_modules", name, "package.json"), "utf8"));
+}
+
+async function packCurrentSources() {
+  const destination = resolve(runRoot, "artifacts");
+  await mkdir(destination);
+  const shared = resolve(environment.CODEXSUN_SHARED_ROOT ?? resolve(root, "../../shared"));
+  const addons = resolve(environment.CODEXSUN_ADDONS_ROOT ?? resolve(root, "../../addons"));
+  const packed = [];
+  for (const [name, directory] of [
+    ["framework", resolve(shared, "framework")],
+    ["platform", resolve(shared, "platform")],
+    ["ui", resolve(shared, "ui")],
+    ["tools", resolve(shared, "tools")],
+    ["email", resolve(addons, "email")],
+  ]) {
+    const metadata = JSON.parse(await readFile(resolve(directory, "package.json"), "utf8"));
+    assert.equal(metadata.name, `@devxcrew/${name}`);
+    assert.match(metadata.version, /^\d+\.\d+\.\d+(?:-[a-zA-Z0-9.-]+)?$/);
+    run(["pack", "--pack-destination", destination], directory);
+    const artifact = resolve(destination, `devxcrew-${name}-${metadata.version}.tgz`);
+    const actual = packageMetadata(await readFile(artifact));
+    assert.equal(actual.name, metadata.name);
+    assert.equal(actual.version, metadata.version);
+    packed.push(artifact);
+  }
+  return packed;
 }
 
 async function verifyApplicationIsolation(consumers) {

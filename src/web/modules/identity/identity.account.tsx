@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IdentityResourceForm } from "./identity.resource-form";
+import { IdentityResourceForm } from "./identity.form";
 import { IdentityPassword } from "./identity.password";
 import { identityRequest } from "./identity.services";
 import type { IdentityRecord, ResourceField } from "./identity.resources";

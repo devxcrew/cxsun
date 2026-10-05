@@ -3,7 +3,7 @@ import test from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { parseIdentityResourceLocation } from "./identity.resource-location";
-import { IdentityResourcePage } from "./identity.resource-page";
+import { IdentityResourcePage } from "./identity.list";
 import type { IdentityPresentation } from "./identity.presentation";
 import { identityResources } from "./identity.resources";
 

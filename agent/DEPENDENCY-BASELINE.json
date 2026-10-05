@@ -4,22 +4,21 @@
     "projects/veyrezio"
   ],
   "owners": [
+    "projects/cxsun",
     "projects/billing",
     "projects/crm",
-    "projects/cxsun",
-    "projects/ecommerce",
-    "projects/intergrid",
     "projects/qcafe",
-    "addons/email",
+    "projects/ecommerce",
     "shared/framework",
     "shared/platform",
-    "shared/tools",
     "shared/ui",
+    "shared/tools",
     "shared/mcp-governance",
+    "addons/email",
     "devkits/uiux"
   ],
   "commonDependencies": {
-    "@devxcrew/framework": "0.1.8",
+    "@devxcrew/framework": "0.1.11",
     "@devxcrew/tools": "0.1.8",
     "@devxcrew/ui": "0.2.0",
     "@eslint/js": "10.0.1",
@@ -74,6 +73,8 @@
     "Framework source version is independent from published app dependency version.",
     "Public peer dependency ranges are retained."
   ],
-  "status": "installation-pending",
-  "updatedDeclarationCount": 251
+  "status": "shared-packages-aligned",
+  "updatedDeclarationCount": 251,
+  "sharedAlignmentRecord": "agent/SHARED-ALIGNMENT.json",
+  "scopeNote": "Current shared packages verified; third-party versions remain owner-specific. Absent repositories are outside this audit."
 }

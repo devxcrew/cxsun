@@ -12,7 +12,7 @@ import {
   type IdentityRecord,
   type IdentityResource,
 } from "./identity.resources";
-import { IdentityResourceForm } from "./identity.resource-form";
+import { IdentityResourceForm } from "./identity.form";
 import type { Portal } from "./identity.types";
 import { identityListSchema, identityDeletePath } from "./identity.schema";
 import { formatIdentityDate, type IdentityPresentation } from "./identity.presentation";

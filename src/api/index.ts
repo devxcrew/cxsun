@@ -1,7 +1,7 @@
 import { resolve } from "node:path";
 import { createApplicationServer, readApplicationConfig } from "@devxcrew/framework";
 import { createDatabaseProvider } from "./database/database.provider.js";
-import { identityModule } from "./identity/identity.provider.js";
+import { identityModule } from "./identity/index.js";
 import {
   contributeModule,
   createApplicationComposition,
@@ -128,7 +128,7 @@ server.on("error", (error) => {
   void modules.stop().catch(() => console.error("Application shutdown failed."));
 });
 server.listen(config.port, config.host, () =>
-  console.info(`${config.name} · ${config.mode} · ${config.url}`),
+  console.info(`${config.name} Â· ${config.mode} Â· ${config.url}`),
 );
 let shutdownPromise: Promise<void> | undefined;
 async function shutdown() {

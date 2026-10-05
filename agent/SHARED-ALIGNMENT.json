@@ -1,0 +1,132 @@
+{
+  "date": "2026-10-05",
+  "scope": [
+    "projects/cxsun",
+    "projects/billing",
+    "projects/crm",
+    "projects/qcafe",
+    "projects/ecommerce",
+    "shared/framework",
+    "shared/platform",
+    "shared/ui",
+    "shared/tools",
+    "shared/mcp-governance",
+    "addons/email",
+    "devkits/uiux"
+  ],
+  "status": "shared-alignment-verified-with-open-acceptance-gaps",
+  "packages": [
+    {
+      "name": "@devxcrew/framework",
+      "npmLatest": "0.1.11",
+      "ownerSource": "0.1.11"
+    },
+    {
+      "name": "@devxcrew/platform",
+      "npmLatest": "0.1.2",
+      "ownerSource": "0.1.5"
+    },
+    {
+      "name": "@devxcrew/ui",
+      "npmLatest": "0.2.0",
+      "ownerSource": "0.2.1"
+    },
+    {
+      "name": "@devxcrew/tools",
+      "npmLatest": "0.1.8",
+      "ownerSource": "0.1.9"
+    },
+    {
+      "name": "@devxcrew/email",
+      "npmLatest": "0.1.0",
+      "ownerSource": "0.1.1"
+    }
+  ],
+  "registryConsumers": {
+    "date": "2026-10-05T05:50:50.595Z",
+    "status": "registry-consumers-passed",
+    "results": [
+      {
+        "id": "foundation-proof-a",
+        "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-ecc74d7f-af09-4ebd-bc6d-ca6c34b2d9d6\\foundation-proof-a",
+        "verify": "passed",
+        "packageBoundaries": "passed",
+        "liveSqlite": "passed",
+        "profile": "registry-only"
+      },
+      {
+        "id": "foundation-proof-b",
+        "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-ecc74d7f-af09-4ebd-bc6d-ca6c34b2d9d6\\foundation-proof-b",
+        "verify": "passed",
+        "packageBoundaries": "passed",
+        "liveSqlite": "passed",
+        "profile": "registry-only"
+      }
+    ],
+    "crossAppSessionDenial": "passed",
+    "limitation": "Local registry consumers verified. Browser, SMTP and production acceptance remain separate."
+  },
+  "sourceConsumers": {
+    "date": "2026-10-05T06:04:17.061Z",
+    "status": "local-rehearsal-passed",
+    "results": [
+      {
+        "id": "foundation-proof-a",
+        "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\source-consumers-483bda02-6c4e-43d7-b308-9dd2c6754952\\foundation-proof-a",
+        "verify": "passed",
+        "packageBoundaries": "passed",
+        "liveSqlite": "passed",
+        "profile": "local-packed-artifacts"
+      },
+      {
+        "id": "foundation-proof-b",
+        "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\source-consumers-483bda02-6c4e-43d7-b308-9dd2c6754952\\foundation-proof-b",
+        "verify": "passed",
+        "packageBoundaries": "passed",
+        "liveSqlite": "passed",
+        "profile": "local-packed-artifacts"
+      }
+    ],
+    "crossAppSessionDenial": "passed",
+    "limitation": "Local packed artifacts. This is not registry or production acceptance."
+  },
+  "sourceArchives": [
+    {
+      "path": "C:\\Users\\sunda\\AppData\\Local\\Temp\\source-consumers-483bda02-6c4e-43d7-b308-9dd2c6754952\\artifacts\\devxcrew-email-0.1.1.tgz",
+      "integrity": "sha512-6OcAxer8Uq4GkYbGkWCAsMzKdZtj3CZslyVJ6wpBoUvtqYM4uXH7QQkcSaXY+UdMW49KcutEK4TKfsWMPNwoow=="
+    },
+    {
+      "path": "C:\\Users\\sunda\\AppData\\Local\\Temp\\source-consumers-483bda02-6c4e-43d7-b308-9dd2c6754952\\artifacts\\devxcrew-framework-0.1.11.tgz",
+      "integrity": "sha512-K9HFxoRprLHdYlOV/DoQmDJ954HouuEwlhPIFUeEInTXRdWoZegXKntMs2ktAEx9Z35ZddvuNG2Aa40Jz0buyA=="
+    },
+    {
+      "path": "C:\\Users\\sunda\\AppData\\Local\\Temp\\source-consumers-483bda02-6c4e-43d7-b308-9dd2c6754952\\artifacts\\devxcrew-platform-0.1.5.tgz",
+      "integrity": "sha512-SZTI532nAAGS58lQ0UagUgdenrppndsR+7z9Wai7ObtFgh1zY6gcB8jiuh4egN+ZKM2qZD2YwGjUPIOStIi94g=="
+    },
+    {
+      "path": "C:\\Users\\sunda\\AppData\\Local\\Temp\\source-consumers-483bda02-6c4e-43d7-b308-9dd2c6754952\\artifacts\\devxcrew-tools-0.1.9.tgz",
+      "integrity": "sha512-F3Hy1tMTyzBjdmGU5om2K1ddAFfoP6wh48SlXezVrtyn/WZv9GOjn68Em/9S3dQqPTr4yUNnSyZeee8V+NXUOQ=="
+    },
+    {
+      "path": "C:\\Users\\sunda\\AppData\\Local\\Temp\\source-consumers-483bda02-6c4e-43d7-b308-9dd2c6754952\\artifacts\\devxcrew-ui-0.2.1.tgz",
+      "integrity": "sha512-AnFezfGAcDaGxT8SEgfPUGbZtTWbVfOfpK2VMBPDfuaf9qTocJFsXvSGC5bEt521NxwUUiEIZced4tpfa47S4w=="
+    }
+  ],
+  "governance": {
+    "version": "0.1.10",
+    "endpoint": "https://mcp.codexsun.com/mcp",
+    "authenticatedRepositories": 12,
+    "snapshotMatches": true
+  },
+  "limitations": [
+    "Fresh database consumers are not existing database upgrade acceptance.",
+    "Unpublished owner source is not an npm release.",
+    "Browser and deployed production acceptance remain partial."
+  ],
+  "delivery": {
+    "commit": false,
+    "push": false,
+    "publish": false,
+    "deploy": false
+  }
+}

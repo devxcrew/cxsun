@@ -57,7 +57,7 @@ Desktop, alternate databases, and queue adapters require an explicit capability 
 
 ## Shared package development
 
-The lockfile uses MIT releases: Framework 0.1.8, Platform 0.1.2, UI 0.2.0, Tools 0.1.8 and Email 0.1.0.
+The lockfile uses MIT releases: Framework 0.1.11, Platform 0.1.2, UI 0.2.0, Tools 0.1.8 and Email 0.1.0.
 
 - `npm ci`: install the exact registry release and integrity values.
 - `npm run packages:local`: optionally install all five package source snapshots for package development.
@@ -161,7 +161,7 @@ and the remaining acceptance checks are tracked in [the foundation checklist](ag
 
 Run `npm run packages:platform` first and wait for completion.
 Then run `npm run packages:local` and wait for completion to refresh the remaining development tarballs.
-Then run `npm run test:consumers`. This creates two isolated applications under ignored `.cache` paths,
+Then run `npm run test:consumers`. The check packs the current owner sources into fresh archives. Use `npm run test:consumers -- --temporary` to run the source rehearsal outside the workspace. This creates two isolated applications under ignored `.cache` paths,
 verifies clean installation from real packed artifacts, runs application checks, creates separate persisted SQLite
 databases and checks that one application's session cannot authenticate in the other application.
 Only synthetic bootstrap accounts are used. Operational environment values and database files are not copied.

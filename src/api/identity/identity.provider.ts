@@ -1,3 +1,4 @@
+import { identityRoutes } from "./identity.routes.js";
 import { createIdentityProvider, IdentityError } from "@devxcrew/platform";
 import { HttpError } from "@devxcrew/framework";
 import type { createDatabaseProvider } from "../database/database.provider.js";
@@ -64,6 +65,6 @@ export function identityModule(environment: NodeJS.ProcessEnv, stage: (name: str
         await provider.verify();
       },
     },
-    (provider, request, response, signal) => provider.handle(request, response, signal),
+    identityRoutes,
   );
 }

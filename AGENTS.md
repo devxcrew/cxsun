@@ -84,3 +84,16 @@ authorization.
 
 Keep `MCP_SERVER_SECRET` in ignored `.env` files and outside frontend code. The app ID and app user
 describe developer context only.
+
+
+## Canonical foundation files
+
+Each frontend identity module owns index.ts and identity.provider.ts,
+identity.routes.tsx, identity.workspace.tsx, identity.list.tsx, identity.form.tsx,
+identity.services.ts, identity.hooks.ts, identity.schema.ts and identity.types.ts.
+
+The backend identity adapter owns all ten canonical backend files. Its routes
+call its controller and service before the public Platform provider. Platform owns
+identity request validation, business rules, migrations, persistence and seeds.
+The adapter's non-applicable files state that ownership explicitly.
+Database and application composition folders are business-neutral infrastructure.

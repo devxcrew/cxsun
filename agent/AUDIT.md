@@ -648,3 +648,47 @@ Only this run's outstanding checks were stopped. The other process was not stopp
 The .cache watcher exclusion still needs final verification after concurrent work ends.
 Earlier 48-test root verification and both fresh registry consumer results remain valid for their recorded snapshots.
 The development server was stopped during diagnosis. Restore it after the working tree is stable.
+
+## Resume result - 2026-10-05
+
+Other work paused after advancing Cxsun to 0.2.3. That version change was preserved.
+Live MCP retrieval passed. Lint configuration imported successfully.
+Current lint, type checks, and 48 tests passed. The repeated production build stalled at Vite transformation and was stopped.
+The older-consumer installer stalled again and was stopped before verification. No upgrade success is claimed.
+Fresh generated consumer evidence remains the recorded 0.2.2 snapshot, not a 0.2.3 release acceptance.
+Vite now ignores .cache to avoid fixture-triggered reloads. Final build acceptance of that change remains pending.
+Development startup passed live governance and port preflight on 5173.
+No commit, push, publication, or operational database migration ran in this work.
+
+Final root retry: the 0.2.3 build passed after the stalled installer was stopped.
+Compiled production smoke and identity acceptance passed. Together with current lint, type checks, and 48 passing tests, root verification is green.
+The development server returned readiness 200 on port 5173. Fresh 0.2.3 generated-consumer verification is running separately.
+The older-fixture upgrade remains blocked at installation. It did not reach verification, and no upgrade success is claimed.
+
+Both current 0.2.3 registry consumers passed clean installation, full verification, package checks, database setup, and three live portals.
+Separate SQLite files and cross-app session denial passed. PHASE12-GENERATED-CONSUMERS.json now records this newer snapshot.
+The upgrade installer now uses the same prefer-offline option as the successful registry check. Exact lockfile integrity remains required.
+
+## Consolidated foundation review - 2026-10-05
+
+Reviewed Cxsun, five shared owners, Email, UIUX, and four preview project apps.
+Authenticated MCP retrieval passed for all twelve repositories. Cxsun package boundaries passed.
+Current Platform source passed six test cases and its build.
+FOUNDATION-GAPS.md records package integration, stale deployed governance, preview app migration,
+upgrade and browser acceptance, conflicting active records, and deferred production checks.
+No implementation corrections, publication, deployment, version change, commit, or push ran during this review.
+
+
+## Shared alignment audit - 2026-10-05
+
+Full verification (48 tests), registry and fresh source consumers passed. Existing database upgrade and browser acceptance remain partial.
+
+Authenticated live MCP verification passed. See the [alignment audit](D:/codexsun/projects/cxsun/agent/SHARED-ALIGNMENT.md). Version numbers remain unchanged. No release delivery was performed by this audit.
+
+## Cxsun foundation parity - 2026-10-05
+
+Current source and exact dependencies match Cxsun after app-name and port substitutions.
+This app keeps its own ID, release version, database, Git repository and history.
+Verification passed: 50 tests, lint, types, build, compiled identity, package boundaries and authenticated live MCP.
+
+See [foundation parity](D:/codexsun/projects/cxsun/agent/FOUNDATION-PARITY.md) for evidence and remaining acceptance work. Live inventory needs refresh after this change. No commit, push, publication or deployment was performed.
