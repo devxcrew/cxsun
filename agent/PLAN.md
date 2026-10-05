@@ -1,15 +1,26 @@
-# Cxsun plan
+# Foundation plan
 
 Updated: 2026-10-05.
-Goal: finish and accept the reusable application foundation before adding business modules.
 
-1. Finish the package migration. Install the exact registry packages and verify a clean standalone application.
-2. Complete the browser review. Check all three portals, resource actions, settings, query state, keyboard access, and supported viewports.
-3. Align live governance. Verify deployed Cxsun identity, package versions, repository metadata, and supported guidance tools.
-4. Accept the release. Record checks, limitations, and matching release metadata. Commit and push only when authorized.
+Framework owns generic database and settings infrastructure.
+Platform owns identity and the separate tenant module.
+Cxsun connects both through public package exports and recorded development snapshots.
+Its master uses MariaDB. The initial tenant has separate storage.
 
-Real SMTP delivery and production deployment remain deferred. Resume them only when requested.
-Production acceptance includes TLS/proxy behavior, account policy, load limits, protected backups, and recovery evidence.
+## Completed
 
-Keep module-owned code and use public provider contracts. Add no business features during this work.
-Use TASK.md for remaining actions. Keep completed evidence in AUDIT.md and CHANGELOG.md.
+- Extract database drivers, leased pools, execution, transfers and backups into Framework.
+- Extract settings file handling into an isolated Framework provider.
+- Extract tenant mappings, scope, request transport, provisioning and tests into Platform.
+- Preserve Cxsun's schema, seed composition and nine master migration IDs.
+- Connect Cxsun through locally packed shared packages.
+
+## Next work
+
+1. Release new Framework and Platform versions when publication is authorized.
+2. Replace development snapshots with those exact registry versions after consumer verification.
+3. Connect other apps through the released public contracts.
+4. Verify deployment account privileges, TLS, load budgets and network recovery.
+
+Keep business modules and their migrations inside their owning applications.
+Verification evidence belongs in TASK.md and AUDIT.md.

@@ -1,6 +1,7 @@
+import { tenantModule } from "./application/application.tenant.js";
 import { resolve } from "node:path";
 import { createApplicationServer, readApplicationConfig } from "@devxcrew/framework";
-import { createDatabaseProvider } from "./database/database.provider.js";
+import { createDatabaseProvider } from "./database/index.js";
 import { identityModule } from "./identity/index.js";
 import {
   contributeModule,
@@ -9,14 +10,17 @@ import {
 } from "./application/application.provider.js";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { createEmailProvider } from "@devxcrew/email";
+import { loadSettings } from "./application/application.settings.js";
 
-const config = readApplicationConfig(process.env);
-const database = createDatabaseProvider();
+const environment = loadSettings();
+const config = readApplicationConfig(environment);
+const database = createDatabaseProvider(environment);
 let startupStep = "database connection";
 const modules = createApplicationComposition(
   [
     contributeModule({
       name: "database",
+      dependencies: [],
       create: () => database,
       start: async (provider) => {
         startupStep = "database connection";
@@ -31,13 +35,14 @@ const modules = createApplicationComposition(
       start(provider) {
         startupStep = "email configuration";
         provider.delivery =
-          process.env.EMAIL_ENABLED === "1" ? createEmailProvider(process.env) : undefined;
+          environment.EMAIL_ENABLED === "1" ? createEmailProvider(environment) : undefined;
       },
       stop: (provider) => provider.delivery?.close(),
     }),
-    identityModule(process.env, (step) => {
+    identityModule(environment, (step) => {
       startupStep = step;
     }),
+    tenantModule(environment),
   ],
   { startupTimeoutMs: 30_000, shutdownTimeoutMs: 2_000 },
 );
@@ -45,7 +50,7 @@ try {
   await modules.start();
 } catch {
   const action =
-    startupStep === "identity schema verification"
+    startupStep === "identity schema verification" || startupStep === "database and tenant registry"
       ? " Run npm run db:setup before starting Cxsun."
       : " Check the configured environment before starting Cxsun.";
   throw new Error(`Application startup failed during ${startupStep}.${action}`);
@@ -76,7 +81,7 @@ const server = await (async () => {
 })();
 let closeFrontend: (() => Promise<void>) | undefined;
 const staticHandlers = server.listeners("request");
-const apiOnly = config.mode === "development" && process.env.CODEXSUN_DEV_TARGET === "api";
+const apiOnly = config.mode === "development" && environment.CODEXSUN_DEV_TARGET === "api";
 let serveFrontend = (request: IncomingMessage, response: ServerResponse) => {
   if (apiOnly) {
     response.writeHead(404);
@@ -134,7 +139,7 @@ server.on("error", (error) => {
   void modules.stop().catch(() => console.error("Application shutdown failed."));
 });
 server.listen(config.port, config.host, () =>
-  console.info(`${config.name} Â· ${config.mode} Â· ${config.url}`),
+  console.info(`${config.name} | ${config.mode} | ${config.url}`),
 );
 let shutdownPromise: Promise<void> | undefined;
 async function shutdown() {

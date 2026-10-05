@@ -8,7 +8,61 @@ Release tag: v-0.2.3
 
 Changelog label: v 0.2.3
 
+## Local worktree changes (not released)
+
+### 0.2.3 - 2026-10-05 19:21
+
+- Move generic database and settings behavior into Framework and tenant behavior into Platform.
+- Connect Cxsun through public exports and recorded development packages.
+- Preserve migration history and current tenant mappings.
+- Verify owner tests, app build, identity acceptance and live MariaDB fault checks.
+- Verify a fresh offline Cxsun installation from recorded packages without shared source imports.
+- Keep release versions unchanged. This work is not committed, pushed or published.
+
+### 0.2.3 - 2026-10-05 18:38
+
+- Separate tenant authorization, mappings, provisioning and request context from generic database infrastructure.
+- Preserve migration history, rename the mapping table and add resumable transfer checkpoints.
+- Add bounded connection leases, response validation, streamed imports and cancellation handling.
+- Provision initial tenant storage and verify master and tenant backup recovery.
+- Pass full verification: 97 tests, build, production smoke and compiled identity acceptance.
+- Pass separate MariaDB fault checks and a 100,000-row transfer measurement.
+- Retain settings loading and the allowlisted settings writer from earlier local work.
+- Keep version 0.2.3; shared package extraction and publication remain future work.
+
 ## v-0.2.3
+
+### [v 0.2.3] 2026-10-05 7:35 pm - Connect shared database and tenancy foundation
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Cxsun consumes recorded Framework and Platform packages. Verify passed: 48 tests and one gated skip, build, frontend smoke and compiled identity/RBAC. Prior live MariaDB and fresh offline standalone checks passed. Existing-account login needs verification credentials; production deployment remains untested.
+
+### [v 0.2.3] 2026-10-05 3:47 pm - Align startup and portal flow
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Align the development launcher with Cxsun, including the frontend-only reserved-port check.
+- Use readable startup banner text and document the common setup and three portal flows.
+- Full application verification passed. Keep independent application identity, ports, databases, and sessions.
+
+### [v 0.2.3] 2026-10-05 2:44 pm - Enable verified same-port development restart
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Set explicit restart policy, verify two starts on the reserved port and retrieve the updated live new-app preflight rule.
 
 ### [v 0.2.3] 2026-10-05 12:46 pm - Verify canonical application foundation
 
@@ -488,7 +542,6 @@ Align template dependency metadata with the current lockfile. Keep unrelated con
 Root verification passed 48 tests. Browser acceptance has partial evidence in AUDIT.md.
 Both fresh registry consumers passed. The older-consumer upgrade is blocked by a stalled fixture install. No release action ran.
 
-
 ## Unreleased alignment - 2026-10-05
 
 Full verification (48 tests), registry and fresh source consumers passed. Existing database upgrade and browser acceptance remain partial.
@@ -502,3 +555,137 @@ This app keeps its own ID, release version, database, Git repository and history
 Verification passed: 50 tests, lint, types, build, compiled identity, package boundaries and authenticated live MCP.
 
 See [foundation parity](D:/codexsun/projects/cxsun/agent/FOUNDATION-PARITY.md) for evidence and remaining acceptance work. Live inventory needs refresh after this change. No commit, push, publication or deployment was performed.
+
+## Web development preflight - 2026-10-05
+
+Fixed `dev:web` to run the installed shared Tools port preflight after live
+governance connects and before Vite starts. It respects the configured restart
+policy, verifies listener ownership and retains the reserved port.
+
+Passed: two consecutive real `npm run dev:web` starts on port 5173, with the
+existing app listener replaced each time. Home and login returned HTTP 200.
+Passed: both governance connection failure tests. Backend identity checks were
+not run for this frontend startup change. Web-only mode does not start the API.
+
+## Generated file cleanup - 2026-10-05
+
+Added `npm run clean` through `tools/clean.mjs`, with `--dry-run` preview.
+Removes allowlisted build, cache, test report and dump output. Keeps source tests,
+installed packages, environment files and application storage. Targets are bounded
+to the app directory; linked ancestors outside the app are rejected.
+
+Passed: real-app preview, syntax and diff checks, and isolated fixture verification
+of deletion, preview, preserved source/data and repeat execution. Actual app output
+was preserved during verification. No full application test run for this utility.
+
+## Private database storage - 2026-10-05
+
+Database path: `storage/private/data/identity.sqlite` relative to this app.
+Backup path: `storage/private/data/backup/`. `npm run db:backup` creates a
+new timestamped backup here; explicit destinations are supported. Storage stays
+private and ignored by Git. Cleanup preserves it. Existing identity data was
+moved after a consistent safety backup and WAL checkpoint; integrity and foreign
+key checks passed.
+
+## Live MCP and migration metadata refactor - 2026-10-05
+
+Restored authenticated live MCP configuration in ignored `.env`. Renamed MariaDB
+migration metadata to `migrations` and `migration_locks`; preserved all six applied
+migration records. Timestamp is UTC `DATETIME(3)`, retaining millisecond precision.
+The database boundary converts future Kysely ISO timestamps to MariaDB storage
+format. Migration setup detects legacy internal tables and refuses conflicting
+history. A MariaDB snapshot was created before the change.
+
+Passed: strict live MCP verification, two repeat migration runs, five focused
+database tests, server TypeScript checks and live timestamp round-trip in a rolled
+back transaction. The probe left no extra migration record.
+
+## Kysely database organization - 2026-10-05
+
+Separated SQLite and MariaDB into driver-owned folders with public exports.
+Moved connection validation, dialect setup, SQL compatibility and backups to
+these owners. Root infrastructure now owns a reusable named master registry,
+provider operations, safe connection listing and thin command dispatch.
+Added `db:connections` and typed execution/transaction helpers. Existing master
+records and migration metadata were preserved. See `agent/DATABASE.md`.
+
+Passed: full verification with 56 tests, lint, types, build and compiled identity
+checks using isolated SQLite fixtures. Real MariaDB master connection, repeat
+migration, backup creation and restore rehearsal are checked separately.
+This task does not claim live MariaDB identity acceptance or tenant provisioning.
+
+## Database file consolidation - 2026-10-05
+
+Reduced the database root from fourteen files to seven focused infrastructure files.
+Connection lifecycle is private to the provider. Driver tests stay with their
+driver; provider tests stay in tests/. CLI and import operations stay in operations/.
+Updated development and compiled command paths. Backup dispatch uses the validated
+driver, including the default MariaDB selection.
+
+Passed: the earlier full verification ran 56 tests, lint, types, build and compiled
+identity checks. Live MariaDB connection, migration 007 and SQL backup passed.
+A later typecheck failed in the separately added database-connections repository:
+its nullable driver is not narrowed to TenantDatabaseTarget. That concurrent work
+is preserved. Live MariaDB portal acceptance remains untested.
+
+## Database tests and common ownership - 2026-10-05
+
+Moved every database test into database/tests. MariaDB and SQLite keep matching
+index, schema, connection and backup filenames. Cross-driver configuration and
+schema contracts live in database/common with public exports. Updated imports,
+test discovery and structure notes. No database data or credentials changed.
+
+Passed: TypeScript, lint and all ten database tests. Full verify stopped at the
+LF check for the separately added database-connections files. Build and production frontend smoke passed independently. Compiled identity
+acceptance failed because settings validation rejects its email-error fixture
+before the expected email error. This fixture mismatch remains unresolved.
+
+## Single database infrastructure owner - 2026-10-05
+
+Consolidated database-connections into database. Removed empty HTTP/seed files
+and forwarding wrappers. Request context and tenant lookup share database.requests.ts;
+validation and types stay in common. Migration 007 and its table are unchanged.
+No database deletion, migration renaming or data transfer was performed.
+
+Passed: npm run check (57 tests, lint, TypeScript, tooling and LF checks)
+and npm run build. Added concurrent request-context and inactive-mapping checks.
+Identity production acceptance retains the earlier settings/email fixture mismatch.
+
+## Settings consolidation - 2026-10-05
+
+Replaced the settings module scaffolding with one environment settings file and
+consolidated tenant request-context handling in the database connections file.
+Removed the obsolete request wrapper. See the final settings-to-data audit below.
+
+## Settings to data connection final review - 2026-10-05
+
+Unified request-context setup and made the connection registry consume normalized
+settings plus explicit overrides. Verified `.env` → settings → connections → provider
+→ data execution and per-request tenant lookup. `npm run verify` passed: 88 tests,
+lint, TypeScript, build, production smoke and compiled identity acceptance. The
+opt-in live MariaDB test was skipped; no live database claim is made.
+
+## Database execution suites and preflight - 2026-10-05
+
+Added DatabaseExecution for server-validated persistence, bounded fetch parameters
+and streamed atomic transfers. Module-owned schemas and repository queries remain
+with their callers. Validation fails before writes; late transfer errors roll back
+all batches. Added safe field errors and explicit DTO/storage guidance.
+
+All database tests now live in src/api/database/tests, including the subprocess
+preflight test. Development all/API targets run read-only database smoke after
+live governance and before port reclaim/server startup. Smoke rejects pending
+migrations and does not create a missing SQLite file. Frontend-only start is exempt.
+
+Refreshed verification passed: repository tooling, lint, TypeScript, 88 passing
+tests (one opt-in live test skipped in the default suite), production build,
+frontend smoke and compiled three-portal identity acceptance. Ran the opt-in
+MariaDB suite separately: isolated 10,000-row transfer, rollback, validation,
+pagination, repeat migrations and reopen persistence passed. Its temporary
+schema was removed. Live master smoke passed with seven applied migrations.
+
+Corrected the SQLite integer fixture affinity and the identity smoke expectation
+for earlier settings validation. No application data, release version or Git
+remote was changed. Universal volume guarantees, MariaDB stress throughput,
+network partition/deadlock recovery and the legacy identity-import load profile
+remain untested. See DATABASE-TESTING.md for execution contracts and commands.

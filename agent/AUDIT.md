@@ -1,5 +1,17 @@
 # Current local foundation audit - 2026-10-04
 
+## Common startup and portal flow - 2026-10-05
+
+- Passed: authenticated strict MCP verification before changes.
+- Passed: all five applications use identical development launcher implementations and startup commands.
+- Passed: frontend-only startup now checks the reserved port before Vite starts.
+- Passed: consistent startup banner text and documented portal flow.
+- Passed: `npm run verify` after alignment, including lint, types, tests, build, frontend smoke, and compiled identity checks.
+- Passed: portal sessions, role/tenant denial, logout, password change, resources, and restart-persistent login limits.
+- Untested: interactive development modes and full browser acceptance in this change.
+
+Evidence: `.cache/startup-alignment-verify.log`. Production deployment and real SMTP acceptance remain separate work.
+
 ## Package reference cleanup - 2026-10-05
 
 - [x] Retrieve authenticated cloud governance.
@@ -9,14 +21,12 @@
 
 Static cleanup only. No test suite, publication or deployment ran in this step.
 
-
 ## Package migration - 2026-10-05
 
 - [x] Retrieve authenticated cloud governance before this migration.
 - [x] Update active package imports, helpers and manifests to the shorter public names.
 - [x] Install and verify the published registry packages.
 - [x] Commit and push the reviewed migration.
-
 
 ## Cxsun review corrections - 2026-10-04
 
@@ -497,6 +507,7 @@ Migrations and seeds run explicitly. Server startup only verifies the database c
 Partial: this is database infrastructure. Platform Core identity, RBAC, tenancy, and real sessions are not implemented.
 Untested: browser interaction and production disk, backup, concurrency, or multi-instance operation.
 Version stays 0.1.9. No commit or push was requested.
+
 # Workspace GitHub release - 2026-10-04
 
 npm run verify passed: 39 tests, lint, types, build and compiled identity smoke. The local profile uses prepared shared source snapshots.
@@ -517,17 +528,13 @@ GitHub run 37200330583 failed at the Tools 0.1.7 dependency check, which rejects
 
 Full verify passes 41 tests, lint, types, build, and expanded compiled identity acceptance. Resource checks cover list queries, create/update/delete, stale writes, safe field errors, role and tenant denial, settings persistence, and read-only audit routes. Live SQLite checks pass all three portals. Two newly generated local artifact consumers pass independent installation, full verify, separate SQLite databases, and cross-app session denial. Five MIT archives have SHA-512 receipts in RELEASE-PACKAGES.json. Publication was approved, but npm authentication returned E401. Browser acceptance remains blocked by browser tool policy; no new interactive browser result is claimed.
 
-
 ## Registry transition - 2026-10-04
 
 Published MIT releases are Framework 0.1.8, Platform 0.1.2, Tools 0.1.8, UI 0.2.0 and Email 0.1.0. npm authentication and per-package browser approvals completed. Platform 0.1.1 returned E409 after an earlier unpublish; the user separately approved 0.1.2. All registry SHA-512 values match the approved archives. The app now pins all 30 direct dependencies and its lock contains only registry URLs and SHA-512 entries. npm ci succeeds with zero reported vulnerabilities. Full verify passes 41 tests and compiled identity resource acceptance. Registry export includes index.html and safe npm configuration; fixtures verify that an auth token in source npm configuration is not copied. Browser access remains blocked.
 
-
 Two generated registry consumers passed on 2026-10-04. Each used its own exact registry installation and file-backed SQLite. Cross-app session denial passed. Receipts are in GENERATED-CONSUMERS.json. Cxsun CI run 37204145628 passed Windows, Linux and macOS against commit b8ecabc.
 
-
 The optional local source refresh packs all five owners and preserves package.json and package-lock.json. Its actual installation and package boundary checks passed. The registry restoration command and repeated package checks also passed. These development commands do not replace the independent registry consumer and remote CI evidence above.
-
 
 ## Candidate upgrade acceptance - 2026-10-04
 
@@ -678,7 +685,6 @@ FOUNDATION-GAPS.md records package integration, stale deployed governance, previ
 upgrade and browser acceptance, conflicting active records, and deferred production checks.
 No implementation corrections, publication, deployment, version change, commit, or push ran during this review.
 
-
 ## Shared alignment audit - 2026-10-05
 
 Full verification (48 tests), registry and fresh source consumers passed. Existing database upgrade and browser acceptance remain partial.
@@ -692,3 +698,336 @@ This app keeps its own ID, release version, database, Git repository and history
 Verification passed: 50 tests, lint, types, build, compiled identity, package boundaries and authenticated live MCP.
 
 See [foundation parity](D:/codexsun/projects/cxsun/agent/FOUNDATION-PARITY.md) for evidence and remaining acceptance work. Live inventory needs refresh after this change. No commit, push, publication or deployment was performed.
+
+## Identity and RBAC verification - 2026-10-05
+
+Passed against Cxsun 0.2.3 with installed npm Platform 0.1.2 and Framework 0.1.11.
+Authenticated live governance retrieval passed before verification.
+
+- Full verification passed: 50 tests, lint, types, build and compiled HTTP acceptance.
+- The focused frontend permission and public module permission checks passed: four repeated tests.
+- All three configured accounts signed in against the real local SQLite database.
+  Their desks and permitted resource reads passed. Verification sessions were logged out.
+- User requests for users, roles, permissions, organizations, memberships, audit events
+  and invitations returned 403 against the configured database.
+- All six attempts to reuse a token under another portal cookie returned 401.
+  Anonymous current-session requests returned 401 in every portal.
+- Disposable compiled acceptance passed role and tenant denial, resource permissions,
+  membership revisions, validation, password change, logout, durable sessions,
+  scoped cookie flags, response privacy and restart-persistent login limits.
+- Public permission registration and enforcement passed. Frontend permission choices
+  respect portal eligibility and accessible field errors.
+- Package boundaries passed. Read-only SQLite integrity checks returned ok before
+  and after the configured-account checks.
+
+Evidence: `.cache/identity-rbac-verify.log`, `.cache/identity-rbac-packages.log`,
+`.cache/identity-rbac-live.log`, `.cache/identity-rbac-live-denials.log`,
+`.cache/identity-rbac-permissions.log` and `.cache/identity-rbac-mcp.log`.
+The additional live denial harness is `.cache/live-rbac-verification.mjs`.
+
+No identity or RBAC implementation correction was needed. Full interactive browser
+acceptance and deployed production acceptance were not run. Real SMTP delivery
+remains outside this verification. No version change, commit or push was performed.
+
+## Development port recovery - 2026-10-05
+
+Port 5173 belonged to an existing Cxsun development process. Local `.env` now
+sets `DEVXCREW_DEV_PORT_POLICY=restart`. The installed Tools preflight verified
+application ownership, stopped the old app supervisor and started Cxsun successfully.
+Readiness, home and all three login pages returned 200. Anonymous desk access
+redirected to login. The development server remains running on port 5173.
+Shared defaults and other application configurations were not changed.
+
+## Reserved-port restart verification - 2026-10-05
+
+Development preflight uses `DEVXCREW_DEV_PORT_POLICY=restart`. Each app verifies
+its configured host, reserved port and URL, validates listener ownership, stops
+the existing app supervisor and descendants, waits for port release, then starts
+on the same port. Unrelated listeners are preserved. Production does not reclaim.
+
+Two actual starts passed for all five project apps on ports 5173 through 5177.
+Every second start replaced the listener PID and returned readiness 200 on the
+same port. Verification processes were stopped after each check.
+Tools release checks passed with 32 tests, including foreign-listener protection.
+Governance verification, cloud protocol checks and deployment dry run passed.
+
+Evidence: projects/cxsun/.cache/port-restart-results.json and port-restart-check.log,
+shared/tools/.cache-port-check.log, shared/mcp-governance/.cache-port-verify.log
+and .cache-port-cloud-check.log. App environment examples carry the explicit policy,
+so the currently published Tools 0.1.8 works without a sibling checkout.
+Tools source now defaults to restart; its next npm release remains separate.
+
+## Web development preflight - 2026-10-05
+
+Fixed `dev:web` to run the installed shared Tools port preflight after live
+governance connects and before Vite starts. It respects the configured restart
+policy, verifies listener ownership and retains the reserved port.
+
+Passed: two consecutive real `npm run dev:web` starts on port 5173, with the
+existing app listener replaced each time. Home and login returned HTTP 200.
+Passed: both governance connection failure tests. Backend identity checks were
+not run for this frontend startup change. Web-only mode does not start the API.
+
+## Generated file cleanup - 2026-10-05
+
+Added `npm run clean` through `tools/clean.mjs`, with `--dry-run` preview.
+Removes allowlisted build, cache, test report and dump output. Keeps source tests,
+installed packages, environment files and application storage. Targets are bounded
+to the app directory; linked ancestors outside the app are rejected.
+
+Passed: real-app preview, syntax and diff checks, and isolated fixture verification
+of deletion, preview, preserved source/data and repeat execution. Actual app output
+was preserved during verification. No full application test run for this utility.
+
+## Actual application cleanup - 2026-10-05
+
+Executed the cleanup on Cxsun after live governance connected. Previous utility
+verification used a preview and an isolated fixture, so existing application
+cache output had remained. Added per-target progress and retries for locked files.
+
+Cleanup completed successfully on the actual app. Verified `.cache`, `dist` and
+both root cache logs are absent. Source `tests`, `storage`, `.env` and installed
+`node_modules` remain. A second dry run reported zero generated paths.
+
+## Private database storage - 2026-10-05
+
+Database path: `storage/private/data/identity.sqlite` relative to this app.
+Backup path: `storage/private/data/backup/`. `npm run db:backup` creates a
+new timestamped backup here; explicit destinations are supported. Storage stays
+private and ignored by Git. Cleanup preserves it. Existing identity data was
+moved after a consistent safety backup and WAL checkpoint; integrity and foreign
+key checks passed.
+
+Verification passed: configured database connection, argument-free timestamped
+backup creation, three focused database tests, frontend/backend TypeScript checks
+and diff checks. Old root database paths are absent. Live login verification also
+passed for all three Cxsun portals; other apps were not started for browser tests.
+
+## Cxsun and CXApp table comparison - 2026-10-05
+
+Created `agent/cxsun-table.md` with side-by-side foundation mappings, differences,
+additional CXApp service tables and owner migration inventories for Core, Billing,
+Accounts, DevKit and Mail. Confirmed Cxsun's 18 actual SQLite tables read-only.
+CXApp review used source schemas and migrations; no live MariaDB checks or database
+changes were performed. Markdown formatting and diff checks passed.
+
+## Live MCP and migration metadata refactor - 2026-10-05
+
+Restored authenticated live MCP configuration in ignored `.env`. Renamed MariaDB
+migration metadata to `migrations` and `migration_locks`; preserved all six applied
+migration records. Timestamp is UTC `DATETIME(3)`, retaining millisecond precision.
+The database boundary converts future Kysely ISO timestamps to MariaDB storage
+format. Migration setup detects legacy internal tables and refuses conflicting
+history. A MariaDB snapshot was created before the change.
+
+Passed: strict live MCP verification, two repeat migration runs, five focused
+database tests, server TypeScript checks and live timestamp round-trip in a rolled
+back transaction. The probe left no extra migration record.
+
+## Kysely database organization - 2026-10-05
+
+Separated SQLite and MariaDB into driver-owned folders with public exports.
+Moved connection validation, dialect setup, SQL compatibility and backups to
+these owners. Root infrastructure now owns a reusable named master registry,
+provider operations, safe connection listing and thin command dispatch.
+Added `db:connections` and typed execution/transaction helpers. Existing master
+records and migration metadata were preserved. See `agent/DATABASE.md`.
+
+Passed: full verification with 56 tests, lint, types, build and compiled identity
+checks using isolated SQLite fixtures. Real MariaDB master connection, repeat
+migration, backup creation and restore rehearsal are checked separately.
+This task does not claim live MariaDB identity acceptance or tenant provisioning.
+
+## Database file consolidation - 2026-10-05
+
+Reduced the database root from fourteen files to seven focused infrastructure files.
+Connection lifecycle is private to the provider. Driver tests stay with their
+driver; provider tests stay in tests/. CLI and import operations stay in operations/.
+Updated development and compiled command paths. Backup dispatch uses the validated
+driver, including the default MariaDB selection.
+
+Passed: the earlier full verification ran 56 tests, lint, types, build and compiled
+identity checks. Live MariaDB connection, migration 007 and SQL backup passed.
+A later typecheck failed in the separately added database-connections repository:
+its nullable driver is not narrowed to TenantDatabaseTarget. That concurrent work
+is preserved. Live MariaDB portal acceptance remains untested.
+
+## Settings and request-scoped tenant mappings - 2026-10-05
+
+Added `settings` and `database-connections` backend modules. The settings provider
+loads the app `.env`, applies centralized defaults, validates selected values, and
+has an internal allowlisted writer that preserves unrelated lines. The API now
+uses that normalized environment for application, database, email, and identity
+configuration.
+
+Migration 007 adds `cxsun_tenant_connections`, which stores tenant-to-database
+targets without storing database credentials. MariaDB mappings inherit the
+server credentials from `.env`; SQLite mappings store an app-side path. Each API
+request reads tenant names and mappings from the master into async request-local
+context. Dynamic lookup rejects absent or inactive mappings.
+
+Not verified in this change: typecheck, tests, migration execution, live database
+lookup, tenant database migration, or tenant isolation. Identity and session
+storage remain on the master; no automatic mapping seed or HTTP settings editor
+was added. The previous repository typecheck failure remains unconfirmed until a
+new typecheck is run.
+
+## Database tests and common ownership - 2026-10-05
+
+Moved every database test into database/tests. MariaDB and SQLite keep matching
+index, schema, connection and backup filenames. Cross-driver configuration and
+schema contracts live in database/common with public exports. Updated imports,
+test discovery and structure notes. No database data or credentials changed.
+
+Passed: TypeScript, lint and all ten database tests. Full verify stopped at the
+LF check for the separately added database-connections files. Build and production frontend smoke passed independently. Compiled identity
+acceptance failed because settings validation rejects its email-error fixture
+before the expected email error. This fixture mismatch remains unresolved.
+
+## Single database infrastructure owner - 2026-10-05
+
+Consolidated database-connections into database. Removed empty HTTP/seed files
+and forwarding wrappers. Request context and tenant lookup share database.requests.ts;
+validation and types stay in common. Migration 007 and its table are unchanged.
+No database deletion, migration renaming or data transfer was performed.
+
+Passed: npm run check (57 tests, lint, TypeScript, tooling and LF checks)
+and npm run build. Added concurrent request-context and inactive-mapping checks.
+Identity production acceptance retains the earlier settings/email fixture mismatch.
+
+## Settings consolidation - 2026-10-05
+
+Removed the settings business-module scaffolding. `src/api/settings.ts` now reads,
+normalizes, and publishes environment settings and provides an optional allowlisted
+`.env` writer. Tenant request-context handling and connection lookup are owned by
+`src/api/database/database.connections.ts`; API requests continue to load tenant
+details from the master registry. No verification commands were run for this edit.
+
+## Settings to data connection final review - 2026-10-05
+
+Reviewed and finalized the runtime chain: `.env` and process overrides are loaded
+and normalized by `settings.ts`; `DatabaseConnections` receives those settings,
+validates and owns the master and dynamic tenant connections; `database.provider.ts`
+exposes the registry lifecycle and a `DatabaseExecution` bound to the master Kysely
+connection; API requests reload tenant details into async-local request context
+before module dispatch. Tenant resolution rejects absent and inactive mappings.
+
+Removed duplicate tenant-context construction by sharing one request provider.
+Database configuration consistently merges normalized settings with explicit
+overrides. The SQLite integer fixture now declares INTEGER affinity so it checks
+the adapter's BigInt read behavior on the supported runtime.
+
+Passed: `npm run verify` (tools/line checks, lint, both TypeScript checks, 88 tests,
+build, production frontend smoke, and compiled identity acceptance). One opt-in
+live MariaDB test was skipped because live database credentials were not enabled.
+No blocker remains in the reviewed application settings-to-data wiring. No live
+MariaDB connection or tenant database isolation claim is made.
+
+## Database execution suites and preflight - 2026-10-05
+
+Added DatabaseExecution for server-validated persistence, bounded fetch parameters
+and streamed atomic transfers. Module-owned schemas and repository queries remain
+with their callers. Validation fails before writes; late transfer errors roll back
+all batches. Added safe field errors and explicit DTO/storage guidance.
+
+All database tests now live in src/api/database/tests, including the subprocess
+preflight test. Development all/API targets run read-only database smoke after
+live governance and before port reclaim/server startup. Smoke rejects pending
+migrations and does not create a missing SQLite file. Frontend-only start is exempt.
+
+Refreshed verification passed: repository tooling, lint, TypeScript, 88 passing
+tests (one opt-in live test skipped in the default suite), production build,
+frontend smoke and compiled three-portal identity acceptance. Ran the opt-in
+MariaDB suite separately: isolated 10,000-row transfer, rollback, validation,
+pagination, repeat migrations and reopen persistence passed. Its temporary
+schema was removed. Live master smoke passed with seven applied migrations.
+
+Corrected the SQLite integer fixture affinity and the identity smoke expectation
+for earlier settings validation. No application data, release version or Git
+remote was changed. Universal volume guarantees, MariaDB stress throughput,
+network partition/deadlock recovery and the legacy identity-import load profile
+remain untested. See DATABASE-TESTING.md for execution contracts and commands.
+
+## Separate tenant ownership and database hardening - 2026-10-05 18:38
+
+Reviewed CXApp's tenant boundaries and adapted them through public Platform identity
+contracts. Tenant now owns authenticated request scope, mapping validation,
+provisioning, routes and readiness. Database owns generic Kysely execution,
+connection leasing, migrations, transfers and backup operations. All canonical
+tenant backend files are present. No business modules or tenant administration UI
+were added. Framework and Platform package extraction is planned, not performed.
+
+Added bounded leased pools, mapping-version retirement, validated response DTOs,
+streamed SQLite imports, atomic cancellation and resumable transfer checkpoints.
+Tenant headers cannot select a foreign tenant or an arbitrary database. Master
+access is explicit. Migration history was preserved; migrations 008 and 009 renamed
+the mapping table and added checkpoints after a master backup.
+
+Provisioned separate MariaDB storage for the configured initial tenant. A repeat
+provision preserved the existing mapping. Live smoke passed with nine master
+migrations, one checked tenant connection and no tenant awaiting provisioning.
+Master identity data remains in the master database.
+
+Passed: npm run verify, including tooling, lint, TypeScript, 97 tests, build,
+production smoke and compiled identity acceptance for all three portals. The one
+live MariaDB test is skipped by the default suite and passed separately. Its fault
+checks cover deadlock rollback, killed-connection recovery, in-flight cancellation
+and streaming import. The separate stress run transferred 100,000 rows in 2,652 ms
+with 85 MiB sampled heap growth. This is a workload measurement, not a capacity
+or retained-memory guarantee.
+
+Passed: isolated restore rehearsals for the master (20 tables) and tenant
+(4 infrastructure tables), using temporary restore accounts restricted to their
+temporary databases. Backup snapshots remain under storage/private/data/backup.
+
+Untested: distributed network partitions, full process-crash recovery and
+unbounded volume. Runtime account privileges and production TLS remain deployment
+configuration. No package publication, release version change, commit or push was
+performed. See TENANCY.md and DATABASE-TESTING.md for contracts and commands.
+
+## Shared foundation extraction - 2026-10-05 19:21
+
+Connect Cxsun to Framework database and settings providers and Platform tenancy through public package exports.
+Remove copied engine and tenant implementations. Keep app configuration, seed composition, CLI startup and nine historical migration IDs in Cxsun.
+Move engine tests to Framework and tenant tests to Platform. Keep consumer, preflight and live master checks in Cxsun.
+Record Framework and Platform tarballs in vendor and package-lock.json. Package refresh is packages:foundation.
+The standalone rehearsal uses .env.example and never copies local credentials.
+
+Passed: app verification with 48 passing tests and one gated live test skipped, lint, TypeScript, production build and compiled identity/RBAC acceptance.
+Passed separately: live MariaDB migrations, 10,000-row transfer, rollback, deadlock, killed-connection recovery, cancellation and import checks.
+Live master smoke passed with nine migrations, one checked tenant connection and no tenant awaiting provisioning.
+Repeated tenant provisioning preserved the current mapping. Tenant backup and isolated restore passed with four tables.
+Package integrity matches the lockfile. All 31 direct package entries were verified.
+
+Partial: test:live started the existing MariaDB-backed server but cannot test account login without configured verification credentials.
+Fixture-based real HTTP login and tenant checks passed for all three portals. No default credentials were added.
+The fresh offline consumer rehearsal passed. See final extraction evidence below.
+
+No database or release version change was made by this extraction. No commit, push or npm publication was performed.
+Other apps still need the new published shared versions before registry adoption.
+
+### Final extraction evidence - 2026-10-05 19:23
+
+Passed: Cxsun test:foundation:standalone completed offline npm ci in a new fixture.
+The fixture uses recorded vendor artifacts and the secret-free environment example.
+It passed tooling, lint, TypeScript, 48 app tests, production build, frontend smoke and compiled three-portal identity/RBAC acceptance.
+The default suite skipped one gated MariaDB test. The separate live MariaDB command passed.
+No sibling source import or linked shared runtime was required in the standalone consumer.
+
+Passed: Framework 62 tests and Platform 27 tests.
+Canonical database, settings and tenant files are present. All reviewed owner files remain below 700 lines.
+Package lock integrity, dependency order, version alignment, LF checks and git diff --check passed.
+Tenant backup and isolated restore checked four infrastructure tables through public package exports.
+
+Partial: existing-account live login needs verification credentials. Server startup and master/tenant readiness passed.
+Production TLS, privilege policy and distributed network recovery remain untested.
+Versions remain Framework 0.1.11, Platform 0.1.6 and Cxsun 0.2.3 with unreleased source changes.
+No commit, push or package publication was performed.
+
+## Source delivery - 2026-10-05 19:34
+
+Connect shared database and tenancy foundation.
+
+Cxsun consumes recorded Framework and Platform packages. Verify passed: 48 tests and one gated skip, build, frontend smoke and compiled identity/RBAC. Prior live MariaDB and fresh offline standalone checks passed. Existing-account login needs verification credentials; production deployment remains untested.
+
+Live authenticated governance connected. Local release checks passed. Commit and push authorized through github:now. Versions remain unchanged; npm publication is pending. GitHub Actions results must be checked after push. Secrets, runtime storage and caches are excluded.

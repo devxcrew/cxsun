@@ -17,7 +17,10 @@ for (const [name, version] of Object.entries({
   ...manifest.dependencies,
   ...manifest.devDependencies,
 })) {
-  if (/^(?:file:|link:|workspace:)/.test(version))
+  const foundationSnapshot =
+    ["@devxcrew/framework", "@devxcrew/platform"].includes(name) &&
+    /^file:vendor\/[a-z0-9.-]+\.tgz$/.test(version);
+  if (/^(?:file:|link:|workspace:)/.test(version) && !foundationSnapshot)
     throw new Error(`Release dependencies must use the registry: ${name}`);
 }
 require.resolve("@devxcrew/platform");

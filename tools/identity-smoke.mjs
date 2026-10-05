@@ -31,6 +31,7 @@ const environment = {
   APP_HOST: "127.0.0.1",
   APP_PORT: String(port),
   APP_URL: base,
+  DB_DRIVER: "sqlite",
   DB_SQLITE_PATH: join(directory, "identity.sqlite"),
   IDENTITY_MODE: "single-client",
   IDENTITY_TENANT_ID: "default",
@@ -48,12 +49,26 @@ let child;
 const cookies = {};
 try {
   for (const command of ["migrate", "seed", "migrate", "seed"]) {
-    const result = spawnSync(process.execPath, ["dist/api/database/database.command.js", command], {
-      env: environment,
-      encoding: "utf8",
-      windowsHide: true,
-    });
+    const result = spawnSync(
+      process.execPath,
+      ["dist/api/database/operations/database.command.js", command],
+      {
+        env: environment,
+        encoding: "utf8",
+        windowsHide: true,
+      },
+    );
     assert.equal(result.status, 0, `Compiled database ${command} failed`);
+  }
+  const tenantSetup = new DatabaseSync(environment.DB_SQLITE_PATH);
+  try {
+    tenantSetup
+      .prepare(
+        "INSERT INTO tenant_connections(tenant_id,driver,database_name,sqlite_path,active,version) VALUES(?, ?, NULL, ?, 1, 1)",
+      )
+      .run("default", "sqlite", environment.DB_SQLITE_PATH);
+  } finally {
+    tenantSetup.close();
   }
   const invalidEmail = spawnSync(process.execPath, ["dist/api/index.js"], {
     env: { ...environment, EMAIL_ENABLED: "1", SMTP_HOST: "", SMTP_PORT: "invalid" },
@@ -62,7 +77,11 @@ try {
     timeout: 10_000,
   });
   assert.notEqual(invalidEmail.status, 0);
-  assert.match(invalidEmail.stderr, /startup failed during email configuration/);
+  // Settings validation may reject the malformed port before the email provider starts.
+  assert.match(
+    invalidEmail.stderr,
+    /Invalid application settings environment|startup failed during email configuration/,
+  );
   assert.doesNotMatch(invalidEmail.stderr, /Identity database is not ready/);
   await start();
   const endpoint = base + "/api/v1/identity/user/sessions";
@@ -122,6 +141,22 @@ try {
     assert.equal(principal.tenant.id, "default");
     assert.equal((await request(desk, "GET", undefined, cookies[portal])).status, 200);
   }
+  const tenantRequest = (headers) => fetch(base + "/api/v1/tenants/current", { headers });
+  assert.equal((await tenantRequest({})).status, 401);
+  for (const portal of ["user", "admin", "super-admin"]) {
+    const response = await tenantRequest({ Cookie: cookies[portal], "x-identity-portal": portal });
+    assert.equal(response.status, 200);
+    assert.deepEqual((await response.json()).data, { tenantId: "default", portal });
+    assert.equal(response.headers.get("cache-control"), "no-store");
+  }
+  assert.equal(
+    (await tenantRequest({ Cookie: cookies.user, "x-tenant-id": "foreign" })).status,
+    403,
+  );
+  assert.equal(
+    (await tenantRequest({ Cookie: cookies.user, "x-tenant-db": "arbitrary" })).status,
+    422,
+  );
   await verifyIdentityResources(request, cookies, password);
   const denied = await request("/api/v1/identity/admin/sessions", "POST", {
     email: "user@example.test",
@@ -258,7 +293,10 @@ try {
     database.close();
   }
   const manifest = JSON.parse(await readFile(resolve("package.json"), "utf8"));
-  assert.match(manifest.dependencies["@devxcrew/platform"], /^\d+\.\d+\.\d+$/);
+  assert.match(
+    manifest.dependencies["@devxcrew/platform"],
+    /^(?:\d+\.\d+\.\d+|file:vendor\/devxcrew-platform-\d+\.\d+\.\d+\.tgz)$/,
+  );
   console.info(
     "Compiled Cxsun identity passed: three portals, role/tenant denial, durable sessions, logout, password change, validation, and database integrity.",
   );

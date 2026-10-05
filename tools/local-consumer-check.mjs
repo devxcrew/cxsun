@@ -54,6 +54,8 @@ if (!registry) {
         "local-consumer-check.mjs",
         "shared-packages.mjs",
         "platform-package.mjs",
+        "foundation-packages.mjs",
+        "foundation-consumer-check.mjs",
         "template-artifact.mjs",
       ].includes(entry)
     )
@@ -65,6 +67,8 @@ if (!registry) {
     "packages:local",
     "packages:npm",
     "packages:platform",
+    "packages:foundation",
+    "test:foundation:standalone",
     "test:consumers",
     "test:consumers:registry",
     "test:consumers:upgrade",
@@ -192,7 +196,8 @@ for (const [id, name, port] of [
   const fixtureEnvironment = {
     ...generated,
     APP_MODE: "production",
-    DB_SQLITE_PATH: resolve(destination, "storage/identity.sqlite"),
+    DB_DRIVER: "sqlite",
+    DB_SQLITE_PATH: resolve(destination, "storage/private/data/identity.sqlite"),
   };
   for (const role of ["USER", "ADMIN", "SUPER_ADMIN"]) {
     fixtureEnvironment[`IDENTITY_SEED_${role}_EMAIL`] = `${role.toLowerCase()}@example.test`;

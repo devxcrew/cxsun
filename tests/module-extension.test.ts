@@ -30,6 +30,7 @@ test("diagnostic module registers and enforces real permissions through public c
     APP_ID: "extension-proof",
     APP_NAME: "Extension proof",
     APP_URL: origin,
+    DB_DRIVER: "sqlite",
     DB_SQLITE_PATH: join(directory, "identity.sqlite"),
     IDENTITY_SEED_USER_EMAIL: "user@example.test",
     IDENTITY_SEED_USER_NAME: "Diagnostic user",

@@ -1,5 +1,25 @@
 # Cxsun
 
+## Common startup and portal flow
+
+1. Run `npm ci` from this application directory.
+2. Configure the application, cloud governance, database, and bootstrap accounts in the ignored `.env`.
+3. Run `npm run setup` to check governance, migrate the database, and seed configured accounts.
+4. Run `npm run dev` for the combined frontend and API.
+
+`dev:api` starts only the API. `dev:web` starts only the frontend.
+Each mode checks live governance and its reserved port before startup.
+Run one mode at a time on the application port.
+Development restart replaces only a verified listener belonging to this application.
+Production startup rejects occupied ports.
+
+The public page leads to the appropriate login portal and its authorized desk:
+`/login → /desk`, `/admin/login → /admin/desk`, or `/sa/login → /sa/desk`.
+The server verifies the database, identity schema, and tenant connection registry before it accepts requests.
+Restart preserves the application database and durable sessions.
+
+For production, set `APP_MODE=production`, run `npm run build`, then `npm run start`.
+
 An isolated application foundation with Framework, UI, and shared Platform Core identity.
 
 ## Current flow
@@ -32,8 +52,21 @@ Use Node 26.10.0 or newer and npm 12.2.0 or newer.
 
 The default URL is http://127.0.0.1:5173.
 Set APP_PORT and APP_URL together in `.env` when the port is occupied.
-Port preflight preserves other applications and stops startup on a port conflict.
+Port preflight restarts a verified listener owned by this app and rejects unrelated listeners.
 APP_NAME, APP_HOST, and APP_MODE configure the server. APP_ID is cxsun.
+
+The API settings loader reads `.env` at startup, applies the documented fallback values,
+then lets explicitly supplied process environment values override the file. The optional
+`writeSettingsFile` helper updates only approved settings and keeps secrets on the server.
+Changes are loaded after restart.
+
+The master connection uses `DB_DRIVER`, `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`,
+and `DB_MASTER_NAME` from `.env`. Migration 007 creates the CXSUN-owned
+`cxsun_tenant_connections` mapping. Each API request reloads tenant names and active
+connection mappings from the master. A mapped tenant database uses the configured driver
+and database name or SQLite path; MariaDB tenants inherit the server credentials from
+`.env`. Code must pass a tenant ID from an authenticated principal to the request-scoped
+database provider. Missing or inactive mappings do not fall back to another database.
 
 Development requires https://mcp.codexsun.com/mcp and a valid secret.
 There is no offline or cached guidance fallback. Production startup does not retrieve MCP guidance.
@@ -80,15 +113,19 @@ Use github:now only for an authorized commit and push.
 
 GitHub: https://github.com/devxcrew/cxsun.
 
-## SQLite database
+## Database connections
 
-Cxsun uses Kysely with Node's built-in SQLite driver. No additional SQLite package is required.
-Set `DB_SQLITE_PATH=storage/cxsun.sqlite` in `.env`. Relative paths resolve from the application root.
-The `storage/` directory is ignored by Git. Use a persistent disk for deployed database files.
+Cxsun uses a named `master` Kysely connection. The active driver is MariaDB,
+configured with `DB_DRIVER`, `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD` and
+`DB_MASTER_NAME` in ignored `.env`. Credentials are never included in connection lists.
+SQLite is an explicitly selected driver for isolated tests and recovery work.
+It uses `DB_DRIVER=sqlite` and `DB_SQLITE_PATH=storage/private/data/identity.sqlite`.
+The `storage/` directory is private and ignored by Git.
 
 ```powershell
 npm run db:setup
 npm run db:check
+npm run db:connections
 ```
 
 `db:setup` runs migrations and the seed. Run `db:migrate` and `db:seed` separately when needed.
@@ -96,16 +133,19 @@ Both commands can run again safely. The seed preserves existing application meta
 Server startup verifies the connection. It does not automatically migrate or seed the database.
 Run migrations before starting a new release.
 
-The database module lives in `src/api/database`. Its public boundary is `database.provider.ts`.
-Database configuration rejects memory databases and URI connection strings.
+The database infrastructure lives in `src/api/database`, with public exports in `index.ts`.
+Driver-owned connection setup, validation and backups live in `drivers/mariadb`
+and `drivers/sqlite`. The provider owns operations; the connection registry owns
+the reusable master connection and shutdown; the command entry delegates execution
+to `database.service.ts`. See [database organization](agent/DATABASE.md).
 
 ### Backup and recovery
 
 Create a consistent SQLite backup before migrations:
 
 ```powershell
-npm run db:backup -- storage/backups/before-release.sqlite
-npm run db:verify-backup -- storage/backups/before-release.sqlite
+npm run db:backup -- storage/private/data/backup/before-release.sqlite
+npm run db:verify-backup -- storage/private/data/backup/before-release.sqlite
 ```
 
 Backup refuses to overwrite an existing destination.
@@ -180,3 +220,56 @@ Run `npm run test:consumers:registry` to export the exact registry template from
 ## Candidate upgrade verification
 
 Run `npm run test:consumers:upgrade -- <local-consumer-results.json>` for two existing disposable local candidates. The check is restricted to this app's `.cache/local-consumers-*` fixtures. It installs the exact registry release, migrates the retired public Framework/UI package references, and records each changed file. It verifies unchanged unrelated source and configuration, compares the SQLite schema and every stored row, and checks existing portal logins. A new release requires its own migration review and verification.
+
+## Reserved development port
+
+`npm run dev` uses shared Tools preflight with `DEVXCREW_DEV_PORT_POLICY=restart`.
+It checks this app and its configured port, stops the existing app process tree,
+waits for the port to be free and starts on the same port. It preserves unrelated
+listeners and never advances to another port. Set the policy to `abort` to disable
+development reclaim. Production startup does not reclaim occupied ports.
+
+# Generated file cleanup
+
+Run `npm run clean` to remove build output, caches, coverage, test reports,
+root `dump` and `dumps` folders, and generated cache logs. Preview targets with
+`npm run clean -- --dry-run`. Source tests, dependencies, environment files and
+application storage are preserved. Rebuild before a production start after cleanup.
+
+## Private database storage - 2026-10-05
+
+Database path: `storage/private/data/identity.sqlite` relative to this app.
+Backup path: `storage/private/data/backup/`. `npm run db:backup` creates a
+new timestamped backup here; explicit destinations are supported. Storage stays
+private and ignored by Git. Cleanup preserves it. Existing identity data was
+moved after a consistent safety backup and WAL checkpoint; integrity and foreign
+key checks passed.
+
+## Database verification
+
+Run `npm run test:database` for isolated database tests, including app preflight and master migration acceptance.
+Run Framework and Platform owner tests for execution, transfers and tenant context.
+Run `npm run test:database:mariadb` for the opt-in live engine suite; it creates
+and removes its own temporary database and needs create/drop permissions.
+Run `npm run db:smoke` to check the configured master without changing data.
+Backend development runs this smoke check before reserved-port restart.
+
+See [database execution and test contracts](agent/DATABASE-TESTING.md).
+
+## Separate tenant storage
+
+Platform owns tenant scope in shared/platform/src/modules/tenant.
+Database infrastructure only manages engines and leased connections. Tenant
+requests use their selected storage; trusted master operations use masterData.
+Run npm run tenant:provision after seeding identity, then npm run db:smoke.
+Backups and isolated recovery checks have tenant:backup, tenant:verify-backup and
+tenant:verify-restore scripts. See [tenancy ownership](agent/TENANCY.md).
+
+## Shared foundation ownership
+
+Framework owns generic database and settings providers. Platform owns identity and tenancy.
+Cxsun keeps app configuration and historical migration composition.
+Run npm run packages:foundation to refresh both shared development artifacts.
+The recorded vendor packages allow npm ci without sibling source directories.
+Run npm run test:foundation:standalone for a clean installation and complete verification.
+See agent/TENANCY.md for the public boundaries. Registry adoption requires new shared package releases.

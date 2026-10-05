@@ -59,6 +59,8 @@ export function exportTemplateArtifact({
     "packages:local",
     "packages:npm",
     "packages:platform",
+    "packages:foundation",
+    "test:foundation:standalone",
     "test:consumers",
     "test:consumers:registry",
     "test:consumers:upgrade",

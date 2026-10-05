@@ -5,7 +5,9 @@ import { createServer } from "node:net";
 import { access } from "node:fs/promises";
 import { resolve } from "node:path";
 
-await access(resolve(process.env.DB_SQLITE_PATH ?? "storage/cxsun.sqlite"));
+if (process.env.DB_DRIVER === "sqlite") {
+  await access(resolve(process.env.DB_SQLITE_PATH ?? "storage/private/data/identity.sqlite"));
+}
 const probe = createServer();
 probe.listen(0, "127.0.0.1");
 await once(probe, "listening");
@@ -59,6 +61,15 @@ try {
     const cookie = login.headers.get("set-cookie")?.split(";")[0];
     assert.ok(cookie, "Portal session cookie missing");
     sessions.push({ prefix, cookie });
+    const tenantResponse = await fetch(`${base}/api/v1/tenants/current`, {
+      headers: { Origin: base, Cookie: cookie, "x-identity-portal": portal },
+      signal: AbortSignal.timeout(10_000),
+    });
+    assert.equal(tenantResponse.status, 200, `${portal} tenant scope read failed`);
+    assert.equal(
+      (await tenantResponse.json()).data.tenantId,
+      process.env.IDENTITY_TENANT_ID ?? "default",
+    );
     assert.equal((await request(desk, "GET", undefined, cookie)).status, 200);
     for (const resource of portal === "user"
       ? ["profile", "sessions"]
@@ -86,7 +97,9 @@ try {
         );
       }
     }
-    console.info(`${portal}: configured SQLite login, desk and permitted resource reads passed.`);
+    console.info(
+      `${portal}: configured ${process.env.DB_DRIVER} login, tenant scope, desk and permitted resource reads passed.`,
+    );
   }
 } finally {
   clearTimeout(startupTimer);

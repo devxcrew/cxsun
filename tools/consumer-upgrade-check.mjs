@@ -143,7 +143,7 @@ function databaseFingerprint(target) {
   const path = resolve(target, config.DB_SQLITE_PATH);
   assert.equal(
     path,
-    resolve(target, "storage/identity.sqlite"),
+    resolve(target, "storage/private/data/identity.sqlite"),
     "Use only the fixture-owned SQLite database.",
   );
   const database = new DatabaseSync(path, { readOnly: true });

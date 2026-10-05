@@ -1,3 +1,4 @@
+import { databasePreflight } from "./database-preflight.mjs";
 import { spawn } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
@@ -15,6 +16,8 @@ export async function startDevelopment({
   stdio = "inherit",
 } = {}) {
   if (!["all", "api", "web"].includes(target)) throw new Error("Invalid development target.");
+  const appPreflight = !command && target !== "web";
+  const webPreflight = !command && target === "web";
   if (!command) {
     const require = createRequire(resolve(root, "package.json"));
     command = process.execPath;
@@ -26,6 +29,14 @@ export async function startDevelopment({
     }
   }
   const governance = await refreshGovernance(env, root);
+  if (appPreflight) await databasePreflight(root, env);
+  if (webPreflight) {
+    const require = createRequire(resolve(root, "package.json"));
+    const version = pathToFileURL(require.resolve("@devxcrew/tools/version"));
+    const { devSettings, preflightPorts } = await import(new URL("./preflight.mjs", version));
+    const { endpoints, policy } = devSettings(root);
+    await preflightPorts(root, endpoints, policy);
+  }
   const child = spawn(command, args, {
     cwd: root,
     env: { ...env, CODEXSUN_DEV_TARGET: target },

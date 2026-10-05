@@ -1,38 +1,19 @@
-import { mkdirSync } from "node:fs";
-import { dirname, resolve } from "node:path";
-import { Kysely, SqliteDialect, sql } from "kysely";
+import { createDatabaseProvider as createFrameworkDatabase } from "@devxcrew/framework";
 import { seedIdentity } from "@devxcrew/platform";
-import { NodeSqliteDatabase } from "./database.sqlite.js";
-import { createDatabaseMigrator } from "./database.migration.js";
-import { seedDatabase } from "./database.seed.js";
-import type { DatabaseSchema } from "./database.types.js";
-
+import { applicationMigrations } from "./database.migration.js";
+import type { DatabaseSchema } from "./common/database.types.js";
 export function createDatabaseProvider(environment: NodeJS.ProcessEnv = process.env) {
-  const configuredPath = environment.DB_SQLITE_PATH ?? "storage/cxsun.sqlite";
-  if (!configuredPath.trim()) throw new Error("DB_SQLITE_PATH must not be empty.");
-  if (configuredPath === ":memory:" || configuredPath.startsWith("file:")) {
-    throw new Error("DB_SQLITE_PATH must identify a persisted SQLite file.");
-  }
-  const path = resolve(configuredPath);
-  mkdirSync(dirname(path), { recursive: true });
-  const database = new Kysely<DatabaseSchema>({
-    dialect: new SqliteDialect({ database: new NodeSqliteDatabase(path) }),
+  const provider = createFrameworkDatabase<DatabaseSchema>(environment, {
+    migrations: applicationMigrations,
+    seed: seedIdentity,
   });
-  const migrator = createDatabaseMigrator(database);
   return {
-    database,
-    async verify() {
-      await sql`select 1`.execute(database);
+    ...provider,
+    async seedTenancy() {
+      const tenancyEnvironment = Object.fromEntries(
+        Object.entries(environment).filter(([key]) => !key.startsWith("IDENTITY_SEED_")),
+      );
+      await seedIdentity(provider.database, tenancyEnvironment);
     },
-    async migrate() {
-      const result = await migrator.migrateToLatest();
-      if (result.error) throw result.error;
-      return result.results ?? [];
-    },
-    async seed() {
-      await seedDatabase(database, environment.APP_NAME ?? "Cxsun");
-      await seedIdentity(database, environment);
-    },
-    close: () => database.destroy(),
   };
 }
