@@ -6,6 +6,7 @@ import { resolve, relative, sep } from "node:path";
 import { parseEnv } from "node:util";
 import { DatabaseSync } from "node:sqlite";
 import { connectGovernance } from "../agent/connect.mjs";
+import { migrateConsumerPackageReferences } from "./consumer-package-migration.mjs";
 
 assert.ok(
   process.versions.node.startsWith("26."),
@@ -45,6 +46,8 @@ for (const target of targets) {
   await connectGovernance({ ...credentials, APP_ID: manifest.name });
   const before = snapshot(target);
   const dataBefore = databaseFingerprint(target);
+  const renamedFiles = migrateConsumerPackageReferences(target);
+  const expectedSource = snapshot(target);
   const previousPlatform = manifest.dependencies["@devxcrew/platform"];
   manifest.dependencies = { ...release.dependencies };
   manifest.devDependencies = { ...release.devDependencies };
@@ -68,9 +71,16 @@ for (const target of targets) {
     run(args, target);
   assert.deepEqual(
     snapshot(target),
-    before,
-    "Upgrade must preserve owned source and configuration.",
+    expectedSource,
+    "Upgrade must preserve source after the explicit public package rename.",
   );
+  for (const [path, hash] of Object.entries(before))
+    if (!renamedFiles.includes(path))
+      assert.equal(
+        expectedSource[path],
+        hash,
+        `Unrelated source or configuration changed: ${path}`,
+      );
   assert.equal(
     databaseFingerprint(target),
     dataBefore,
@@ -83,7 +93,12 @@ for (const target of targets) {
     platform: manifest.dependencies["@devxcrew/platform"],
     registryInstallation: "passed",
     verify: "passed",
-    sourceAndConfigurationPreserved: "passed",
+    sourceAndConfigurationPreserved: renamedFiles.length
+      ? "passed-except-declared-public-package-renames"
+      : "passed",
+    sourcePreservationScope:
+      "Unrelated source and configuration unchanged. Listed files have only public package-name replacements.",
+    publicPackageRenames: renamedFiles,
     existingSqlitePreserved: "passed",
     livePortalReads: "passed",
   });
@@ -96,14 +111,14 @@ writeFileSync(
       status: "candidate-to-registry-upgrade-passed",
       results,
       scope:
-        "Two disposable local candidates upgraded to the first registry foundation. Future releases require their own migration verification.",
+        "Two disposable candidates upgraded to the selected registry release. Public package renames are listed. Future releases require their own migration verification.",
     },
     null,
     2,
   ) + "\n",
 );
 console.info(
-  "Both candidate-to-registry upgrades preserved source, configuration and SQLite and passed live portal checks.",
+  "Both upgrades preserved unrelated source, configuration and SQLite, recorded public package renames and passed live portal checks.",
 );
 
 function snapshot(target) {
@@ -170,5 +185,10 @@ function run(args, cwd) {
     windowsHide: true,
     timeout: args[0] === "ci" ? 600_000 : 180_000,
   });
-  if (result.status !== 0) throw new Error((result.stdout + result.stderr).slice(-4000));
+  if (result.error) throw result.error;
+  if (result.status !== 0)
+    throw new Error(
+      `npm ${args.join(" ")} exited ${result.status} (${result.signal ?? "no signal"}).\n` +
+        (result.stdout + result.stderr).slice(-4000),
+    );
 }

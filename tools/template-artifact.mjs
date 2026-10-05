@@ -215,7 +215,7 @@ function collect(root, directory, files) {
   if (lstatSync(path).isSymbolicLink()) throw new Error(`Artifact symlink rejected: ${directory}`);
   for (const entry of readdirSync(path, { withFileTypes: true })) {
     const file = `${directory}/${entry.name}`;
-    if (/^tests\/template.*\.test\.mjs$/.test(file)) continue;
+    if (/^tests\/(?:template.*|consumer-package-migration)\.test\.mjs$/.test(file)) continue;
     if (entry.isSymbolicLink()) throw new Error(`Artifact symlink rejected: ${file}`);
     if (entry.isDirectory()) collect(root, file, files);
     else if (/\.(?:[cm]?[jt]sx?|json|css|html|svg|md)$/.test(file))

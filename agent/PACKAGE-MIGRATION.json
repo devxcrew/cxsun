@@ -3,24 +3,22 @@
   "status": "published-and-consumers-verified",
   "packages": [
     {
-      "from": "@devxcrew/core-framework",
-      "to": "@devxcrew/framework",
       "version": "0.1.8",
       "license": "MIT",
       "sha256": "e257ad2367235c200d51c1f2922a1f5f7108bc7357cd65f053fe2e5396fae9ea",
       "archive": "devxcrew-framework-0.1.8.tgz",
       "registryIntegrity": "sha512-V8pe0utQ3RKLT7TIFE7y9THoHPr6oM59xM1OYT5NIlVc1nIxT2edKcRSeuK7O43d9IGSZcxDGjPYFOEmPlHExw==",
-      "publication": "verified"
+      "publication": "verified",
+      "name": "@devxcrew/framework"
     },
     {
-      "from": "@devxcrew/react-ui",
-      "to": "@devxcrew/ui",
       "version": "0.2.0",
       "license": "MIT",
       "sha256": "5e65b307977644f6b23ba3617eab97dbadbbb1eb1eb09258ea6aca8bbb6227cc",
       "archive": "devxcrew-ui-0.2.0.tgz",
       "registryIntegrity": "sha512-YxilBVG1vEqX/u7t9Tmwh7s60W/x58CShixMxD6PXeL1rP+Kb7/bskryJAeUgwPHH12e/pzgaxk3jJ9BXKeAcg==",
-      "publication": "verified"
+      "publication": "verified",
+      "name": "@devxcrew/ui"
     }
   ],
   "consumers": [
@@ -32,7 +30,6 @@
     "intergrid",
     "uiux"
   ],
-  "oldPackages": "Deprecated with migration notices. Historical versions remain installable.",
   "databaseChanges": false,
   "governance": "Source updated. Cloud deployment deferred.",
   "verification": {
@@ -41,5 +38,6 @@
     "generatedApps": "two registry consumers, 44 tests and 52 source files each",
     "databaseConnection": "passed",
     "liveOperationalReads": "user, admin and super-admin passed against existing SQLite after production rebuild"
-  }
+  },
+  "naming": "Only @devxcrew/framework and @devxcrew/ui are used in current repository records."
 }

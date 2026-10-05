@@ -1,5 +1,15 @@
 # Current local foundation audit - 2026-10-04
 
+## Package reference cleanup - 2026-10-05
+
+- [x] Retrieve authenticated cloud governance.
+- [x] Remove superseded package identifiers from source, fixtures and current documents.
+- [x] Use Framework and UI names consistently.
+- [x] Scan repository files for remaining superseded identifiers.
+
+Static cleanup only. No test suite, publication or deployment ran in this step.
+
+
 ## Package migration - 2026-10-05
 
 - [x] Retrieve authenticated cloud governance before this migration.
@@ -380,7 +390,6 @@ No identity accounts were seeded into the Cxsun database. No publication, commit
 
 ## npm migration completion â€” 2026-10-03
 
-- Passed: public @devxcrew/core-framework@0.1.7 and @devxcrew/react-ui@0.1.7 installed from npm.
 - Passed: npm ci from the registry lockfile; npm audit found zero vulnerabilities.
 - Passed: npm run verify (dependency boundaries, release metadata, LF, lint, frontend/backend typechecks, three tests, production build, and route/assets/API smoke checks).
 - Passed: explicit local packed snapshots tested during development without changing release manifests. Registry packages are restored in the final installation.
@@ -583,3 +592,52 @@ This evidence proves the current generated foundation. It does not replace brows
 SQLite connection and all three configured portal logins, desks and permitted resource reads passed.
 The first live check ran before the rebuilt server was ready and failed to start.
 After the production build completed, the repeated live check passed. No schema or seed changed.
+
+## Dependency alignment - 2026-10-05
+
+- [x] Align consumed shared packages and common direct dependency versions.
+- [x] Install dependencies with lifecycle scripts disabled.
+- [x] Keep app dependency ownership and public peer ranges.
+- [x] Exclude Veyrezio from this change.
+
+Source version: 0.2.2. Published package archives retain their existing versions.
+The baseline is recorded in projects/cxsun/agent/DEPENDENCY-BASELINE.json.
+
+## Phase 1 and 2 verification - 2026-10-05
+
+Scope: Cxsun 0.2.2 working tree. No commit, push, publication, or production deployment ran.
+
+Passed:
+
+- Authenticated live MCP guidance retrieval.
+- Root verification: 48 tests, lint, types, build, dependency boundaries, and compiled production identity checks.
+- Browser: public-to-login-to-desk flow for user, administrator, and super-administrator.
+- Browser: logout, wrong-portal denial, role-specific navigation, profile edits, and required-name errors.
+- Browser: organization creation and application settings persisted in the isolated SQLite fixture.
+- Browser: filters, edit links, Back/Forward navigation, and list query preservation.
+- Browser: persisted session expiry redirected to login. The fixture expiry was forced, not timed.
+- Browser: mobile navigation, Escape dismissal, focus return, desktop layout, and empty error console.
+- Browser: saved application settings survived a server restart.
+
+Corrections:
+
+- Consumer isolation now selects free loopback ports and checks child process exit.
+- Upgrade checks rename declared public package references and preserve unrelated source and SQLite rows.
+- The template dependency record now matches the current registry lockfile. Alias records use exact resolved versions.
+- Upgrade command failures now include process errors and exit details.
+- Exported apps exclude the generator-owned upgrade-helper test.
+- Disk exhaustion interrupted one attempt. Fresh registry reruns passed after disk space became available.
+
+Partial, blocked, and untested:
+
+- Current registry consumers passed installation, full verification, database setup, portal reads, and cross-app denial. See PHASE12-GENERATED-CONSUMERS.json. The older-consumer upgrade remains pending.
+- The upgrade installer stopped without diagnostic output. A rerun follows the improved process error reporting.
+- Browser session-revoke confirmation could not be accepted through the available dialog tool.
+- The malformed browser URL was blocked by the browser tool. It was not retried through another channel.
+- Browser password change requires user interaction under computer-use policy. Compiled API password checks passed.
+- Real screen-reader testing and the complete resource, denial, pagination, and settings matrix remain untested.
+- SMTP, production acceptance, and remote CI for this working tree remain separate tasks.
+
+Evidence: .cache/phase12-verify.log, .cache/phase12-registry.log, .cache/phase12-registry-final.log,
+.cache/phase12-upgrade.log, and .cache/phase12-upgrade-final.log.
+Browser data used .cache/phase12-browser/identity.sqlite on port 5197. Operational application data was not used.

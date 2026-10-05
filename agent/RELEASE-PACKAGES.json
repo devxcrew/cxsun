@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-04",
+  "date": "2026-10-05",
   "status": "published-registry-consumers-verified",
   "profile": "local-foundation",
   "runtime": {
@@ -9,16 +9,17 @@
   "packages": [
     {
       "owner": "shared/framework",
-      "name": "@devxcrew/core-framework",
+      "name": "@devxcrew/framework",
       "version": "0.1.8",
-      "filename": "devxcrew-core-framework-0.1.8.tgz",
-      "integrity": "sha512-66BrydL50taateMGp8LP8UJKU8KsV7fpzU7Bh+dP/hvoTaWzZ/FPiHEMZQ0hOQKWW3U+ZYIZUx4uf8WcbCrtlQ==",
-      "shasum": "a67bac176c45799e181e556d3d118e3bba4bc9c2",
-      "size": 8971,
+      "filename": "devxcrew-framework-0.1.8.tgz",
+      "integrity": "sha512-V8pe0utQ3RKLT7TIFE7y9THoHPr6oM59xM1OYT5NIlVc1nIxT2edKcRSeuK7O43d9IGSZcxDGjPYFOEmPlHExw==",
+      "shasum": "36e12a43ace6f383fcd41082ec1d8e855ca50aa3",
+      "size": 8966,
       "files": 13,
       "license": "MIT",
       "publication": "registry-available-checksum-verified",
-      "registryTarball": "https://registry.npmjs.org/@devxcrew/core-framework/-/core-framework-0.1.8.tgz"
+      "registryTarball": "https://registry.npmjs.org/@devxcrew/framework/-/framework-0.1.8.tgz",
+      "sha256": "e257ad2367235c200d51c1f2922a1f5f7108bc7357cd65f053fe2e5396fae9ea"
     },
     {
       "owner": "shared/platform",
@@ -48,16 +49,17 @@
     },
     {
       "owner": "shared/ui",
-      "name": "@devxcrew/react-ui",
+      "name": "@devxcrew/ui",
       "version": "0.2.0",
-      "filename": "devxcrew-react-ui-0.2.0.tgz",
-      "integrity": "sha512-cWJzVwN1QedErvlr1dNBRw64KkYubwWPBs+6YXs7PttG06ENNTqOy3xU4Ag68l0gBa0e3ifRry9Dao1mnQ1iXw==",
-      "shasum": "ea99d4619c82a63ea3a0bbd442cd5c1c7a6e7efc",
-      "size": 223717,
+      "filename": "devxcrew-ui-0.2.0.tgz",
+      "integrity": "sha512-YxilBVG1vEqX/u7t9Tmwh7s60W/x58CShixMxD6PXeL1rP+Kb7/bskryJAeUgwPHH12e/pzgaxk3jJ9BXKeAcg==",
+      "shasum": "b3675fb9b5ed65f9ba07a3d9a226c4c054893463",
+      "size": 223726,
       "files": 326,
       "license": "MIT",
       "publication": "registry-available-checksum-verified",
-      "registryTarball": "https://registry.npmjs.org/@devxcrew/react-ui/-/react-ui-0.2.0.tgz"
+      "registryTarball": "https://registry.npmjs.org/@devxcrew/ui/-/ui-0.2.0.tgz",
+      "sha256": "5e65b307977644f6b23ba3617eab97dbadbbb1eb1eb09258ea6aca8bbb6227cc"
     },
     {
       "owner": "addons/email",
@@ -73,25 +75,26 @@
       "registryTarball": "https://registry.npmjs.org/@devxcrew/email/-/email-0.1.0.tgz"
     }
   ],
-  "consumer": "Cxsun 0.2.0",
+  "consumer": "Cxsun 0.2.1",
   "releaseGates": {
     "browser": "blocked-by-browser-url-policy",
     "registry": "passed: exact Cxsun installation, two generated apps and Cxsun three-OS CI",
     "smtp": "deferred-by-user",
     "production": "deferred-by-user"
   },
-  "publicationApproval": "User approved original five versions, then Platform 0.1.2 after registry conflict.",
+  "publicationApproval": "User approved the public MIT packages and the current Framework/UI names.",
   "ci": {
-    "cxsun": 37204145628
+    "cxsun": 37256803161
   },
   "finalSourceVerification": {
-    "commit": "65b7fb2c2fb17e45b0028424c60e242e219d0d0d",
-    "run": 37208049321,
+    "commit": "b7959fe8b26b64fd25e7b0660a168e0de1598567",
+    "run": 37256803161,
     "platforms": [
       "Windows",
       "Linux",
       "macOS"
     ],
     "result": "passed"
-  }
+  },
+  "recordScope": "Current release inventory. Earlier publication receipts remain in Git history."
 }

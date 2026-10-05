@@ -2,11 +2,23 @@
 
 ## Version State
 
-Current version: 0.2.1
+Current version: 0.2.2
 
-Release tag: v-0.2.1
+Release tag: v-0.2.2
 
-Changelog label: v 0.2.1
+Changelog label: v 0.2.2
+
+## v-0.2.2
+
+### [v 0.2.2] 2026-10-05 8:37 am - Align workspace packages
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Align maintenance tooling with @devxcrew/tools@0.1.8 and record the verified workspace package set.
 
 ## v-0.2.1
 
@@ -345,12 +357,10 @@ Changelog label: v 0.2.1
 
 ## npm package names — 2026-10-03
 
-- Use @devxcrew/core-framework and @devxcrew/react-ui because the original package names are under an npm unpublished-name hold.
 - Updated public imports, package manifests, local development commands, and common guidance.
 
 ## npm migration completion — 2026-10-03
 
-- Passed: public @devxcrew/core-framework@0.1.7 and @devxcrew/react-ui@0.1.7 installed from npm.
 - Passed: npm ci from the registry lockfile; npm audit found zero vulnerabilities.
 - Passed: npm run verify (dependency boundaries, release metadata, LF, lint, frontend/backend typechecks, three tests, production build, and route/assets/API smoke checks).
 - Passed: explicit local packed snapshots tested during development without changing release manifests. Registry packages are restored in the final installation.
@@ -431,3 +441,27 @@ Add module-owned compiled identity resource acceptance. Refresh local Platform a
 - Two fresh registry apps passed 44 tests each, live SQLite and cross-app session denial.
 - The gallery passed source and isolated registry verification with bundle budgets.
 - Browser, real SMTP and production deployment acceptance remain separate.
+
+### Package reference cleanup - 2026-10-05
+
+- Remove superseded package identifiers from source, fixtures and current documents.
+- Current release receipts use verified registry checksums for Framework and UI.
+- Original publication records remain in Git history.
+- No test suite, publication or deployment ran in this cleanup.
+
+## Dependency alignment - 2026-10-05
+
+- [x] Align consumed shared packages and common direct dependency versions.
+- [x] Install dependencies with lifecycle scripts disabled.
+- [x] Keep app dependency ownership and public peer ranges.
+- [x] Exclude Veyrezio from this change.
+
+Source version: 0.2.2. Published package archives retain their existing versions.
+The baseline is recorded in projects/cxsun/agent/DEPENDENCY-BASELINE.json.
+
+### [v 0.2.2] 2026-10-05 9:15 am - Verify foundation phases
+
+Phase 1 and 2 review: fix generated-consumer port isolation and public package-reference migration.
+Align template dependency metadata with the current lockfile. Keep unrelated consumer code and SQLite data intact.
+Root verification passed 48 tests. Browser acceptance has partial evidence in AUDIT.md.
+Standalone consumer reruns remain pending. No release action ran.

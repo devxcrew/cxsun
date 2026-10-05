@@ -7,6 +7,8 @@ import { resolve, dirname, relative } from "node:path";
 import { randomUUID, createHash } from "node:crypto";
 import { gunzipSync } from "node:zlib";
 import { parseEnv } from "node:util";
+import { createServer } from "node:net";
+import { once } from "node:events";
 import { exportTemplateArtifact } from "./template-artifact.mjs";
 import { connectGovernance } from "../agent/connect.mjs";
 
@@ -257,7 +259,7 @@ async function collect(directory) {
   if (!existsSync(resolve(root, directory))) return;
   for (const entry of await readdir(resolve(root, directory), { withFileTypes: true })) {
     const file = `${directory}/${entry.name}`;
-    if (/^tests\/template.*\.test\.mjs$/.test(file)) continue;
+    if (/^tests\/(?:template.*|consumer-package-migration)\.test\.mjs$/.test(file)) continue;
     if (entry.isSymbolicLink()) throw new Error("Consumer artifact cannot contain symlinks.");
     if (entry.isDirectory()) await collect(file);
     else await copy(file);
@@ -321,18 +323,27 @@ async function verifyApplicationIsolation(consumers) {
       readFile(resolve(destination, ".env"), "utf8").then(parseEnv),
     ),
   );
+  const ports = await Promise.all(consumers.map(() => availablePort()));
   const servers = consumers.map(({ destination }, index) =>
     spawn(process.execPath, ["--env-file=.env", "dist/api/index.js"], {
       cwd: destination,
-      env: { ...process.env, ...configurations[index], APP_MODE: "production" },
+      env: {
+        ...process.env,
+        ...configurations[index],
+        APP_MODE: "production",
+        APP_PORT: String(ports[index]),
+        APP_URL: `http://127.0.0.1:${ports[index]}`,
+      },
       windowsHide: true,
       stdio: "ignore",
     }),
   );
   try {
-    for (const port of [5191, 5192]) {
+    for (const [index, port] of ports.entries()) {
       const deadline = Date.now() + 10_000;
       while (true) {
+        if (servers[index].exitCode !== null)
+          throw new Error("Generated consumer exited before readiness.");
         try {
           const response = await fetch(`http://127.0.0.1:${port}/health/ready`);
           if (response.status === 200) break;
@@ -344,7 +355,7 @@ async function verifyApplicationIsolation(consumers) {
       }
     }
     const first = parseEnv(await readFile(resolve(consumers[0].destination, ".env"), "utf8"));
-    const origin = "http://127.0.0.1:5191";
+    const origin = `http://127.0.0.1:${ports[0]}`;
     const login = await fetch(`${origin}/api/v1/identity/user/sessions`, {
       method: "POST",
       headers: { "content-type": "application/json", origin },
@@ -357,7 +368,7 @@ async function verifyApplicationIsolation(consumers) {
     assert.equal(login.status, 201);
     const cookie = login.headers.get("set-cookie")?.split(";")[0];
     assert.ok(cookie);
-    const second = await fetch("http://127.0.0.1:5192/api/v1/identity/user/profile", {
+    const second = await fetch(`http://127.0.0.1:${ports[1]}/api/v1/identity/user/profile`, {
       headers: { cookie },
     });
     assert.equal(
@@ -369,4 +380,13 @@ async function verifyApplicationIsolation(consumers) {
   } finally {
     for (const server of servers) server.kill();
   }
+}
+
+async function availablePort() {
+  const probe = createServer();
+  probe.listen(0, "127.0.0.1");
+  await once(probe, "listening");
+  const port = probe.address().port;
+  await new Promise((done) => probe.close(done));
+  return port;
 }

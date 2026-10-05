@@ -179,4 +179,4 @@ Run `npm run test:consumers:registry` to export the exact registry template from
 
 ## Candidate upgrade verification
 
-Run `npm run test:consumers:upgrade -- <local-consumer-results.json>` for two existing disposable local candidates. The check is restricted to this app's `.cache/local-consumers-*` fixtures. It installs the exact registry release, checks owned source and configuration hashes, compares the SQLite schema and every stored row, and verifies existing portal logins. A new release requires its own migration review and verification.
+Run `npm run test:consumers:upgrade -- <local-consumer-results.json>` for two existing disposable local candidates. The check is restricted to this app's `.cache/local-consumers-*` fixtures. It installs the exact registry release, migrates the retired public Framework/UI package references, and records each changed file. It verifies unchanged unrelated source and configuration, compares the SQLite schema and every stored row, and checks existing portal logins. A new release requires its own migration review and verification.
