@@ -17,7 +17,7 @@ Status: phases 1 and 2 are in progress. See AUDIT.md for current evidence and li
 
 Root verification and both fresh registry consumers passed. See AUDIT.md and PHASE12-GENERATED-CONSUMERS.json.
 
-- [ ] Finish the older-consumer upgrade check against the current dependency graph.
+- [ ] Resolve the stalled older-fixture install and repeat its upgrade check. Fresh registry consumers already pass.
 
 ## 2. Browser acceptance
 

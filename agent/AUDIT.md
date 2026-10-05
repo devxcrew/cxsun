@@ -630,8 +630,8 @@ Corrections:
 
 Partial, blocked, and untested:
 
-- Current registry consumers passed installation, full verification, database setup, portal reads, and cross-app denial. See PHASE12-GENERATED-CONSUMERS.json. The older-consumer upgrade remains pending.
-- The upgrade installer stopped without diagnostic output. A rerun follows the improved process error reporting.
+- Current registry consumers passed installation, full verification, database setup, portal reads, and cross-app denial. See PHASE12-GENERATED-CONSUMERS.json. The older-consumer upgrade is blocked by a stalled fixture installation.
+- Older-consumer installation stalled across retries. The final attempt was stopped after more than six minutes without reaching verification. Source, configuration, and SQLite remain preserved. Interrupted dependency folders were renamed inside their verified fixture paths.
 - Browser session-revoke confirmation could not be accepted through the available dialog tool.
 - The malformed browser URL was blocked by the browser tool. It was not retried through another channel.
 - Browser password change requires user interaction under computer-use policy. Compiled API password checks passed.
@@ -641,3 +641,10 @@ Partial, blocked, and untested:
 Evidence: .cache/phase12-verify.log, .cache/phase12-registry.log, .cache/phase12-registry-final.log,
 .cache/phase12-upgrade.log, and .cache/phase12-upgrade-final.log.
 Browser data used .cache/phase12-browser/identity.sqlite on port 5197. Operational application data was not used.
+
+Resume verification limit: another Cxsun verification started at 09:30 while this run was active.
+The repeated root check stopped at lint. The older-fixture upgrade did not reach verification.
+Only this run's outstanding checks were stopped. The other process was not stopped.
+The .cache watcher exclusion still needs final verification after concurrent work ends.
+Earlier 48-test root verification and both fresh registry consumer results remain valid for their recorded snapshots.
+The development server was stopped during diagnosis. Restore it after the working tree is stable.

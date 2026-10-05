@@ -2,11 +2,23 @@
 
 ## Version State
 
-Current version: 0.2.2
+Current version: 0.2.3
 
-Release tag: v-0.2.2
+Release tag: v-0.2.3
 
-Changelog label: v 0.2.2
+Changelog label: v 0.2.3
+
+## v-0.2.3
+
+### [v 0.2.3] 2026-10-05 9:30 am - Record consumer upgrade findings
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Document stalled fixture installation and ignore generated cache files.
 
 ## v-0.2.2
 
@@ -464,4 +476,4 @@ The baseline is recorded in projects/cxsun/agent/DEPENDENCY-BASELINE.json.
 Phase 1 and 2 review: fix generated-consumer port isolation and public package-reference migration.
 Align template dependency metadata with the current lockfile. Keep unrelated consumer code and SQLite data intact.
 Root verification passed 48 tests. Browser acceptance has partial evidence in AUDIT.md.
-Standalone consumer reruns remain pending. No release action ran.
+Both fresh registry consumers passed. The older-consumer upgrade is blocked by a stalled fixture install. No release action ran.
