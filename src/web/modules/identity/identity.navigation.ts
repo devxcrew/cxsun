@@ -1,6 +1,6 @@
 import { Home, Settings, Users } from "lucide-react";
 import type { FrontendContext } from "../../composition/frontend.provider";
-import type { MdiNavigationSection } from "@devxcrew/react-ui/layouts/main-workspace";
+import type { MdiNavigationSection } from "@devxcrew/ui/layouts/main-workspace";
 import { identityResources } from "./identity.resources";
 import type { Portal } from "./identity.types";
 

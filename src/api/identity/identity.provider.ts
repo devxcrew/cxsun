@@ -1,5 +1,5 @@
 import { createIdentityProvider, IdentityError } from "@devxcrew/platform";
-import { HttpError } from "@devxcrew/core-framework";
+import { HttpError } from "@devxcrew/framework";
 import type { createDatabaseProvider } from "../database/database.provider.js";
 import type { EmailDelivery } from "@devxcrew/email";
 import { contributeModule } from "../application/application.provider.js";

@@ -5,7 +5,7 @@ import { once } from "node:events";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { createApplicationServer } from "@devxcrew/core-framework";
+import { createApplicationServer } from "@devxcrew/framework";
 import type { createIdentityProvider } from "@devxcrew/platform";
 import { createDatabaseProvider } from "../src/api/database/database.provider.js";
 import { identityModule } from "../src/api/identity/identity.provider.js";

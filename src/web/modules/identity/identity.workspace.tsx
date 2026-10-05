@@ -3,8 +3,8 @@ import { PanelsTopLeft, LogOut } from "lucide-react";
 import {
   MainWorkspace,
   type MdiNavigationSection,
-} from "@devxcrew/react-ui/layouts/main-workspace";
-import { Button } from "@devxcrew/react-ui/components/button";
+} from "@devxcrew/ui/layouts/main-workspace";
+import { Button } from "@devxcrew/ui/components/button";
 import type { Portal, Principal } from "./identity.types";
 import type { IdentityPresentation } from "./identity.presentation";
 

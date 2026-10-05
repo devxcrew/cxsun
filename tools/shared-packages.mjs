@@ -23,9 +23,9 @@ if (mode === "local") {
   const sharedRoot = resolve(process.env.CODEXSUN_SHARED_ROOT ?? resolve(root, "../../shared"));
   const addonsRoot = resolve(process.env.CODEXSUN_ADDONS_ROOT ?? resolve(root, "../../addons"));
   const sources = [
-    ["framework", resolve(sharedRoot, "framework"), "@devxcrew/core-framework"],
+    ["framework", resolve(sharedRoot, "framework"), "@devxcrew/framework"],
     ["platform", resolve(sharedRoot, "platform"), "@devxcrew/platform"],
-    ["ui", resolve(sharedRoot, "ui"), "@devxcrew/react-ui"],
+    ["ui", resolve(sharedRoot, "ui"), "@devxcrew/ui"],
     ["tools", resolve(sharedRoot, "tools"), "@devxcrew/tools"],
     ["email", resolve(addonsRoot, "email"), "@devxcrew/email"],
   ];
@@ -60,10 +60,10 @@ if (mode === "local") {
   );
 } else if (mode === "npm") {
   const packages = [
-    "@devxcrew/core-framework",
+    "@devxcrew/framework",
     "@devxcrew/platform",
     "@devxcrew/email",
-    "@devxcrew/react-ui",
+    "@devxcrew/ui",
     "@devxcrew/tools",
   ].map((name) => `${name}@${manifest.dependencies[name] ?? manifest.devDependencies[name]}`);
   npm(["install", "--no-save", "--package-lock=false", ...packages]);

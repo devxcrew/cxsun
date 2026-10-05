@@ -4,7 +4,7 @@ import {
   HttpError,
   writeJsonError,
   type ModuleProvider,
-} from "@devxcrew/core-framework";
+} from "@devxcrew/framework";
 import type { IncomingMessage, ServerResponse } from "node:http";
 
 export type ApplicationHandler = (

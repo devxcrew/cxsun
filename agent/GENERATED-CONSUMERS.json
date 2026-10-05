@@ -1,40 +1,42 @@
 {
-  "date": "2026-10-04T15:07:36.542Z",
+  "date": "2026-10-05T02:37:54.753Z",
   "status": "registry-consumers-passed",
   "results": [
     {
       "id": "foundation-proof-a",
-      "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-9f89d892-cac7-4545-bb48-2267bc7e6935\\foundation-proof-a",
+      "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-e45f87be-6c7f-456d-943e-3600a394caaa\\foundation-proof-a",
       "verify": "passed",
       "packageBoundaries": "passed",
       "liveSqlite": "passed",
       "profile": "registry-only",
-      "sourceFilesVerified": 52,
-      "unitTests": 44,
-      "compiledSecurityAcceptance": "passed",
-      "appQualifiedCookieNames": "passed",
-      "lockSha256": "ed235878b6e00bb89de7cca566c24982b73dda8ec6bb25ddf649483c459ebf22"
+      "sourceFilesMatched": 52,
+      "tests": 44,
+      "compiledIdentitySecurity": "passed",
+      "lockSha256": "0e0f5e7808b914d51099c477dcc7eb1245f40d956429247d768cbcc40d48faf7"
     },
     {
       "id": "foundation-proof-b",
-      "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-9f89d892-cac7-4545-bb48-2267bc7e6935\\foundation-proof-b",
+      "destination": "C:\\Users\\sunda\\AppData\\Local\\Temp\\registry-consumers-e45f87be-6c7f-456d-943e-3600a394caaa\\foundation-proof-b",
       "verify": "passed",
       "packageBoundaries": "passed",
       "liveSqlite": "passed",
       "profile": "registry-only",
-      "sourceFilesVerified": 52,
-      "unitTests": 44,
-      "compiledSecurityAcceptance": "passed",
-      "appQualifiedCookieNames": "passed",
-      "lockSha256": "dfd81a7a605adc48e1932918bd33c5554a70cdd97fb4ce8426a86487b662680b"
+      "sourceFilesMatched": 52,
+      "tests": 44,
+      "compiledIdentitySecurity": "passed",
+      "lockSha256": "f1ddbb66352e04a987636a4ff968524367d3d1866560b85082c5bb701e037e4b"
     }
   ],
   "crossAppSessionDenial": "passed",
   "limitation": "Local registry consumers verified. Browser, SMTP and production acceptance remain separate.",
-  "sourceCommit": "ca2425db923f574f50df0a64e18546016be3091e",
-  "sourceVersion": "0.2.0",
-  "sourceLockSha256": "5b7468ac85d1bf68f49a9dffa53c985c968dfc7558cf29df0c4599844b7c2a48",
+  "sourceVersion": "0.2.1",
+  "sourceParentCommit": "ac8dc02d82cfc705980f5b5d6c39822315ea8f06",
+  "sourceLockSha256": "60a818382e33253aa3da1aa9ac9c1e4b5a44c34123acf4cdf55dbc05ec4ff926",
   "runtime": {
     "node": "v26.10.0"
+  },
+  "packages": {
+    "@devxcrew/framework": "0.1.8",
+    "@devxcrew/ui": "0.2.0"
   }
 }

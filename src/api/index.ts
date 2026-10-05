@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { createApplicationServer, readApplicationConfig } from "@devxcrew/core-framework";
+import { createApplicationServer, readApplicationConfig } from "@devxcrew/framework";
 import { createDatabaseProvider } from "./database/database.provider.js";
 import { identityModule } from "./identity/identity.provider.js";
 import {

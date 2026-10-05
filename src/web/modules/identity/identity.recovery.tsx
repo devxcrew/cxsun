@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useForm } from "@tanstack/react-form";
 import type { z } from "zod";
-import { Button } from "@devxcrew/react-ui/components/button";
-import { Input } from "@devxcrew/react-ui/components/input";
+import { Button } from "@devxcrew/ui/components/button";
+import { Input } from "@devxcrew/ui/components/input";
 import { usePublicIdentityConfiguration } from "./identity.public-configuration";
 import { identityRequest } from "./identity.services";
 import { identityProvider } from "./identity.provider";

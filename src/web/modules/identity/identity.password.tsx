@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
-import { Button } from "@devxcrew/react-ui/components/button";
-import { Input } from "@devxcrew/react-ui/components/input";
+import { Button } from "@devxcrew/ui/components/button";
+import { Input } from "@devxcrew/ui/components/input";
 import { identityProvider } from "./identity.provider";
 import { passwordSchema } from "./identity.schema";
 import type { Portal } from "./identity.types";

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { LoginPage } from "@devxcrew/react-ui/blocks/auth";
-import { Input } from "@devxcrew/react-ui/components/input";
+import { LoginPage } from "@devxcrew/ui/blocks/auth";
+import { Input } from "@devxcrew/ui/components/input";
 import { usePublicIdentityConfiguration } from "./identity.public-configuration";
 import { identityProvider } from "./identity.provider";
 import { loginSchema } from "./identity.schema";

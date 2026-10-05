@@ -1,5 +1,5 @@
 import type { FunctionComponent } from "react";
-import type { MdiNavigationSection } from "@devxcrew/react-ui/layouts/main-workspace";
+import type { MdiNavigationSection } from "@devxcrew/ui/layouts/main-workspace";
 
 export interface FrontendContext {
   workspace: string;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm, useStore } from "@tanstack/react-form";
-import { Button } from "@devxcrew/react-ui/components/button";
-import { Input } from "@devxcrew/react-ui/components/input";
+import { Button } from "@devxcrew/ui/components/button";
+import { Input } from "@devxcrew/ui/components/input";
 import { identityRequest, IdentityApiError } from "./identity.services";
 import type { ResourceField, IdentityRecord } from "./identity.resources";
 import { assignableRoleOptions } from "./identity.resources";

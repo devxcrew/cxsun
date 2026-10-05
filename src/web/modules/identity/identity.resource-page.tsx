@@ -1,7 +1,7 @@
-import { ResourceTable, ResourceHeader } from "@devxcrew/react-ui/blocks/resource-view";
+import { ResourceTable, ResourceHeader } from "@devxcrew/ui/blocks/resource-view";
 import { useEffect, useState } from "react";
-import { Button } from "@devxcrew/react-ui/components/button";
-import { Input } from "@devxcrew/react-ui/components/input";
+import { Button } from "@devxcrew/ui/components/button";
+import { Input } from "@devxcrew/ui/components/input";
 import { identityRequest } from "./identity.services";
 import {
   displayValue,

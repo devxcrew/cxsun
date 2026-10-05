@@ -2,11 +2,23 @@
 
 ## Version State
 
-Current version: 0.2.0
+Current version: 0.2.1
 
-Release tag: v-0.2.0
+Release tag: v-0.2.1
 
-Changelog label: v 0.2.0
+Changelog label: v 0.2.1
+
+## v-0.2.1
+
+### [v 0.2.1] 2026-10-05 7:58 am - Adopt Framework and UI package names
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Use the public @devxcrew/framework and @devxcrew/ui packages. Preserve module ownership and existing behavior.
 
 ## v-0.2.0
 
@@ -411,3 +423,11 @@ Changelog label: v 0.2.0
 ### 0.2.0 foundation completion checks
 
 Add module-owned compiled identity resource acceptance. Refresh local Platform and Email artifacts with MIT licenses. Record checksums for five prepared public packages and two independent generated consumer checks.
+
+### Package migration verification - 2026-10-05
+
+- Passed 47 tests, owner verification and applicable package checks.
+- All six application lockfiles use exact Framework 0.1.8 and UI 0.2.0 registry artifacts.
+- Two fresh registry apps passed 44 tests each, live SQLite and cross-app session denial.
+- The gallery passed source and isolated registry verification with bundle budgets.
+- Browser, real SMTP and production deployment acceptance remain separate.

@@ -84,8 +84,8 @@ if (!registry) {
   );
   artifacts = await Promise.all(
     [
-      ["@devxcrew/core-framework", ".cache/shared-packages"],
-      ["@devxcrew/react-ui", ".cache/shared-packages"],
+      ["@devxcrew/framework", ".cache/shared-packages"],
+      ["@devxcrew/ui", ".cache/shared-packages"],
       ["@devxcrew/tools", ".cache/shared-packages"],
       ["@devxcrew/platform", ".cache/shared-packages"],
       ["@devxcrew/email", ".cache/shared-packages"],

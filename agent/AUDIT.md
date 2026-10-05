@@ -1,5 +1,13 @@
 # Current local foundation audit - 2026-10-04
 
+## Package migration - 2026-10-05
+
+- [x] Retrieve authenticated cloud governance before this migration.
+- [x] Update active package imports, helpers and manifests to the shorter public names.
+- [x] Install and verify the published registry packages.
+- [x] Commit and push the reviewed migration.
+
+
 ## Cxsun review corrections - 2026-10-04
 
 - Passed: fresh authenticated cloud MCP retrieval before edits.
@@ -569,3 +577,9 @@ All 52 source files per app match source ca2425d after the generator's app ID/na
 Separate persisted SQLite and cross-app session denial passed.
 GENERATED-CONSUMERS.json now records source commit, source version, runtime, individual lock hashes and the source comparison.
 This evidence proves the current generated foundation. It does not replace browser/accessibility, SMTP or production acceptance.
+
+## Operational package migration verification
+
+SQLite connection and all three configured portal logins, desks and permitted resource reads passed.
+The first live check ran before the rebuilt server was ready and failed to start.
+After the production build completed, the repeated live check passed. No schema or seed changed.
